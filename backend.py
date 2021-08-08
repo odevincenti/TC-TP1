@@ -20,6 +20,13 @@ class Curvespace:
         if not self.switch_ctypes.get(c_type, self.c_type_error)(self, data, name, color):
             print("Error creando la curva")
 
+    # delCurve: Saca la curva del Curvespace y la destruye
+    # Recibe la curva (elemento) (Lo puedo cambiar al índice o nombre, lo que resulte más cómodo)
+    def delCurve(self, c):
+        self.curves.remove(c)
+        del c
+        return
+
     # checkName: Revisa si el nombre que se quiere asignar ya existe
     # Devuelve False si ya existe, True si está disponible
     def checkName(self, name):
@@ -84,7 +91,7 @@ class Curvespace:
 
     def c_type_error(self):
         print("Si llegó hasta acá es porque se rompió algo")
-        return 1
+        return False
 
     # SWITCH
     switch_ctypes = {
@@ -92,6 +99,7 @@ class Curvespace:
         2: simulada,
         3: medida
     }
+
 ########################################################################################################################
 
 ########################################################################################################################
@@ -122,9 +130,14 @@ class Curve:
         self.w = []
         self.mod = []
         self.ph = []
-        self.w_unit = "Hz"                  # Unidad de la frecuencia, se asume Hz
-        self.mod_unit = "dB"                # Unidad del módulo, se asume dB
-        self.ph_unit = "°"                  # Unidad de la fase, se asume °
+        self.w_unit = "Hz"          # Unidad de la frecuencia, se asume Hz
+        self.mod_unit = "dB"        # Unidad del módulo, se asume dB
+        self.ph_unit = "°"          # Unidad de la fase, se asume °
+
+    # change_visibility: Setter para la visibilidad. Recibe un boolean
+    def change_visibility(self, b):
+        self.visibility = b
+        return
 
     # change_w_unit: Cambia la unidad de la frecuencia de Hz a rad/s o viceversa
     # OJO: Cada vez que la llaman hace el cambio, SI NO HAY QUE CAMBIAR NO LA LLAMEN
