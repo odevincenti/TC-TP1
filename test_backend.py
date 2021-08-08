@@ -39,7 +39,7 @@ fig.tight_layout()
 plt.show()
 '''
 
-
+'''
 def check_data():
     data = "Ejemplo1-simulacion.txt"
     file = open(data, "r")
@@ -72,7 +72,7 @@ def check_data():
     l.close()
 
     return w, mod, ph
-
+'''
 def get_unit(s):
     unit = ""
     for i in range(len(s)-1, 0, -1):
@@ -102,6 +102,39 @@ ax[1].grid()
 fig.tight_layout()
 plt.show()
 '''
+
+
+def check_data(path):
+    file = open(path, "r")
+    count = 0
+    for line in file:
+        if line != "\n":
+            count += 1
+    file.close()
+
+    w = np.zeros(count - 1)
+    mod = np.zeros(count - 1)
+    ph = np.zeros(count - 1)
+
+    l = open(path, "r")
+
+    aux = l.readline()
+    units = []
+    for i in range(3):
+        j1 = aux.find("(")
+        j2 = aux.find(")")
+        units.append(aux[j1 + 1: j2])
+        aux = aux[j2 + 1:]
+
+    for i in range(count - 1):
+        aux = l.readline().split(",")
+        w[i] = aux[0]
+        mod[i] = aux[1]
+        ph[i] = aux[2]
+    l.close()
+
+    return w, mod, ph
+
 
 
 

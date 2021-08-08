@@ -62,11 +62,25 @@ class Curvespace:
 
     def simulada(self, data, name, color):
         print("simulada")
-        return 0
+        r = True
+        s = Sim(2, data, name, color)
+        if s.w != [] and s.mod != [] and s.ph != []:
+            self.curves.append(s)
+        else:
+            print("Los datos ingresados no son válidos")
+            r = False
+        return r
 
     def medida(self, data, name, color):
         print("medida")
-        return 0
+        r = True
+        m = Med(3, data, name, color)
+        if m.w != [] and m.mod != [] and m.ph != []:
+            self.curves.append(m)
+        else:
+            print("Los datos ingresados no son válidos")
+            r = False
+        return r
 
     def c_type_error(self):
         print("Si llegó hasta acá es porque se rompió algo")
@@ -205,7 +219,8 @@ class Teo(Curve):
 
 ########################################################################################################################
 # Clase Sim: Curva simulada, hija de la clase Curve
-# Tiene unos parámetros extra:
+# Tiene unos parámetros extra: - Mentira por ahora no tiene
+# w, mod y ph serán [] si hubo error
 # ----------------------------------------------------------------------------------------------------------------------
 class Sim(Curve):
     def __init__(self, c_type, data, name, color):
@@ -213,10 +228,15 @@ class Sim(Curve):
         if self.check_file(data):
             self.w, self.mod, self.ph = self.check_data(self.rawdata)
 
+    # change_data: Setter para los datos
+    def change_data(self, path):
+        if self.check_file(path):
+            self.rawdata = path
+            self.w, self.mod, self.ph = self.check_data(self.rawdata)
+
     # check_data: Parsea el txt de la simulación de LTSpice, asume que tiene el formato de los ejemplos
-    # Deuelve w, mod, ph
+    # Devuelve w, mod, ph
     def check_data(self, path):
-        self.check_file(path)
         file = open(path, "r")
         count = 0
         file.readline()
@@ -273,17 +293,68 @@ class Sim(Curve):
         return r
 ########################################################################################################################
 
-    ########################################################################################################################
+########################################################################################################################
+# Clase Med: Curva medida, hija de la clase Curve
+#   Tiene unos parámetros extra: - Mentira por ahora no tiene
+# ----------------------------------------------------------------------------------------------------------------------
+class Med(Curve):
+    def __init__(self, c_type, data, name, color):
+        super().__init__(3, data, name, color)
+        if self.check_file(data):
+            self.w, self.mod, self.ph = self.check_data(self.rawdata)
+
+    # change_data: Setter para los datos
+    def change_data(self, path):
+        if self.check_file(path):
+            self.rawdata = path
+            self.w, self.mod, self.ph = self.check_data(self.rawdata)
+
+    # check_data: Parsea el csv de la medición de la Digilent, asume que tiene el formato de los ejemplos
+    # Devuelve w, mod, ph
+    def check_data(self, path):
+        file = open(path, "r")
+        count = 0
+        for line in file:
+            if line != "\n":
+                count += 1
+        file.close()
+
+        w = np.zeros(count - 1)
+        mod = np.zeros(count - 1)
+        ph = np.zeros(count - 1)
+
+        l = open(path, "r")
+
+        aux = l.readline()
+        units = []
+        for i in range(3):
+            j1 = aux.find("(")
+            j2 = aux.find(")")
+            units.append(aux[j1 + 1: j2])
+            aux = aux[j2 + 1:]
+        self.w_unit = units[0]
+        self.mod_unit = units[1]
+        if units[2] == "deg":
+            self.ph_unit = "°"
+
+        for i in range(count - 1):
+            aux = l.readline().split(",")
+            w[i] = aux[0]
+            mod[i] = aux[1]
+            ph[i] = aux[2]
+        l.close()
+
+        return w, mod, ph
+
     # check_file: Revisa que el archivo exista, sea .csv y que tenga el formato adecuado
     # Devuelve False en caso de error
-    '''
     def check_file(self, path):
         r = True
         ext = os.path.splitext(path)[1]
         if self.type == 3 and ext != ".csv":
             print("El archivo de la medición no está en .csv")
             r = False
-
+            return r
         if not os.path.isfile(path):
             print("El archivo no existe")
             r = False
@@ -291,9 +362,13 @@ class Sim(Curve):
             if not os.access(path, os.R_OK):
                 print("El archivo no es legible")
                 r = False
+            else:
+                file = open(path, "r")
+                if len(file.readline().split(",")) != 3:
+                    print("El archivo no cumple con el formato adecuado")
+                    r = False
         return r
-    '''
-    ########################################################################################################################
+########################################################################################################################
 
 ########################################################################################################################
 # fix_coefs: Acomoda los coeficientes del numerador o denominador y revisa si están bien ingresados
@@ -335,19 +410,5 @@ def get_unit(s):
     return unit
 ########################################################################################################################
 
-########################################################################################################################
-#   get_ext: Dado un path, obtiene la extensión del archivo correspondiente
-# ----------------------------------------------------------------------------------------------------------------------
-def get_ext(path):
-    extension = ""
-    for i in range(len(path) - 1, 0, -1):
-        if path[i] != ".":
-            extension = path[i] + extension
-        else:
-            break
-    if i == 1:
-        extension = ""
-    return extension
-########################################################################################################################
 
 
