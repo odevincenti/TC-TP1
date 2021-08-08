@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.signal as ss
+import os
 
 ########################################################################################################################
 # Clase Curvespace: Contiene la lista de curvas y métodos para modificarla
@@ -85,9 +86,16 @@ class Curvespace:
 #                     - 2 si es simulada (LTSpice)
 #                     - 3 si es medida (Digilent)
 #                     - 0 si es otra cosa (error)
-#    - Datos: Dependerán del tipo de curva, en cada caso se especifica mejor (mirar funciones)
+#    - Raw Data: Dependerán del tipo de curva, en cada caso se especifica mejor (mirar funciones)
 #    - Nombre: Si no se especifica, se le asignará uno según el orden
 #    - Color: Se permitirá elegir el color de la curva, si no se especifica se tomará naranja todo ver como hace esto la gui
+#    - Visibilidad: True si la cura está visible, False si está oculta
+#    - w: Intervalo de frecuencias (Arreglo vacío si hubo error)
+#    - mod: Módulo de la transferencia (Arreglo vacío si hubo error)
+#    - ph: Fase de la trasferencia (Arreglo vacío si hubo error)
+#    - w_unit: Unidad de la frecuencia, por defecto es Hz (En LaTex)
+#    - mod_unit: Unidad del módulo, por defecto es dB (En LaTex)
+#    - ph_unit: Unidad de la fase, por defecto es ° (En LaTex)
 # Para cada tipo se accede una clase particular, mirarlas para más detalles
 # ----------------------------------------------------------------------------------------------------------------------
 class Curve:
@@ -97,6 +105,34 @@ class Curve:
         self.name = name            # Nombre de la curva
         self.color = color          # Color de la curva
         self.visibility = True      # Está visible? Por defecto se inicializa en True
+        self.w = []
+        self.mod = []
+        self.ph = []
+        self.w_unit = "Hz"                  # Unidad de la frecuencia, se asume Hz
+        self.mod_unit = "dB"                # Unidad del módulo, se asume dB
+        self.ph_unit = "°"                  # Unidad de la fase, se asume °
+
+    # change_w_unit: Cambia la unidad de la frecuencia de Hz a rad/s o viceversa
+    # OJO: Cada vez que la llaman hace el cambio, SI NO HAY QUE CAMBIAR NO LA LLAMEN
+    def change_w_unit(self):
+        if self.w_unit != "Hz":
+            self.w_unit = "\\frac{rad}{s}"
+            self.w = 2*np.pi*self.w
+        else:
+            self.w_unit = "Hz"
+            self.w = self.w/(2*np.pi)
+        return
+
+    # change_ph_unit: Cambia la unidad de la fase de ° a rad o viceversa
+    # OJO: Cada vez que la llaman hace el cambio, SI NO HAY QUE CAMBIAR NO LA LLAMEN
+    def change_ph_unit(self):
+        if self.ph_unit != "°":
+            self.ph_unit = "rad"
+            self.ph = np.pi*self.w/180
+        else:
+            self.ph_unit = "°"
+            self.ph = 180*self.ph/np.pi
+        return
 
     # check_data: Método para la verificación de datos (método virtual)
     def check_data(self, data):
@@ -119,6 +155,7 @@ class Teo(Curve):
         self.H = None
         if num is not None and den is not None:         # Si están en orden, hace la modificación
             self.H = ss.TransferFunction(num, den)
+            self.w, self.mod, self.ph = ss.bode(self.H)
 
     # change_data: Revisa la validez de los datos nuevos. Devuelve False si hubo error.
     def change_data(self, data):
@@ -126,6 +163,7 @@ class Teo(Curve):
         num, den = self.check_data(self.rawdata)        # Revisa los datos nuevos
         if num is not None and den is not None:         # Si están en orden, hace la modificación
             self.H = ss.TransferFunction(num, den)
+            self.w, self.mod, self.ph = ss.bode(self.H)
         else:
             print("Los datos ingresados no son válidos")
             r = False
@@ -166,6 +204,98 @@ class Teo(Curve):
 ########################################################################################################################
 
 ########################################################################################################################
+# Clase Sim: Curva simulada, hija de la clase Curve
+# Tiene unos parámetros extra:
+# ----------------------------------------------------------------------------------------------------------------------
+class Sim(Curve):
+    def __init__(self, c_type, data, name, color):
+        super().__init__(2, data, name, color)
+        if self.check_file(data):
+            self.w, self.mod, self.ph = self.check_data(self.rawdata)
+
+    # check_data: Parsea el txt de la simulación de LTSpice, asume que tiene el formato de los ejemplos
+    # Deuelve w, mod, ph
+    def check_data(self, path):
+        self.check_file(path)
+        file = open(path, "r")
+        count = 0
+        file.readline()
+        aux = file.readline().split("\t")
+        aux_mod, aux_ph = aux[1][1:-2].split(",")
+
+        self.mod_unit = get_unit(aux_mod)
+        self.ph_unit = get_unit(aux_ph)
+        for line in file:
+            if line != "\n":
+                count += 1
+        file.close()
+
+        w = np.zeros(count - 1)
+        mod = np.zeros(count - 1)
+        ph = np.zeros(count - 1)
+
+        l = open(path, "r")
+
+        l.readline()
+        for i in range(count - 1):
+            aux = l.readline().split("\t")
+            w[i] = aux[0]
+            aux_mod, aux_ph = aux[1][1:-2].split(",")
+            mod[i] = aux_mod.replace(self.mod_unit, "")
+            ph[i] = aux_ph.replace(self.ph_unit, "")
+        l.close()
+
+        if self.ph_unit == 'Â°': self.ph_unit = '°'
+
+        return w, mod, ph
+
+    # check_file: Revisa que el archivo exista, que sea .txt y que tenga el formato adecuado
+    # Devuelve False en caso de error
+    def check_file(self, path):
+        r = True
+        ext = os.path.splitext(path)[1]
+        if self.type == 2 and ext != ".txt":
+            print("El archivo de la simulación no está en formato .txt")
+            r = False
+            return r
+        if not os.path.isfile(path):
+            print("El archivo no existe")
+            r = False
+        else:
+            if not os.access(path, os.R_OK):
+                print("El archivo no es legible")
+                r = False
+            else:
+                file = open(path, "r")
+                if len(file.readline().split("\t")) != 2:
+                    print("El archivo no cumple con el formato adecuado")
+                    r = False
+        return r
+########################################################################################################################
+
+    ########################################################################################################################
+    # check_file: Revisa que el archivo exista, sea .csv y que tenga el formato adecuado
+    # Devuelve False en caso de error
+    '''
+    def check_file(self, path):
+        r = True
+        ext = os.path.splitext(path)[1]
+        if self.type == 3 and ext != ".csv":
+            print("El archivo de la medición no está en .csv")
+            r = False
+
+        if not os.path.isfile(path):
+            print("El archivo no existe")
+            r = False
+        else:
+            if not os.access(path, os.R_OK):
+                print("El archivo no es legible")
+                r = False
+        return r
+    '''
+    ########################################################################################################################
+
+########################################################################################################################
 # fix_coefs: Acomoda los coeficientes del numerador o denominador y revisa si están bien ingresados
 #            Devuelve None en caso de error
 # ----------------------------------------------------------------------------------------------------------------------
@@ -189,6 +319,35 @@ def fix_coefs(coefs):
     if not r:
         coefs = None
     return coefs
+########################################################################################################################
+
+########################################################################################################################
+#   get_unit: Obtiene la unidad de los datos simulados de la curva
+# ----------------------------------------------------------------------------------------------------------------------
+def get_unit(s):
+    unit = ""
+    for i in range(len(s) - 1, 0, -1):
+        if not s[i].isdigit():
+            unit = s[i] + unit
+            # s = s[:i]
+        else:
+            break
+    return unit
+########################################################################################################################
+
+########################################################################################################################
+#   get_ext: Dado un path, obtiene la extensión del archivo correspondiente
+# ----------------------------------------------------------------------------------------------------------------------
+def get_ext(path):
+    extension = ""
+    for i in range(len(path) - 1, 0, -1):
+        if path[i] != ".":
+            extension = path[i] + extension
+        else:
+            break
+    if i == 1:
+        extension = ""
+    return extension
 ########################################################################################################################
 
 
