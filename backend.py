@@ -89,6 +89,17 @@ class Curvespace:
             r = False
         return r
 
+    def montecarlo(self, data, name, color):
+        print("montecarlo")
+        r = True
+        mc = MC(3, data, name, color)
+        if mc.w != [] and mc.mod != [] and mc.ph != []:
+            self.curves.append(mc)
+        else:
+            print("Los datos ingresados no son válidos")
+            r = False
+        return r
+
     def c_type_error(self):
         print("Si llegó hasta acá es porque se rompió algo")
         return False
@@ -97,7 +108,8 @@ class Curvespace:
     switch_ctypes = {
         1: teorica,
         2: simulada,
-        3: medida
+        3: medida,
+        4: montecarlo
     }
 
 ########################################################################################################################
@@ -107,6 +119,7 @@ class Curvespace:
 #    - Tipo de curva: - 1 si es teórica (función transferencia)
 #                     - 2 si es simulada (LTSpice)
 #                     - 3 si es medida (Digilent)
+#                     - 4 si es monte carlo (LTSpice)
 #                     - 0 si es otra cosa (error)
 #    - Raw Data: Dependerán del tipo de curva, en cada caso se especifica mejor (mirar funciones)
 #    - Nombre: Si no se especifica, se le asignará uno según el orden
@@ -251,10 +264,10 @@ class Sim(Curve):
     # Devuelve w, mod, ph
     def check_data(self, path):
         file = open(path, "r")
-        count = 0
         file.readline()
         aux = file.readline().split("\t")
         aux_mod, aux_ph = aux[1][1:-2].split(",")
+        count = 2
 
         self.mod_unit = get_unit(aux_mod)
         self.ph_unit = get_unit(aux_ph)
@@ -378,6 +391,87 @@ class Med(Curve):
             else:
                 file = open(path, "r")
                 if len(file.readline().split(",")) != 3:
+                    print("El archivo no cumple con el formato adecuado")
+                    r = False
+        return r
+########################################################################################################################
+
+########################################################################################################################
+# Clase MC: Simulación de Monte Carlo, hija de la clase Curve
+# Tiene unos parámetros extra: - Mentira por ahora no tiene
+# w, mod y ph serán [] si hubo error
+# ----------------------------------------------------------------------------------------------------------------------
+class MC(Curve):
+    def __init__(self, c_type, data, name, color):
+        super().__init__(4, data, name, color)
+        if self.check_file(data):
+            self.w, self.mod, self.ph = self.check_data(self.rawdata)
+
+    # check_data: Parsea el txt de la simulación de LTSpice, asume que tiene el formato de los ejemplos
+    # Devuelve w, mod, ph
+    def check_data(self, path):
+        file = open(path, "r")
+        file.readline()
+        aux = file.readline()
+        j1 = aux.find("/")
+        j2 = aux.find(")")
+        runs = int(aux[j1 + 1: j2])
+        aux = file.readline().split("\t")
+        aux_mod, aux_ph = aux[1][1:-2].split(",")
+
+        count = 2
+        self.mod_unit = get_unit(aux_mod)
+        self.ph_unit = get_unit(aux_ph)
+        for line in file:
+            if line != 'Step Information: Run=2  (Run: 2/' + str(runs) + ')\n':
+                count += 1
+            else:
+                break
+        file.close()
+
+        w = np.zeros((runs, count - 1))
+        mod = np.zeros((runs, count - 1))
+        ph = np.zeros((runs, count - 1))
+
+        l = open(path, "r")
+
+        l.readline()
+        for k in range(runs):
+            l.readline()
+            for i in range(count - 1):
+                aux = l.readline().split("\t")
+                w[k][i] = aux[0]
+                aux_mod, aux_ph = aux[1][1:-2].split(",")
+                mod[k][i] = aux_mod.replace(self.mod_unit, "")
+                ph[k][i] = aux_ph.replace(self.ph_unit, "")
+        l.close()
+
+        if self.ph_unit == 'Â°': self.ph_unit = '°'
+
+        return w, mod, ph
+
+    # check_file: Revisa que el archivo exista, que sea .txt y que tenga el formato adecuado
+    # Devuelve False en caso de error
+    def check_file(self, path):
+        r = True
+        ext = os.path.splitext(path)[1]
+        if self.type == 2 and ext != ".txt":
+            print("El archivo de la simulación no está en formato .txt")
+            r = False
+            return r
+        if not os.path.isfile(path):
+            print("El archivo no existe")
+            r = False
+        else:
+            if not os.access(path, os.R_OK):
+                print("El archivo no es legible")
+                r = False
+            else:
+                file = open(path, "r")
+                if len(file.readline().split("\t")) != 2:
+                    print("El archivo no cumple con el formato adecuado")
+                    r = False
+                elif file.readline().find('Step Information: Run=1') == -1:
                     print("El archivo no cumple con el formato adecuado")
                     r = False
         return r
