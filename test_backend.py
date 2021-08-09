@@ -5,58 +5,23 @@ from backend import Curvespace
 
 # ARCHIVO PARA PROBAR LAS FUNCIONALIDADES DEL BACKEND ANTES DE AGREGAR EL FRONT
 
-def plot_bode_mod(c, ax):
-    ls = get_ls(c)
-    if ls == '':
-        print("Hubo un error, no se puede graficar la curva")
-        return
-    if c.type != 4:
-        ax.semilogx(c.w, c.mod, c.color, linestyle=ls)   # Grafico el módulo de la transferencia
-    else:
-        for i in range(len(c.w)):
-            ax.semilogx(c.w[i], c.mod[i], c.color, linestyle=ls)  # Grafico el módulo de la transferencia
-    ax.legend([c.name + " (mod)"])
-    ax.set_xlabel("$f$ $\\left[" + c.w_unit + "\\right]$")
-    ax.set_ylabel("$|H(s)|$ $\\left[" + c.mod_unit + "\\right]$")
-    ax.grid()
-    return
-
-def plot_bode_ph(c, ax):
-    ls = get_ls(c)
-    if ls == '':
-        print("Hubo un error, no se puede graficar la curva")
-        return
-    if c.type != 4:
-        ax.semilogx(c.w, c.ph, c.color, linestyle=ls)   # Grafico la fase de la transferencia
-    else:
-        for i in range(len(c.w)):
-            ax.semilogx(c.w[i], c.ph[i], c.color, linestyle=ls)  # Grafico la fase de la transferencia
-    ax.legend([c.name + " (ph)"])
-    ax.set_xlabel("$f$ $\\left[" + c.w_unit + "\\right]$")
-    ax.set_ylabel("$\phi(H(s))$ $\\left[" + c.ph_unit + "\\right]$")
-    ax.grid()
-    return
-
-# get_ls: Obtiene el linestyle correcto para graficar según el timpo de curva
-def get_ls(c):
-    if c.type == 1 or c.type == 2 or c.type == 4:
-        ls = 'solid'
-    elif c.type == 3:
-        ls = 'dotted'
-    else:
-        ls = ''
-    return ls
-
 # TEST
 C = Curvespace()
-C.addCurve(1, ["1, 2,3", "2,  +4,6 "], name="Prueba", color="blue")
-print(C.curves[0].name)
-print(C.curves[0].color)
+C.add_curve(1, ["-1E11", "1, 2E6, 1E12"], name="Prueba", color="blue")
+C.add_curve(2, "Ejemplo1-simulacion.txt", name="Prueba", color="orange")
+C.add_curve(3, "Ejemplo1-medicion.csv", name="Prueba", color="green")
+C.add_curve(4, "montecarlo-simulacion.txt", name="Montecarlo 4", color="red")
+C.change_curve_name(1, "Pitusas")
+C.curves[2].change_ph_unit()
+C.change_w_unit("rad/s")
+C.change_x_mod_label("w")
+C.change_x_ph_label("Frecuencia")
 
+# fig, ax = plt.subplots(1)
 fig, ax = plt.subplots(2, 1)
 fig.suptitle("Transferencia")
-plot_bode_mod(C.curves[0], ax[0])        # Grafico módulo
-plot_bode_ph(C.curves[0], ax[1])         # Grafico fase
+C.plot_mod(ax[0])
+C.plot_ph(ax[1])
 fig.tight_layout()
 plt.show()
 

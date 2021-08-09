@@ -9,52 +9,174 @@ import os
 class Curvespace:
     def __init__(self):
         self.curves = []        # Arreglo de curvas
+        self.w_unit = "Hz"      # Unidad de la frecuencia del gráfico
+        self.mod_unit = "dB"    # Unidad de módulo del gráfico
+        self.ph_unit = "°"      # Unidad de fase del gráfico
+        self.x_mod_label = "$f$"            # Label del eje x del gráfico del módulo. Es f por defecto
+        self.y_mod_label = "$|H(s)|$"       # Label del eje y del gráfico del módulo. Es |H(s)| por defecto
+        self.x_ph_label = "$f$"             # Label del eje x del gráfico de la fase. Es f por defecto
+        self.y_ph_label = "$\\phi(H(s))$"   # Label del eje y del gráfico de la fase. Es phi(H(s)) por defecto
 
     # addCurve: Método para agregar una curva. Para más detalles mirar clase Curva
-    def addCurve(self, c_type, data, name="", color='orange'):
-        if name == "" or not self.checkName(name):
+    def add_curve(self, c_type, data, name="", color='orange'):
+        if name == "" or not self.check_name(name):
             for i in range(len(self.curves) + 1):
                 name = "Curve " + str(len(self.curves) - i)
-                if self.checkName(name): break
+                if self.check_name(name):
+                    print("Se tomará como nombre: " + name)
+                    break
 
         if not self.switch_ctypes.get(c_type, self.c_type_error)(self, data, name, color):
             print("Error creando la curva")
 
     # delCurve: Saca la curva del Curvespace y la destruye
     # Recibe la curva (elemento) (Lo puedo cambiar al índice o nombre, lo que resulte más cómodo)
-    def delCurve(self, c):
+    def del_curve(self, c):
         self.curves.remove(c)
         del c
         return
 
-    # checkName: Revisa si el nombre que se quiere asignar ya existe
+    # plot_mod: grafica el módulo del conjunto de curvas visibles, si alguna da error deja de ser visible
+    def plot_mod(self, ax):
+        self.fix_units()
+        for i in range(len(self.curves)):
+            if self.curves[i].visibility:
+                if not self.curves[i].plot_curve_mod(ax):  # Grafico módulo
+                    self.curves[i].visibility = False
+        ax.legend(self.get_names(True))
+        ax.set_xlabel(self.x_mod_label + " $\\left[" + self.curves[0].w_unit + "\\right]$")
+        ax.set_ylabel(self.y_mod_label +" $\\left[" + self.curves[0].mod_unit + "\\right]$")
+        ax.grid()
+        return
+
+    # plot_ph: grafica la fase del conjunto de curvas visibles, si alguna da error deja de ser visible
+    def plot_ph(self, ax):
+        self.fix_units()
+        for i in range(len(self.curves)):
+            if self.curves[i].visibility:
+                if not self.curves[i].plot_curve_ph(ax):  # Grafico fase
+                    self.curves[i].visibility = False
+        ax.legend(self.get_names(True))
+        if self.ph_unit == "°":
+            ax.set_yticks([-180, -135, -90, -45, 0, 45, 90, 135, 180])
+        elif self.ph_unit == "rad":
+            ax.set_yticks([-np.pi, -3*np.pi/4, -np.pi/2, -np.pi/4, 0, np.pi/4, np.pi/2, 3*np.pi/4, np.pi])
+            ax.set_yticklabels(["$-\\pi$", "$-\\frac{3}{4} \\pi$", "$-\\frac{\\pi}{2}$", "$-\\frac{\\pi}{4}$", 0, "$\\frac{\\pi}{4}$", "$\\frac{\\pi}{2}$", "$\\frac{3}{4} \\pi$", "$\\pi$"])
+        ax.set_xlabel(self.x_ph_label + " $\\left[" + self.curves[0].w_unit + "\\right]$")
+        ax.set_ylabel(self.y_ph_label + " $\\left[" + self.curves[0].ph_unit + "\\right]$")
+        ax.grid()
+        return
+
+    # get_names: Devuelve un arreglo con los nombres de las curvas
+    # Si se especifica el parámetro v=True, sólo devolverá los nombres de las curvas visibles
+    def get_names(self, v=False):
+        names = []
+        for i in range(len(self.curves)):
+            if v or self.curves[i].visibility:
+                names.append(self.curves[i].name)
+        return names
+
+    # check_name: Revisa si el nombre que se quiere asignar ya existe
     # Devuelve False si ya existe, True si está disponible
-    def checkName(self, name):
+    def check_name(self, name):
         r = True
         for i in range(len(self.curves)):
-            if name == self.curves[i]:
+            if name == self.curves[i].name:
                 r = False
                 print("El nombre que quiere asignar ya existe")
                 break
         return r
 
-    # changeCurveName: Setter para el nombre de una curva. Recibe:
+    # change_curve_name: Setter para el nombre de una curva. Recibe:
     #   - index: índice de la curva en el arreglo (lo puedo cambiar a nombre o a la curva en sí lo que les resulte más cómodo)
     #   - name: nombre nuevo para la curva
     # Devuelve False en caso de error (el nuevo nombre ya está asignado)
-    def changeCurveName(self, index, name):
-        r = self.checkName(name)
+    def change_curve_name(self, index, name):
+        r = self.check_name(name)
         if r: self.curves[index].name = name
+        else: print("Se mantendrá el nombre anterior")
         return r
 
-    # changeCurveColor: Setter para el color de una curva. Recibe:
+    # change_curve_color: Setter para el color de una curva. Recibe:
     #   - index: índice de la curva en el arreglo (lo puedo cambiar a nombre o a la curva en sí lo que les resulte más cómodo)
     #   - color: color nuevo para la curva
     # Devuelve False en caso de error
-    def changeCurveColor(self, index, color):
+    def change_curve_color(self, index, color):
         r = True
         self.curves[index].color = color
         return r
+
+    # change_x_mod_label: Cambia el label del eje x del gráfico del módulo
+    def change_x_mod_label(self, label):
+        if label == "f":
+            self.x_mod_label = "$f$"
+        elif label == "w":
+            self.x_mod_label = "$\\omega$"
+        else:
+            self.x_mod_label = label
+
+    # change_y_mod_label: Cambia el label del eje y del gráfico del módulo
+    def change_y_mod_label(self, label):
+        if label == "|H(s)|":
+            self.y_mod_label = "$|H(s)|$"
+        else:
+            self.y_mod_label = label
+
+    # change_x_ph_label: Cambia el label del eje x del gráfico de la fase
+    def change_x_ph_label(self, label):
+        if label == "f":
+            self.x_ph_label = "$f$"
+        elif label == "w":
+            self.x_ph_label = "$\\omega$"
+        else:
+            self.x_ph_label = label
+
+    # change_y_mod_label: Cambia el label del eje y del gráfico de la fase
+    def change_y_ph_label(self, label):
+        if label == "phi(H(s))":
+            self.y_ph_label = "$\\phi(H(s))$"
+        else:
+            self.y_ph_label = label
+
+    # change_w_unit: Cambia la unidad de la frecuencia de Hz a rad/s o viceversa
+    # Si no se especifica la unidad a la que se quiere cambiar o es una que no existe, hace un switch
+    def change_w_unit(self, unit=""):
+        if unit == "rad/seg" or unit == "rad/s":
+            unit = "\\frac{rad}{s}"
+        if self.w_unit != unit:
+            if self.w_unit == "Hz":
+                self.w_unit = "\\frac{rad}{s}"
+            else:
+                self.w_unit = "Hz"
+        return
+
+    # change_mod_unit: Cambia la unidad del módulo de dB a ?? o viceversa
+    # Si no se especifica la unidad a la que se quiere cambiar o es una que no existe, hace un switch
+    def change_mod_unit(self, unit=""):
+        if self.mod_unit != unit:
+            if self.mod_unit == "dB":
+                self.mod_unit = "??"
+            else:
+                self.mod_unit = "dB"
+        return
+
+    # change_ph_unit: Cambia la unidad de la fase de ° a rad o viceversa
+    # Si no se especifica la unidad a la que se quiere cambiar o es una que no existe, hace un switch
+    def change_ph_unit(self, unit=""):
+        if self.ph_unit != unit:
+            if self.ph_unit == "°":
+                self.ph_unit = "rad"
+            else:
+                self.ph_unit = "°"
+        return
+
+    # fix_units: Revisa las unidades de cada curva visible para que todas tengan las especificadas y tenga sentido graficarlas
+    def fix_units(self):
+        for i in range(len(self.curves)):
+            if self.curves[i].visibility:
+                self.curves[i].change_w_unit(self.w_unit)
+                self.curves[i].change_mod_unit(self.mod_unit)
+                self.curves[i].change_ph_unit(self.ph_unit)
 
     def teorica(self, data, name, color):
         # print("teórica")
@@ -123,7 +245,7 @@ class Curvespace:
 #                     - 0 si es otra cosa (error)
 #    - Raw Data: Dependerán del tipo de curva, en cada caso se especifica mejor (mirar funciones)
 #    - Nombre: Si no se especifica, se le asignará uno según el orden
-#    - Color: Se permitirá elegir el color de la curva, si no se especifica se tomará naranja todo ver como hace esto la gui
+#    - Color: Se permitirá elegir el color de la curva, si no se especifica se tomará naranja
 #    - Visibilidad: True si la cura está visible, False si está oculta
 #    - w: Intervalo de frecuencias (Arreglo vacío si hubo error)
 #    - mod: Módulo de la transferencia (Arreglo vacío si hubo error)
@@ -152,26 +274,66 @@ class Curve:
         self.visibility = b
         return
 
-    # change_w_unit: Cambia la unidad de la frecuencia de Hz a rad/s o viceversa
-    # OJO: Cada vez que la llaman hace el cambio, SI NO HAY QUE CAMBIAR NO LA LLAMEN
-    def change_w_unit(self):
-        if self.w_unit != "Hz":
-            self.w_unit = "\\frac{rad}{s}"
-            self.w = 2*np.pi*self.w
+    def plot_curve_mod(self, ax):
+        ls = get_ls(self.type)
+        if ls == '':
+            print("Hubo un error, no se puede graficar la curva")
+            return False
+        if self.type != 4:
+            ax.semilogx(self.w, self.mod, self.color, linestyle=ls)  # Grafico el módulo de la transferencia
         else:
-            self.w_unit = "Hz"
-            self.w = self.w/(2*np.pi)
+            for i in range(len(self.w)):
+                ax.semilogx(self.w[i], self.mod[i], self.color, linestyle=ls)  # Grafico el módulo de la transferencia
+        return True
+
+    def plot_curve_ph(self, ax):
+        ls = get_ls(self.type)
+        if ls == '':
+            print("Hubo un error, no se puede graficar la curva")
+            return False
+        if self.type != 4:
+            ax.semilogx(self.w, self.ph, self.color, linestyle=ls)  # Grafico el módulo de la transferencia
+        else:
+            for i in range(len(self.w)):
+                ax.semilogx(self.w[i], self.ph[i], self.color, linestyle=ls)  # Grafico la fase de la transferencia
+        return True
+
+    # change_w_unit: Cambia la unidad de la frecuencia de Hz a rad/s o viceversa
+    # Si no se especifica la unidad a la que se quiere cambiar o es una que no existe, hace un switch
+    def change_w_unit(self, unit=""):
+        if unit == "rad/seg" or unit == "rad/s":
+            unit = "\\frac{rad}{s}"
+        if self.w_unit != unit:
+            if self.w_unit == "Hz":
+                self.w_unit = "\\frac{rad}{s}"
+                self.w = 2*np.pi*self.w
+            else:
+                self.w_unit = "Hz"
+                self.w = self.w/(2*np.pi)
+        return
+
+    # change_mod_unit: Cambia la unidad del módulo de dB a ?? o viceversa
+    # Si no se especifica la unidad a la que se quiere cambiar o es una que no existe, hace un switch
+    def change_mod_unit(self, unit=""):
+        if self.mod_unit != unit:
+            if self.mod_unit == "dB":
+                self.mod_unit = "??"
+                # conversión de dB a ??
+            else:
+                self.mod_unit = "dB"
+                # conversión de ?? a dB
         return
 
     # change_ph_unit: Cambia la unidad de la fase de ° a rad o viceversa
-    # OJO: Cada vez que la llaman hace el cambio, SI NO HAY QUE CAMBIAR NO LA LLAMEN
-    def change_ph_unit(self):
-        if self.ph_unit != "°":
-            self.ph_unit = "rad"
-            self.ph = np.pi*self.w/180
-        else:
-            self.ph_unit = "°"
-            self.ph = 180*self.ph/np.pi
+    # Si no se especifica la unidad a la que se quiere cambiar o es una que no existe, hace un switch
+    def change_ph_unit(self, unit=""):
+        if self.ph_unit != unit:
+            if self.ph_unit == "°":
+                self.ph_unit = "rad"
+                self.ph = np.pi*self.ph/180
+            else:
+                self.ph_unit = "°"
+                self.ph = 180*self.ph/np.pi
         return
 
     # check_data: Método para la verificación de datos (método virtual)
@@ -197,7 +359,8 @@ class Teo(Curve):
             self.H = ss.TransferFunction(num, den)
             self.w, self.mod, self.ph = ss.bode(self.H)
 
-    # change_data: Revisa la validez de los datos nuevos. Devuelve False si hubo error.
+    # change_data: Revisa la validez de los datos nuevos.
+    # Devuelve False si hubo error.
     def change_data(self, data):
         r = True
         num, den = self.check_data(self.rawdata)        # Revisa los datos nuevos
@@ -216,30 +379,7 @@ class Teo(Curve):
     def check_data(self, data):
         num = fix_coefs(data[0])
         den = fix_coefs(data[1])
-        '''
-        num = data[0]
-        den = data[1]
-        num = num.replace(" ", "")      # Elimina espacios
-        den = den.replace(" ", "")
-        if num == "" or den == "":
-            r = False
-            print("Por favor ingrese los coeficientes")
-        num = num.replace(",,", ",0,")      # Pone ceros donde falta el coeficiente
-        den = den.replace(",,", ",0,")
-        if num[-1] == ",": num = num + "0"  # Considera coeficientes cero al final
-        if den[-1] == ",": den = den + "0"
-        num = num.split(",")
-        den = den.split(",")
-        try:
-            num = [float(s) for s in num]
-            den = [float(s) for s in den]
-        except ValueError:
-            print("Uno de los valores ingresados no es numérico")
-            r = False
-        if not r:
-            num = None
-            den = None
-        '''
+
         return num, den
 ########################################################################################################################
 
@@ -255,10 +395,14 @@ class Sim(Curve):
             self.w, self.mod, self.ph = self.check_data(self.rawdata)
 
     # change_data: Setter para los datos
+    # Devuelve False si hubo error
     def change_data(self, path):
+        r = False
         if self.check_file(path):
             self.rawdata = path
             self.w, self.mod, self.ph = self.check_data(self.rawdata)
+            r = True
+        return r
 
     # check_data: Parsea el txt de la simulación de LTSpice, asume que tiene el formato de los ejemplos
     # Devuelve w, mod, ph
@@ -330,10 +474,14 @@ class Med(Curve):
             self.w, self.mod, self.ph = self.check_data(self.rawdata)
 
     # change_data: Setter para los datos
+    # Devuelve False si hubo error
     def change_data(self, path):
+        r = False
         if self.check_file(path):
             self.rawdata = path
             self.w, self.mod, self.ph = self.check_data(self.rawdata)
+            r = True
+        return r
 
     # check_data: Parsea el csv de la medición de la Digilent, asume que tiene el formato de los ejemplos
     # Devuelve w, mod, ph
@@ -406,6 +554,16 @@ class MC(Curve):
         super().__init__(4, data, name, color)
         if self.check_file(data):
             self.w, self.mod, self.ph = self.check_data(self.rawdata)
+
+    # change_data: Setter para los datos
+    # Devuelve False si hubo error
+    def change_data(self, path):
+        r = False
+        if self.check_file(path):
+            self.rawdata = path
+            self.w, self.mod, self.ph = self.check_data(self.rawdata)
+            r = True
+        return r
 
     # check_data: Parsea el txt de la simulación de LTSpice, asume que tiene el formato de los ejemplos
     # Devuelve w, mod, ph
@@ -517,5 +675,15 @@ def get_unit(s):
     return unit
 ########################################################################################################################
 
-
+########################################################################################################################
+# get_ls: Obtiene el linestyle correcto para graficar según el tipo de curva
+def get_ls(type):
+    if type == 1 or type == 2 or type == 4:
+        ls = 'solid'
+    elif type == 3:
+        ls = 'dotted'
+    else:
+        ls = ''
+    return ls
+########################################################################################################################
 
