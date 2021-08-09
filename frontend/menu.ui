@@ -199,8 +199,8 @@ border-color: black;</string>
    <widget class="QCheckBox" name="checkBox_4">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>130</y>
+      <x>560</x>
+      <y>90</y>
       <width>70</width>
       <height>17</height>
      </rect>
@@ -212,8 +212,8 @@ border-color: black;</string>
    <widget class="QCheckBox" name="checkBox_5">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>130</y>
+      <x>670</x>
+      <y>90</y>
       <width>70</width>
       <height>17</height>
      </rect>
@@ -226,13 +226,23 @@ border-color: black;</string>
     <property name="geometry">
      <rect>
       <x>780</x>
-      <y>130</y>
+      <y>90</y>
       <width>70</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
      <string>Curva 3</string>
+    </property>
+   </widget>
+   <widget class="MplWidget" name="MplWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>200</y>
+      <width>511</width>
+      <height>311</height>
+     </rect>
     </property>
    </widget>
   </widget>
@@ -344,7 +354,8 @@ border-width: 2px;
 border-color: black;</string>
    </property>
    <property name="text">
-    <string>BORRAR GRÁFICO</string>
+    <string>BORRAR
+GRÁFICOS</string>
    </property>
   </widget>
   <zorder>bgwidget</zorder>
@@ -357,6 +368,14 @@ border-color: black;</string>
   <zorder>faseButton</zorder>
   <zorder>borrarpushButton</zorder>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MplWidget</class>
+   <extends>QWidget</extends>
+   <header>mplwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
