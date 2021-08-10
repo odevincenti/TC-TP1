@@ -15,11 +15,14 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
 
         self.setWindowTitle("ejemplo")
 
-        self.teoricoButton.clicked.connect(self.update_graph)
+        self.teoricoButton.clicked.connect(self.show_graph)
+
+        self.mostrar_teorico_Button.clicked.connect(self.show_graph)
+        self.ocultar_teorico_Button.clicked.connect(self.hide_graph)
 
 
-    def update_graph(self):
 
+    def show_graph(self):
         fs = 500
         f = random.randint(1, 100)
         ts = 1/fs
@@ -35,6 +38,11 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.MplWidget.canvas.axes.legend(('cosinus', 'sinus'),loc='upper right')
         self.MplWidget.canvas.axes.set_title('Cosinus - Sinus Signal')
         self.MplWidget.canvas.draw()
+
+    def hide_graph(self):
+        self.MplWidget.canvas.axes.clear()
+        self.MplWidget.canvas.draw()
+
 
 
 app = QApplication([])
