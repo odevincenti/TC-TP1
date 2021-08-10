@@ -51,20 +51,10 @@
     <string>CANCEL</string>
    </property>
   </widget>
-  <widget class="QPlainTextEdit" name="nombre_graph_teorico">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>70</y>
-     <width>151</width>
-     <height>41</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>70</x>
      <y>80</y>
      <width>131</width>
      <height>20</height>
@@ -82,7 +72,7 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>40</x>
+     <x>100</x>
      <y>140</y>
      <width>101</width>
      <height>20</height>
@@ -100,7 +90,7 @@
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>90</x>
      <y>200</y>
      <width>111</width>
      <height>20</height>
@@ -113,26 +103,6 @@
    </property>
    <property name="text">
     <string>Denominador:</string>
-   </property>
-  </widget>
-  <widget class="QPlainTextEdit" name="numerador_teorico">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>130</y>
-     <width>151</width>
-     <height>41</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPlainTextEdit" name="denominador_teorico">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>190</y>
-     <width>151</width>
-     <height>41</height>
-    </rect>
    </property>
   </widget>
   <widget class="QLabel" name="label_4">
@@ -169,6 +139,36 @@
      <string>H(s)</string>
     </property>
    </item>
+  </widget>
+  <widget class="QLineEdit" name="nombre_graph_teorico">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>80</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="numerador_teorico">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>140</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="denominador_teorico">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>200</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
   </widget>
  </widget>
  <resources/>

@@ -1,8 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
-
-
+from backend import *
 
 import numpy as np
 import random
@@ -14,8 +13,16 @@ class Input_Teorico_Window(QWidget):
         QWidget.__init__(self, parent)
         loadUi("input_teorico.ui", self)
 
-        self.ok_teorico_pushButton.clicked.connect(self.close)
+        self.ok_teorico_pushButton.clicked.connect(self.display_ok)
         self.cancel_teorico_pushButton.clicked.connect(self.close)
+
+    def display_ok(self):
+        print("entraste a display_ok")
+        nombre_input = self.nombre_graph_teorico.text()
+        numerador_input = self.numerador_teorico.text()
+        denominador_input = self.denominador_teorico.text()
+        cs.add_curve(1, [numerador_input, denominador_input], nombre_input)
+        self.close()
 
     def displayInfo(self):
         self.show()
@@ -69,6 +76,7 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
 
     def goto_graphInfoTeorico(self):
         self.Input_Teorico.displayInfo()
+        self.show_graph()
 
     def goto_graphInfoSimulacion(self):
         self.Input_Simulacion.displayInfo()
@@ -77,6 +85,14 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.Input_Medicion.displayInfo()
 
     def show_graph(self):
+
+        self.MplWidget.canvas.axes.clear()
+        print(len(cs.curves))
+        if len(cs.curves) != 0:
+            cs.plot_mod(self.MplWidget.canvas.axes)
+            self.MplWidget.canvas.draw()
+
+        """
         fs = 500
         f = random.randint(1, 100)
         ts = 1/fs
@@ -92,14 +108,14 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.MplWidget.canvas.axes.legend(('cosinus', 'sinus'),loc='upper right')
         self.MplWidget.canvas.axes.set_title('Cosinus - Sinus Signal')
         self.MplWidget.canvas.draw()
+        """
 
     def hide_graph(self):
         self.MplWidget.canvas.axes.clear()
         self.MplWidget.canvas.draw()
 
 
-
-
+cs = Curvespace()
 app = QApplication([])
 window = MatplotlibWidget()
 window.show()
