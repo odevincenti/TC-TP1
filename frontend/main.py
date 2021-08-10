@@ -2,8 +2,24 @@ from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
 
+
+
 import numpy as np
 import random
+
+class Input_Teorico_Window(QWidget):
+
+    def __init__(self, parent = None):
+
+        QWidget.__init__(self, parent)
+        loadUi("input_teorico.ui", self)
+
+        self.ok_teorico_pushButton.clicked.connect(self.close)
+        self.cancel_teorico_pushButton.clicked.connect(self.close)
+
+    def displayInfo(self):
+        self.show()
+
 
 class MatplotlibWidget(QtWidgets.QMainWindow):
 
@@ -15,11 +31,14 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
 
         self.setWindowTitle("ejemplo")
 
-        self.teoricoButton.clicked.connect(self.show_graph)
+        self.Input_Teorico = Input_Teorico_Window()
+        self.teoricoButton.clicked.connect(self.goto_graphInfoTeorico)
 
         self.mostrar_teorico_Button.clicked.connect(self.show_graph)
         self.ocultar_teorico_Button.clicked.connect(self.hide_graph)
 
+    def goto_graphInfoTeorico(self):
+        self.Input_Teorico.displayInfo()
 
 
     def show_graph(self):
@@ -42,6 +61,7 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
     def hide_graph(self):
         self.MplWidget.canvas.axes.clear()
         self.MplWidget.canvas.draw()
+
 
 
 
