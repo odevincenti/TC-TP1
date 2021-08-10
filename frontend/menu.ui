@@ -216,7 +216,7 @@ border-color: black;</string>
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="mostrar_teorico_Button">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -235,7 +235,7 @@ border-radius:50px;</string>
      <string>Mostrar</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="ocultar_teorico_Button">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -255,7 +255,7 @@ border-color: black;</string>
      <string>Ocultar</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="ocultar_simulacion_pushButton">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -276,7 +276,7 @@ border-color: black;</string>
      <string>Ocultar</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
+   <widget class="QPushButton" name="mostrar_simulacion_pushButton">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -296,7 +296,7 @@ border-color: black;</string>
      <string>Mostrar</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_5">
+   <widget class="QPushButton" name="ocultar_medicion_pushButton">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -316,7 +316,7 @@ border-color: black;</string>
      <string>Ocultar</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_6">
+   <widget class="QPushButton" name="mostrar_medicion_pushButton">
     <property name="geometry">
      <rect>
       <x>300</x>
