@@ -1,12 +1,11 @@
-from PyQt5.QtWidgets import*
+from PyQt5.QtWidgets import *
+from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
-
-from matplotlib.backends.backend_qt5agg import (NavigationToolbar2QT as NavigationToolbar)
 
 import numpy as np
 import random
 
-class MatplotlibWidget(QMainWindow):
+class MatplotlibWidget(QtWidgets.QMainWindow):
 
     def __init__(self):
 
@@ -14,11 +13,9 @@ class MatplotlibWidget(QMainWindow):
 
         loadUi("menu.ui",self)
 
-        self.setWindowTitle("PyQt5 & Matplotlib Example GUI")
+        self.setWindowTitle("ejemplo")
 
         self.teoricoButton.clicked.connect(self.update_graph)
-
-        self.addToolBar(NavigationToolbar(self.MplWidget.canvas, self))
 
 
     def update_graph(self):
