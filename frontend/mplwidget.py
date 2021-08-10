@@ -1,5 +1,3 @@
-
-
 from matplotlib.backends.backend_qt5agg import (NavigationToolbar2QT as NavigationToolbar)
 from PyQt5.QtWidgets import*
 from matplotlib.backends.backend_qt5agg import FigureCanvas
@@ -11,7 +9,7 @@ class MplWidget(QWidget):
 
         QWidget.__init__(self, parent)
 
-        self.canvas = FigureCanvas(Figure())
+        self.canvas = FigureCanvas(Figure(figsize=(1000, 1000)))
 
         vertical_layout = QVBoxLayout()
         vertical_layout.addWidget(self.canvas)

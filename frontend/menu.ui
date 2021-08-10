@@ -157,45 +157,6 @@ border-color: black;</string>
      <string>SIMULACIÓN</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="teoricocheckBox">
-    <property name="geometry">
-     <rect>
-      <x>310</x>
-      <y>160</y>
-      <width>31</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="simulacioncheckBox">
-    <property name="geometry">
-     <rect>
-      <x>310</x>
-      <y>270</y>
-      <width>21</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="medicioncheckBox">
-    <property name="geometry">
-     <rect>
-      <x>310</x>
-      <y>380</y>
-      <width>21</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QCheckBox" name="checkBox_4">
     <property name="geometry">
      <rect>
@@ -253,6 +214,125 @@ border-color: black;</string>
       <width>675</width>
       <height>300</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>130</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(88, 224, 173);
+border-width: 2px;
+border-color: black;
+border-radius:50px;</string>
+    </property>
+    <property name="text">
+     <string>Mostrar</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>180</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(88, 224, 173);
+border-radius:15px;
+
+border-width: 2px;
+border-color: black;</string>
+    </property>
+    <property name="text">
+     <string>Ocultar</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>290</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(205, 139, 224);
+
+border-radius:15px;
+
+border-width: 2px;
+border-color: black;</string>
+    </property>
+    <property name="text">
+     <string>Ocultar</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_4">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>240</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(205, 139, 224);
+
+border-radius:15px;
+border-width: 2px;
+border-color: black;</string>
+    </property>
+    <property name="text">
+     <string>Mostrar</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_5">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>400</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(224, 177, 65);
+border-radius:15px;
+
+border-width: 2px;
+border-color: black;</string>
+    </property>
+    <property name="text">
+     <string>Ocultar</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_6">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>350</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(224, 177, 65);
+border-radius:15px;
+border-width: 2px;
+border-color: black;</string>
+    </property>
+    <property name="text">
+     <string>Mostrar</string>
     </property>
    </widget>
   </widget>
