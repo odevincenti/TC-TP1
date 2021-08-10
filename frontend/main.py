@@ -20,6 +20,31 @@ class Input_Teorico_Window(QWidget):
     def displayInfo(self):
         self.show()
 
+class Input_Simulacion_Window(QWidget):
+
+    def __init__(self, parent = None):
+
+        QWidget.__init__(self, parent)
+        loadUi("input_simulacion.ui", self)
+
+        self.upload_simulacion_pushButton.clicked.connect(self.close)
+
+    def displayInfo(self):
+        self.show()
+
+
+class Input_Medicion_Window(QWidget):
+
+    def __init__(self, parent = None):
+
+        QWidget.__init__(self, parent)
+        loadUi("input_medicion.ui", self)
+
+        self.upload_medicion_pushButton.clicked.connect(self.close)
+
+    def displayInfo(self):
+        self.show()
+
 
 class MatplotlibWidget(QtWidgets.QMainWindow):
 
@@ -32,7 +57,12 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.setWindowTitle("ejemplo")
 
         self.Input_Teorico = Input_Teorico_Window()
+        self.Input_Simulacion = Input_Simulacion_Window()
+        self.Input_Medicion = Input_Medicion_Window()
+
         self.teoricoButton.clicked.connect(self.goto_graphInfoTeorico)
+        self.simulacionButton.clicked.connect(self.goto_graphInfoSimulacion)
+        self.medicionButton.clicked.connect(self.goto_graphInfoMedicion)
 
         self.mostrar_teorico_Button.clicked.connect(self.show_graph)
         self.ocultar_teorico_Button.clicked.connect(self.hide_graph)
@@ -40,6 +70,11 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
     def goto_graphInfoTeorico(self):
         self.Input_Teorico.displayInfo()
 
+    def goto_graphInfoSimulacion(self):
+        self.Input_Simulacion.displayInfo()
+
+    def goto_graphInfoMedicion(self):
+        self.Input_Medicion.displayInfo()
 
     def show_graph(self):
         fs = 500
