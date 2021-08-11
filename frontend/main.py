@@ -14,7 +14,6 @@ class Input_Teorico_Window(QWidget):
         QWidget.__init__(self, parent)
         loadUi("input_teorico.ui", self)
 
-        self.mplwid = MplWidget()
         self.show()
         self.ok_teorico_pushButton.clicked.connect(self.display_ok)
         self.cancel_teorico_pushButton.clicked.connect(self.close)
@@ -25,15 +24,9 @@ class Input_Teorico_Window(QWidget):
         numerador_input = self.numerador_teorico.text()
         denominador_input = self.denominador_teorico.text()
         cs.add_curve(1, [numerador_input, denominador_input], nombre_input)
-        self.show_graph()
+        #self.show_graph()
         self.close()
 
-    def show_graph(self):
-        self.mplwid.canvas.axes.clear()
-        print(len(cs.curves))
-        if len(cs.curves) != 0:
-            cs.plot_mod(self.mplwid.canvas.axes)
-            self.mplwid.canvas.draw()
 
 
 class Input_Simulacion_Window(QWidget):
@@ -42,18 +35,11 @@ class Input_Simulacion_Window(QWidget):
         QWidget.__init__(self, parent)
         loadUi("input_simulacion.ui", self)
 
+        self.show()
         self.upload_simulacion_pushButton.clicked.connect(self.get_simulation_file)
 
-    def displayInfo(self):
-        self.show()
-
     def get_simulation_file(self):
-        filename = QFileDialog.getOpenFileNames()
-        print(filename)
-        path = filename[0]
-        print(path)
-        with open(path, "r") as f:
-            print(f.readline())
+        QFileDialog.getOpenFileNames()
 
 
 class Input_Medicion_Window(QWidget):
@@ -62,18 +48,11 @@ class Input_Medicion_Window(QWidget):
         QWidget.__init__(self, parent)
         loadUi("input_medicion.ui", self)
 
+        self.show()
         self.upload_medicion_pushButton.clicked.connect(self.get_medicion_file)
 
-    def displayInfo(self):
-        self.show()
-
     def get_medicion_file(self):
-        filename = QFileDialog.getOpenFileNames()
-        print(filename)
-        path = filename[0]
-        print(path)
-        with open(path, "r") as f:
-            print(f.readline())
+        QFileDialog.getOpenFileNames()
 
 
 class MatplotlibWidget(QtWidgets.QMainWindow):
@@ -86,9 +65,6 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
 
         self.setWindowTitle("ejemplo")
 
-        self.Input_Simulacion = Input_Simulacion_Window()
-        self.Input_Medicion = Input_Medicion_Window()
-
         self.teoricoButton.clicked.connect(self.goto_graphInfoTeorico)
         self.simulacionButton.clicked.connect(self.goto_graphInfoSimulacion)
         self.medicionButton.clicked.connect(self.goto_graphInfoMedicion)
@@ -96,17 +72,20 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.moduloButton.clicked.connect(self.goto_graphModulo_Axis)
         self.faseButton.clicked.connect(self.goto_graphFase_Axis)
 
-        # self.mostrar_teorico_Button.clicked.connect(self.show_graph)
-        # self.ocultar_teorico_Button.clicked.connect(self.hide_graph)
+        self.mostrar_teorico_Button.clicked.connect(self.show_graph)
+        self.ocultar_teorico_Button.clicked.connect(self.hide_graph)
+
 
     def goto_graphInfoTeorico(self):
         self.Input_Teorico = Input_Teorico_Window()
+        self.Input_Teorico.ok_teorico_pushButton.clicked.connect(self.show_graph)
+        self.Input_Teorico.cancel_teorico_pushButton.clicked.connect(self.close)
 
     def goto_graphInfoSimulacion(self):
-        self.Input_Simulacion.displayInfo()
+        self.Input_Simulacion = Input_Simulacion_Window()
 
     def goto_graphInfoMedicion(self):
-        self.Input_Medicion.displayInfo()
+        self.Input_Medicion = Input_Medicion_Window()
 
     def goto_graphModulo_Axis(self):
         if len(self.ejextextEdit.text()) == 0:
@@ -131,11 +110,16 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
             ax_y = self.ejeytextEdit.text()
         # mandar al graph
 
+    def show_graph(self):
+        self.MplWidget.canvas.axes.clear()
+        print(len(cs.curves))
+        if len(cs.curves) != 0:
+            cs.plot_mod(self.MplWidget.canvas.axes)
+            self.MplWidget.canvas.draw()
 
-"""
     def hide_graph(self):
         self.MplWidget.canvas.axes.clear()
-        self.MplWidget.canvas.draw()"""
+        self.MplWidget.canvas.draw()
 
 cs = Curvespace()
 app = QApplication([])
