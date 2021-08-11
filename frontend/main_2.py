@@ -18,6 +18,8 @@ class MainScreen(QtWidgets.QMainWindow):
         self.teoricoButton.clicked.connect(self.goto_input_teorico)
         self.simulacionButton.clicked.connect(self.goto_input_simulacion)
         self.medicionButton.clicked.connect(self.goto_input_medicion)
+        self.moduloButton.clicked.connect(self.goto_graphModulo_Axis)
+        self.faseButton.clicked.connect(self.goto_graphFase_Axis)
 
     def goto_input_teorico(self):
         self.Input_Teorico.show()
@@ -28,17 +30,33 @@ class MainScreen(QtWidgets.QMainWindow):
     def goto_input_medicion(self):
         self.Input_Medicion.show()
 
-    """
-    def show_graph(self):
-        self.MplWidget.canvas.axes.clear()
-        if len(cs.curves) != 0:
-            cs.plot_mod(self.MplWidget.canvas.axes)
-            self.MplWidget.canvas.draw()
+    def goto_graphModulo_Axis(self):
+        if len(self.ejex_lineEdit.text()) == 0:
+            ax_x = "Eje X"
+        else:
+            ax_x = self.ejex_lineEdit.text()
 
-    def hide_graph(self):
-        self.MplWidget.canvas.axes.clear()
-        self.MplWidget.canvas.draw()
-    """
+        if len(self.ejey_lineEdit.text()) == 0:
+            ax_y = "Eje Y"
+        else:
+            ax_y = self.ejey_lineEdit.text()
+
+        # mandar al graph
+        print(ax_y, ax_x)
+
+    def goto_graphFase_Axis(self):
+        if len(self.ejex_lineEdit.text()) == 0:
+            ax_x = "Eje X"
+        else:
+            ax_x = self.ejex_lineEdit.text()
+
+        if len(self.ejey_lineEdit.text()) == 0:
+            ax_y = "Eje Y"
+        else:
+            ax_y = self.ejey_lineEdit.text()
+
+        # mandar al graph
+        print(ax_y, ax_x)
 
 class Input_Teorico_Window(QWidget):
     def __init__(self):
@@ -64,13 +82,30 @@ class Input_Simulacion_Window(QWidget):
         super(Input_Simulacion_Window, self).__init__()
         loadUi("input_simulacion.ui", self)
         self.setWindowTitle("Input Simulación")
+        self.upload_simulacion_pushButton.clicked.connect(self.get_simulation_file)
 
+    def get_simulation_file(self):
+        filename = QFileDialog.getOpenFileNames()
+        print(filename)
+        path = filename[0]
+        print(path)
+        with open(path,"r") as f:
+            print(f.readline())
 
 class Input_Medicion_Window(QWidget):
     def __init__(self):
         super(Input_Medicion_Window, self).__init__()
         loadUi("input_medicion.ui", self)
         self.setWindowTitle("Input Medición")
+        self.upload_medicion_pushButton.clicked.connect(self.get_medicion_file)
+
+    def get_medicion_file(self):
+        filename = QFileDialog.getOpenFileNames()
+        print(filename)
+        path = filename[0]
+        print(path)
+        with open(path,"r") as f:
+            print(f.readline())
 
 class MatplotlibWidget(MplWidget):
     def __init__(self):
