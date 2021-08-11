@@ -1,10 +1,9 @@
+import sys
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
 from backend import *
 
-import numpy as np
-import random
 
 class Input_Teorico_Window(QWidget):
 
@@ -52,7 +51,6 @@ class Input_Medicion_Window(QWidget):
     def displayInfo(self):
         self.show()
 
-
 class MatplotlibWidget(QtWidgets.QMainWindow):
 
     def __init__(self):
@@ -98,10 +96,8 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         ts = 1/fs
         length_of_signal = 100
         t = np.linspace(0,1,length_of_signal)
-
         cosinus_signal = np.cos(2*np.pi*f*t)
         sinus_signal = np.sin(2*np.pi*f*t)
-
         self.MplWidget.canvas.axes.clear()
         self.MplWidget.canvas.axes.plot(t, cosinus_signal)
         self.MplWidget.canvas.axes.plot(t, sinus_signal)
