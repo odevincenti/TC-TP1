@@ -107,7 +107,7 @@ class Input_Medicion_Window(QWidget):
         with open(path,"r") as f:
             print(f.readline())
 
-class MatplotlibWidget(MplWidget):
+class MatplotlibWidget(QWidget):
     def __init__(self):
         super(MatplotlibWidget, self).__init__()
         self.mplwidget = MplWidget()
