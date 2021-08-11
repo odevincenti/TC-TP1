@@ -77,6 +77,25 @@
     <string>Seleccione el formato de ingreso de datos:</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="ok_medicion_pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>220</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>OK</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

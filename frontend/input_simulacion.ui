@@ -77,6 +77,25 @@
     <string>UPLOAD</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="ok_simulacion_pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>230</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>OK</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
