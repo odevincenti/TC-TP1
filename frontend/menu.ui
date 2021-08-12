@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1190</width>
+    <width>1201</width>
     <height>800</height>
    </rect>
   </property>
@@ -19,7 +19,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1190</width>
+      <width>1201</width>
       <height>800</height>
      </rect>
     </property>
@@ -29,8 +29,8 @@
     <widget class="QLineEdit" name="ejey_lineEdit">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>550</y>
+       <x>880</x>
+       <y>420</y>
        <width>161</width>
        <height>25</height>
       </rect>
@@ -39,92 +39,18 @@
     <widget class="QLineEdit" name="ejex_lineEdit">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>500</y>
+       <x>680</x>
+       <y>420</y>
        <width>161</width>
        <height>25</height>
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="moduloButton">
-     <property name="geometry">
-      <rect>
-       <x>60</x>
-       <y>450</y>
-       <width>71</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Open Sans</family>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgb(255,255,255);
-border-style: outset;
-border-width: 2px;
-border-color: black;
-border-radius:5px;</string>
-     </property>
-     <property name="text">
-      <string>Módulo</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="faseButton">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>450</y>
-       <width>71</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Open Sans</family>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgb(255,255,255);
-border-style: outset;
-border-width: 2px;
-border-color: black;
-border-radius:5px;</string>
-     </property>
-     <property name="text">
-      <string>Fase</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="ocultar_medicion_pushButton">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>390</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgb(224, 177, 65);
-border-radius:15px;
-
-border-width: 2px;
-border-color: black;</string>
-     </property>
-     <property name="text">
-      <string>Ocultar</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="ejeylabel">
      <property name="geometry">
       <rect>
-       <x>60</x>
-       <y>550</y>
+       <x>850</x>
+       <y>420</y>
        <width>31</width>
        <height>21</height>
       </rect>
@@ -140,52 +66,11 @@ border-color: black;</string>
       <string>Eje Y:</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkBox_5">
-     <property name="geometry">
-      <rect>
-       <x>210</x>
-       <y>60</y>
-       <width>70</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Curva 2</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="medicionButton">
-     <property name="geometry">
-      <rect>
-       <x>60</x>
-       <y>340</y>
-       <width>201</width>
-       <height>71</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Open Sans</family>
-       <pointsize>15</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgb(224, 177, 65);
-border-radius:15px;
-border-style: outset;
-border-width: 2px;
-border-color: black;</string>
-     </property>
-     <property name="text">
-      <string>MEDICIÓN</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="ejexlabel">
      <property name="geometry">
       <rect>
-       <x>60</x>
-       <y>500</y>
+       <x>650</x>
+       <y>420</y>
        <width>31</width>
        <height>21</height>
       </rect>
@@ -201,153 +86,247 @@ border-color: black;</string>
       <string>Eje X:</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="ocultar_teorico_Button">
+    <widget class="QWidget" name="gridLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>280</x>
-       <y>170</y>
-       <width>75</width>
-       <height>23</height>
+       <x>70</x>
+       <y>30</y>
+       <width>1061</width>
+       <height>51</height>
       </rect>
      </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgb(88, 224, 173);
-border-radius:15px;
-
-border-width: 2px;
-border-color: black;</string>
-     </property>
-     <property name="text">
-      <string>Ocultar</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="ocultar_simulacion_pushButton">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>280</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgb(205, 139, 224);
-
-border-radius:15px;
-
-border-width: 2px;
-border-color: black;</string>
-     </property>
-     <property name="text">
-      <string>Ocultar</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="simulacionButton">
-     <property name="geometry">
-      <rect>
-       <x>60</x>
-       <y>230</y>
-       <width>201</width>
-       <height>71</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Open Sans</family>
-       <pointsize>15</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgb(205, 139, 224);
+     <layout class="QGridLayout" name="gridLayout" rowstretch="0">
+      <item row="0" column="2">
+       <widget class="QPushButton" name="medicionButton">
+        <property name="font">
+         <font>
+          <family>Open Sans</family>
+          <pointsize>15</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:rgb(224, 177, 65);
 border-radius:15px;
 border-style: outset;
 border-width: 2px;
 border-color: black;</string>
-     </property>
-     <property name="text">
-      <string>SIMULACIÓN</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="borrarpushButton">
-     <property name="geometry">
-      <rect>
-       <x>60</x>
-       <y>610</y>
-       <width>201</width>
-       <height>71</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Open Sans</family>
-       <pointsize>15</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgb(148, 119, 50);
+        </property>
+        <property name="text">
+         <string>MEDICIÓN</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="simulacionButton">
+        <property name="font">
+         <font>
+          <family>Open Sans</family>
+          <pointsize>15</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:rgb(205, 139, 224);
 border-radius:15px;
 border-style: outset;
 border-width: 2px;
 border-color: black;</string>
-     </property>
-     <property name="text">
-      <string>BORRAR
-GRÁFICOS</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_6">
-     <property name="geometry">
-      <rect>
-       <x>310</x>
-       <y>60</y>
-       <width>70</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Curva 3</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="mostrar_medicion_pushButton">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>340</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgb(224, 177, 65);
+        </property>
+        <property name="text">
+         <string>SIMULACIÓN</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QPushButton" name="borrarpushButton">
+        <property name="font">
+         <font>
+          <family>Open Sans</family>
+          <pointsize>15</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:rgb(186, 12, 47);
 border-radius:15px;
+border-style: outset;
 border-width: 2px;
 border-color: black;</string>
-     </property>
-     <property name="text">
-      <string>Mostrar</string>
+        </property>
+        <property name="text">
+         <string>BORRAR GRÁFICOS</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="teoricoButton">
+        <property name="font">
+         <font>
+          <family>Open Sans</family>
+          <pointsize>15</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:rgb(88, 224, 173);
+border-radius:15px;
+border-style: outset;
+border-width: 2px;
+border-color: black;</string>
+        </property>
+        <property name="text">
+         <string>TEORICO</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="MplWidget" name="MplWidget" native="true">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>140</y>
+       <width>901</width>
+       <height>281</height>
+      </rect>
      </property>
     </widget>
     <widget class="MplWidget" name="MplWidget2" native="true">
      <property name="geometry">
       <rect>
-       <x>470</x>
-       <y>440</y>
-       <width>680</width>
-       <height>300</height>
+       <x>230</x>
+       <y>460</y>
+       <width>901</width>
+       <height>281</height>
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="teoricoButton">
+    <widget class="QLineEdit" name="ejex2_lineEdit">
      <property name="geometry">
       <rect>
-       <x>60</x>
-       <y>120</y>
-       <width>201</width>
-       <height>71</height>
+       <x>680</x>
+       <y>740</y>
+       <width>161</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="ejexlabel_2">
+     <property name="geometry">
+      <rect>
+       <x>650</x>
+       <y>740</y>
+       <width>31</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Open Sans</family>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Eje X:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="ejey2_lineEdit">
+     <property name="geometry">
+      <rect>
+       <x>880</x>
+       <y>740</y>
+       <width>161</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="ejeylabel_2">
+     <property name="geometry">
+      <rect>
+       <x>850</x>
+       <y>740</y>
+       <width>31</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Open Sans</family>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Eje Y:</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="curva1_borrar_Button">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>400</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Borrar</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="aplicar_button_ejes1">
+     <property name="geometry">
+      <rect>
+       <x>1060</x>
+       <y>420</y>
+       <width>72</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Aplicar</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="aplicar_button_ejes2">
+     <property name="geometry">
+      <rect>
+       <x>1060</x>
+       <y>740</y>
+       <width>72</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Aplicar</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="montecarloButton">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>90</y>
+       <width>260</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="font">
@@ -358,80 +337,82 @@ border-color: black;</string>
        <bold>false</bold>
       </font>
      </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(88, 224, 173);
+      <string notr="true">background-color:rgb(157, 29, 151);
 border-radius:15px;
 border-style: outset;
 border-width: 2px;
 border-color: black;</string>
      </property>
      <property name="text">
-      <string>TEORICO</string>
+      <string>MONTECARLO</string>
      </property>
     </widget>
-    <widget class="MplWidget" name="MplWidget" native="true">
+    <widget class="QPushButton" name="resptempButton">
      <property name="geometry">
       <rect>
-       <x>470</x>
-       <y>120</y>
-       <width>680</width>
-       <height>300</height>
+       <x>730</x>
+       <y>90</y>
+       <width>261</width>
+       <height>31</height>
       </rect>
      </property>
-    </widget>
-    <widget class="QPushButton" name="mostrar_simulacion_pushButton">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>230</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
+     <property name="font">
+      <font>
+       <family>Open Sans</family>
+       <pointsize>15</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(205, 139, 224);
-
+      <string notr="true">background-color:rgb(0, 156, 166);
 border-radius:15px;
+border-style: outset;
 border-width: 2px;
 border-color: black;</string>
      </property>
      <property name="text">
-      <string>Mostrar</string>
+      <string>RESPUESTA TEMPORAL</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkBox_4">
+    <widget class="QPushButton" name="curva2_borrar_Button">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>60</y>
-       <width>70</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Curva 1</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="mostrar_teorico_Button">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>120</y>
+       <x>100</x>
+       <y>720</y>
        <width>75</width>
        <height>23</height>
       </rect>
      </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgb(88, 224, 173);
-border-width: 2px;
-border-color: black;
-border-radius:50px;</string>
-     </property>
      <property name="text">
-      <string>Mostrar</string>
+      <string>Borrar</string>
+     </property>
+    </widget>
+    <widget class="listwidget" name="listWidget">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>140</y>
+       <width>141</width>
+       <height>241</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="listwidget" name="listWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>460</y>
+       <width>141</width>
+       <height>241</height>
+      </rect>
      </property>
     </widget>
    </widget>
@@ -443,6 +424,11 @@ border-radius:50px;</string>
    <extends>QWidget</extends>
    <header>mplwidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>listwidget</class>
+   <extends>QListWidget</extends>
+   <header>listwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

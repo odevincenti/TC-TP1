@@ -13,26 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="upload_medicion_pushButton">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>150</y>
-     <width>171</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>UPLOAD</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="medicion_comboBox">
+  <widget class="QComboBox" name="montecarlo_comboBox">
    <property name="geometry">
     <rect>
      <x>330</x>
@@ -77,11 +58,30 @@
     <string>Seleccione el formato de ingreso de datos:</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="ok_medicion_pushButton_2">
+  <widget class="QPushButton" name="upload_montecarlo_pushButton">
    <property name="geometry">
     <rect>
-     <x>180</x>
-     <y>220</y>
+     <x>140</x>
+     <y>150</y>
+     <width>171</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>UPLOAD</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ok_montecarlo_pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>230</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -96,20 +96,20 @@
     <string>OK</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="nombre_graph_medicion">
+  <widget class="QLineEdit" name="nombre_graph_montecarlo">
    <property name="geometry">
     <rect>
-     <x>230</x>
+     <x>220</x>
      <y>100</y>
-     <width>113</width>
+     <width>121</width>
      <height>20</height>
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label_7">
+  <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>110</x>
+     <x>100</x>
      <y>100</y>
      <width>101</width>
      <height>20</height>

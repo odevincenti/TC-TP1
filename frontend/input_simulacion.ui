@@ -16,9 +16,9 @@
   <widget class="QComboBox" name="simulacion_comboBox">
    <property name="geometry">
     <rect>
-     <x>320</x>
+     <x>330</x>
      <y>50</y>
-     <width>61</width>
+     <width>71</width>
      <height>21</height>
     </rect>
    </property>
@@ -41,10 +41,10 @@
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>40</x>
      <y>50</y>
      <width>291</width>
-     <height>16</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="font">
@@ -61,8 +61,8 @@
   <widget class="QPushButton" name="upload_simulacion_pushButton">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>130</y>
+     <x>140</x>
+     <y>150</y>
      <width>171</width>
      <height>51</height>
     </rect>
@@ -80,7 +80,7 @@
   <widget class="QPushButton" name="ok_simulacion_pushButton_2">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>170</x>
      <y>230</y>
      <width>111</width>
      <height>31</height>
@@ -94,6 +94,34 @@
    </property>
    <property name="text">
     <string>OK</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="nombre_graph_simulacion">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>100</y>
+     <width>121</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>100</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Ingrese Nombre:</string>
    </property>
   </widget>
  </widget>

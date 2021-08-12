@@ -2,38 +2,31 @@ from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
 from backend import *
-from mplwidget import MplWidget
-from mplwidget import MplWidget2
-
-import numpy as np
-import random
-
 
 class Input_Teorico_Window(QWidget):
 
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
         loadUi("input_teorico.ui", self)
+        self.setWindowTitle("Input Teórico")
 
         self.show()
         self.ok_teorico_pushButton.clicked.connect(self.display_ok)
         self.cancel_teorico_pushButton.clicked.connect(self.close)
 
     def display_ok(self):
-        print("entraste a display_ok")
         nombre_input = self.nombre_graph_teorico.text()
         numerador_input = self.numerador_teorico.text()
         denominador_input = self.denominador_teorico.text()
         cs.add_curve(1, [numerador_input, denominador_input], nombre_input)
         self.close()
 
-
-
 class Input_Simulacion_Window(QWidget):
 
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
         loadUi("input_simulacion.ui", self)
+        self.setWindowTitle("Input Simulación")
 
         self.show()
         self.upload_simulacion_pushButton.clicked.connect(self.get_simulation_file)
@@ -45,7 +38,8 @@ class Input_Simulacion_Window(QWidget):
 
 
     def display_ok(self):
-        cs.add_curve(2, self.path)
+        nombre_input = self.nombre_graph_simulacion.text()
+        cs.add_curve(2, self.path, nombre_input)
         self.close()
 
 
@@ -54,6 +48,7 @@ class Input_Medicion_Window(QWidget):
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
         loadUi("input_medicion.ui", self)
+        self.setWindowTitle("Input Medición")
 
         self.show()
         self.upload_medicion_pushButton.clicked.connect(self.get_medicion_file)
@@ -64,7 +59,28 @@ class Input_Medicion_Window(QWidget):
         self.path = filename[0][0]
 
     def display_ok(self):
-        cs.add_curve(3, self.path)
+        nombre_input = self.nombre_graph_medicion.text()
+        cs.add_curve(3, self.path, nombre_input)
+        self.close()
+
+class Input_Montecarlo_Window(QWidget):
+
+    def __init__(self, parent=None):
+        QWidget.__init__(self, parent)
+        loadUi("input_montecarlo.ui", self)
+        self.setWindowTitle("Input Montecarlo")
+
+        self.show()
+        self.upload_montecarlo_pushButton.clicked.connect(self.get_montecarlo_file)
+        self.ok_montecarlo_pushButton_2.clicked.connect(self.display_ok)
+
+    def get_montecarlo_file(self):
+        filename = QFileDialog.getOpenFileNames()
+        self.path = filename[0][0]
+
+    def display_ok(self):
+        nombre_input = self.nombre_graph_montecarlo.text()
+        cs.add_curve(4, self.path, nombre_input)
         self.close()
 
 
@@ -73,26 +89,20 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
     def __init__(self):
 
         QMainWindow.__init__(self)
-
         loadUi("menu.ui", self)
+        self.setWindowTitle("Plot Tool")
 
-        self.setWindowTitle("ejemplo")
-
+        #self.curve_list = curva_listWidget()
         self.teoricoButton.clicked.connect(self.goto_graphInfoTeorico)
         self.simulacionButton.clicked.connect(self.goto_graphInfoSimulacion)
         self.medicionButton.clicked.connect(self.goto_graphInfoMedicion)
+        self.montecarloButton.clicked.connect(self.goto_graphInfoMontecarlo)
         self.borrarpushButton.clicked.connect(self.goto_borrar)
-
-        self.moduloButton.clicked.connect(self.goto_graphModulo_Axis)
-        self.faseButton.clicked.connect(self.goto_graphFase_Axis)
-
-        self.mostrar_teorico_Button.clicked.connect(self.show_graph)
-        self.ocultar_teorico_Button.clicked.connect(self.hide_graph)
-
 
     def goto_graphInfoTeorico(self):
         self.Input_Teorico = Input_Teorico_Window()
         self.Input_Teorico.ok_teorico_pushButton.clicked.connect(self.show_graph)
+        #self.curve_list.add_curve()
         self.Input_Teorico.cancel_teorico_pushButton.clicked.connect(self.close)
 
     def goto_graphInfoSimulacion(self):
@@ -102,6 +112,10 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
     def goto_graphInfoMedicion(self):
         self.Input_Medicion = Input_Medicion_Window()
         self.Input_Medicion.ok_medicion_pushButton_2.clicked.connect(self.show_graph)
+
+    def goto_graphInfoMontecarlo(self):
+        self.Input_Montecarlo = Input_Montecarlo_Window()
+        self.Input_Montecarlo.ok_montecarlo_pushButton_2.clicked.connect(self.show_graph)
 
     def goto_graphModulo_Axis(self):
         if len(self.ejextextEdit.text()) == 0:
