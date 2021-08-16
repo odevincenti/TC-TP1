@@ -109,11 +109,9 @@ class Input_Montecarlo_Window(QWidget):
 class MatplotlibWidget(QtWidgets.QMainWindow):
 
     def __init__(self):
-
         QMainWindow.__init__(self)
         loadUi("menu.ui", self)
         self.setWindowTitle("Plot Tool")
-
 
         self.teoricoButton.clicked.connect(self.goto_graphInfoTeorico)
         self.simulacionButton.clicked.connect(self.goto_graphInfoSimulacion)

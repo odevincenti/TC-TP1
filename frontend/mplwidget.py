@@ -28,3 +28,27 @@ class MplWidget2(QWidget):
 
         self.canvas.axes = self.canvas.figure.add_subplot(111)
         self.setLayout(vertical_layout)
+
+class latexWidget(QWidget):
+    def __init__(self):
+        QWidget.__init__(self)
+        # Get window background color
+        bg = self.palette().window().color()
+        cl = (bg.redF(), bg.greenF(), bg.blueF())
+
+        # Create figure, using window bg color
+        self.fig = Figure(edgecolor=cl, facecolor=cl)
+
+        # Add FigureCanvasQTAgg widget to form
+        self.canvas = FigureCanvasQTAgg(self.fig)
+        self.tex_label_placeholder.layout().addWidget(self.canvas)
+
+        # Clear figure
+        self.fig.clear()
+
+        # Set figure title
+        self.fig.suptitle('$TeX$',
+                          x=0.0, y=0.5,
+                          horizontalalignment='left',
+                          verticalalignment='center')
+        self.canvas.draw()
