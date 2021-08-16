@@ -1,7 +1,8 @@
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib.colors as mc
 import scipy.signal as ss
 import os
+import colorsys
 
 ########################################################################################################################
 # Clase Curvespace: Contiene la lista de curvas y métodos para modificarla
@@ -18,16 +19,28 @@ class Curvespace:
         self.y_ph_label = "$\\phi(H(s))$"   # Label del eje y del gráfico de la fase. Es phi(H(s)) por defecto
 
     # addCurve: Método para agregar una curva. Para más detalles mirar clase Curva
-    def add_curve(self, c_type, data, name="", color='orange'):
+    def add_curve(self, c_type, data, name="", color="", w_unit="Hz", mod_unit="dB", ph_unit="°"):
         if name == "" or not self.check_name(name):
             for i in range(len(self.curves) + 1):
                 name = "Curve " + str(len(self.curves) - i)
                 if self.check_name(name):
                     print("Se tomará como nombre: " + name)
                     break
+        # SWITCH DE COLORES
+        #todo: aclarar colores del mc
+        # todo: que no se rompan los colores de los labels cuando los mc van al principio
+        switch_colors = ["blue", "orange", "green", "red", "cyan", "magenta", "gold", "violet"]
+        if color == "":# and c_type != 4:
+            color = switch_colors[len(self.curves) % 8]
+            print("Para la curva", name, "se tomará el color: " + color)
+        '''if c_type == 4:
+            rgb = mc.ColorConverter.to_rgb(color)
+            h, l, s = colorsys.rgb_to_hls(*rgb)
+            color = colorsys.hls_to_rgb(h, min(1, l * 0.5), s=s)'''
 
-        if not self.switch_ctypes.get(c_type, self.c_type_error)(self, data, name, color):
+        if not self.switch_ctypes.get(c_type, self.c_type_error)(self, data, name, color, w_unit, mod_unit, ph_unit):
             print("Error creando la curva")
+
 
     # delCurve: Saca la curva del Curvespace y la destruye
     # Recibe la curva (elemento) (Lo puedo cambiar al índice o nombre, lo que resulte más cómodo)
@@ -45,7 +58,7 @@ class Curvespace:
                     self.curves[i].visibility = False
         ax.legend(self.get_names(True))
         ax.set_xlabel(self.x_mod_label + " $\\left[" + self.curves[0].w_unit + "\\right]$")
-        ax.set_ylabel(self.y_mod_label +" $\\left[" + self.curves[0].mod_unit + "\\right]$")
+        ax.set_ylabel(self.y_mod_label + " $\\left[" + self.curves[0].mod_unit + "\\right]$")
         ax.grid()
         return
 
@@ -58,6 +71,7 @@ class Curvespace:
                     self.curves[i].visibility = False
         ax.legend(self.get_names(True))
         if self.ph_unit == "°":
+            #todo: acomodar para que sea variable
             ax.set_yticks([-180, -135, -90, -45, 0, 45, 90, 135, 180])
         elif self.ph_unit == "rad":
             ax.set_yticks([-np.pi, -3*np.pi/4, -np.pi/2, -np.pi/4, 0, np.pi/4, np.pi/2, 3*np.pi/4, np.pi])
@@ -178,10 +192,10 @@ class Curvespace:
                 self.curves[i].change_mod_unit(self.mod_unit)
                 self.curves[i].change_ph_unit(self.ph_unit)
 
-    def teorica(self, data, name, color):
+    def teorica(self, data, name, color, w_unit="Hz", mod_unit="dB", ph_unit="°"):
         # print("teórica")
         r = True
-        t = Teo(1, data, name, color)
+        t = Teo(1, data, name, color, w_unit, mod_unit, ph_unit)
         if t.H is not None:
             self.curves.append(t)
         else:
@@ -189,10 +203,10 @@ class Curvespace:
             r = False
         return r
 
-    def simulada(self, data, name, color):
+    def simulada(self, data, name, color, w_unit="Hz", mod_unit="dB", ph_unit="°"):
         # print("simulada")
         r = True
-        s = Sim(2, data, name, color)
+        s = Sim(2, data, name, color, w_unit, mod_unit, ph_unit)
         if s.w != [] and s.mod != [] and s.ph != []:
             self.curves.append(s)
         else:
@@ -200,10 +214,10 @@ class Curvespace:
             r = False
         return r
 
-    def medida(self, data, name, color):
+    def medida(self, data, name, color, w_unit="Hz", mod_unit="dB", ph_unit="°"):
         # print("medida")
         r = True
-        m = Med(3, data, name, color)
+        m = Med(3, data, name, color, w_unit, mod_unit, ph_unit)
         if m.w != [] and m.mod != [] and m.ph != []:
             self.curves.append(m)
         else:
@@ -211,15 +225,20 @@ class Curvespace:
             r = False
         return r
 
-    def montecarlo(self, data, name, color):
+    def montecarlo(self, data, name, color, w_unit="Hz", mod_unit="dB", ph_unit="°"):
         # print("montecarlo")
         r = True
-        mc = MC(3, data, name, color)
+        mc = MC(3, data, name, color, w_unit, mod_unit, ph_unit)
         if mc.w != [] and mc.mod != [] and mc.ph != []:
             self.curves.append(mc)
         else:
             print("Los datos ingresados no son válidos")
             r = False
+        return r
+
+    def respuesta(self, data, name, color):
+        r = True
+        print("rta")
         return r
 
     def c_type_error(self):
@@ -231,8 +250,10 @@ class Curvespace:
         1: teorica,
         2: simulada,
         3: medida,
-        4: montecarlo
+        4: montecarlo,
+        5: respuesta
     }
+
 
 ########################################################################################################################
 
@@ -256,7 +277,7 @@ class Curvespace:
 # Para cada tipo se accede una clase particular, mirarlas para más detalles
 # ----------------------------------------------------------------------------------------------------------------------
 class Curve:
-    def __init__(self, c_type, data, name, color):
+    def __init__(self, c_type, data, name, color, w_unit="Hz", mod_unit="dB", ph_unit="°"):
         self.type = c_type          # Tipo de curva
         self.rawdata = data         # Datos como se cargan
         self.name = name            # Nombre de la curva
@@ -265,9 +286,9 @@ class Curve:
         self.w = []
         self.mod = []
         self.ph = []
-        self.w_unit = "Hz"          # Unidad de la frecuencia, se asume Hz
-        self.mod_unit = "dB"        # Unidad del módulo, se asume dB
-        self.ph_unit = "°"          # Unidad de la fase, se asume °
+        self.w_unit = w_unit        # Unidad de la frecuencia, se asume Hz
+        self.mod_unit = mod_unit    # Unidad del módulo, se asume dB
+        self.ph_unit = ph_unit      # Unidad de la fase, se asume °
 
     # change_visibility: Setter para la visibilidad. Recibe un boolean
     def change_visibility(self, b):
@@ -351,13 +372,16 @@ class Curve:
 #       - H: Función Transferencia (scipy)
 # ----------------------------------------------------------------------------------------------------------------------
 class Teo(Curve):
-    def __init__(self, c_type, data, name, color):
-        super().__init__(1, data, name, color)
+    def __init__(self, c_type, data, name, color, w_unit="Hz", mod_unit="dB", ph_unit="°"):
+        super().__init__(1, data, name, color, w_unit, mod_unit, ph_unit)
         num, den = self.check_data(self.rawdata)
         self.H = None
         if num is not None and den is not None:         # Si están en orden, hace la modificación
             self.H = ss.TransferFunction(num, den)
-            self.w, self.mod, self.ph = ss.bode(self.H)
+            self.w = np.linspace(1E2*(2*np.pi), 1E6*(2*np.pi), 50000)
+            self.w, self.mod, self.ph = ss.bode(self.H, self.w)
+            if self.w_unit == "Hz":
+                self.w = self.w/(2*np.pi)
 
     # change_data: Revisa la validez de los datos nuevos.
     # Devuelve False si hubo error.
@@ -389,8 +413,8 @@ class Teo(Curve):
 # w, mod y ph serán [] si hubo error
 # ----------------------------------------------------------------------------------------------------------------------
 class Sim(Curve):
-    def __init__(self, c_type, data, name, color):
-        super().__init__(2, data, name, color)
+    def __init__(self, c_type, data, name, color, w_unit="Hz", mod_unit="dB", ph_unit="°"):
+        super().__init__(2, data, name, color, w_unit, mod_unit, ph_unit)
         if self.check_file(data):
             self.w, self.mod, self.ph = self.check_data(self.rawdata)
 
@@ -468,8 +492,8 @@ class Sim(Curve):
 #   Tiene unos parámetros extra: - Mentira por ahora no tiene
 # ----------------------------------------------------------------------------------------------------------------------
 class Med(Curve):
-    def __init__(self, c_type, data, name, color):
-        super().__init__(3, data, name, color)
+    def __init__(self, c_type, data, name, color, w_unit="Hz", mod_unit="dB", ph_unit="°"):
+        super().__init__(3, data, name, color, w_unit, mod_unit, ph_unit)
         if self.check_file(data):
             self.w, self.mod, self.ph = self.check_data(self.rawdata)
 
@@ -550,8 +574,8 @@ class Med(Curve):
 # w, mod y ph serán [] si hubo error
 # ----------------------------------------------------------------------------------------------------------------------
 class MC(Curve):
-    def __init__(self, c_type, data, name, color):
-        super().__init__(4, data, name, color)
+    def __init__(self, c_type, data, name, color, w_unit="Hz", mod_unit="dB", ph_unit="°"):
+        super().__init__(4, data, name, color, w_unit, mod_unit, ph_unit)
         if self.check_file(data):
             self.w, self.mod, self.ph = self.check_data(self.rawdata)
 
@@ -678,7 +702,7 @@ def get_unit(s):
 ########################################################################################################################
 # get_ls: Obtiene el linestyle correcto para graficar según el tipo de curva
 def get_ls(type):
-    if type == 1 or type == 2 or type == 4:
+    if type == 2 or type == 1 or type == 4:
         ls = 'solid'
     elif type == 3:
         ls = 'dotted'

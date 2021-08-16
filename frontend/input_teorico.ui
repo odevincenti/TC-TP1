@@ -16,7 +16,7 @@
   <widget class="QPushButton" name="ok_teorico_pushButton">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>130</x>
      <y>240</y>
      <width>75</width>
      <height>23</height>
@@ -124,21 +124,6 @@
    <property name="text">
     <string>Ingrese los coeficientes separados por coma (&quot;,&quot;)</string>
    </property>
-  </widget>
-  <widget class="QComboBox" name="teorico_comboBox">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>240</y>
-     <width>51</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>H(s)</string>
-    </property>
-   </item>
   </widget>
   <widget class="QLineEdit" name="nombre_graph_teorico">
    <property name="geometry">

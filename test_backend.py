@@ -6,22 +6,27 @@ from backend import Curvespace
 # ARCHIVO PARA PROBAR LAS FUNCIONALIDADES DEL BACKEND ANTES DE AGREGAR EL FRONT
 
 # TEST
-C = Curvespace()
-C.add_curve(1, ["-1E11", "1, 2E6, 1E12"], name="Prueba", color="blue")
-C.add_curve(2, "Ejemplo1-simulacion.txt", name="Prueba", color="orange")
-C.add_curve(3, "Ejemplo1-medicion.csv", name="Prueba", color="green")
-C.add_curve(4, "montecarlo-simulacion.txt", name="Montecarlo 4", color="red")
-C.change_curve_name(1, "Pitusas")
+CS = Curvespace()
+#C.add_curve(1, ["-1E11", "1, 2E6, 1E12"], name="Prueba")
+#C.add_curve(4, "montecarlo-simulacion.txt", name="Montecarlo 4", color="cyan")
+#C.add_curve(4, "montecarlo2-simulacion.txt", name="Montecarlo 2")
+C = 68E-9
+R = 2.2E2
+w_0 = 2*np.pi*10.8E3
+CS.add_curve(1, [f"{w_0**-2}, 0, 1", f"{w_0**-2}, {4/w_0}, 1"], name="Teórica", color="mediumblue", w_unit="rad/seg", mod_unit="dB", ph_unit="°")
+CS.add_curve(2, "D:\Descargas\Rta_Frecruencia.txt", name="Simulada", color="orange")
+#C.add_curve(3, "Ejemplo1-medicion.csv", name="Prueba")
+'''C.change_curve_name(1, "Pitusas")
 C.curves[2].change_ph_unit()
 C.change_w_unit("rad/s")
 C.change_x_mod_label("w")
-C.change_x_ph_label("Frecuencia")
+C.change_x_ph_label("Frecuencia")'''
 
-# fig, ax = plt.subplots(1)
-fig, ax = plt.subplots(2, 1)
-fig.suptitle("Transferencia")
-C.plot_mod(ax[0])
-C.plot_ph(ax[1])
+fig, ax = plt.subplots(1)
+#fig, ax = plt.subplots(2, 1)
+fig.suptitle("Respuesta en frecuencia")
+CS.plot_mod(ax)#[0])
+#C.plot_ph(ax[1])
 fig.tight_layout()
 plt.show()
 
