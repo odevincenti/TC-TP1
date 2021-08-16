@@ -179,9 +179,9 @@ border-color: black;</string>
     <widget class="MplWidget" name="MplWidget" native="true">
      <property name="geometry">
       <rect>
-       <x>400</x>
+       <x>460</x>
        <y>140</y>
-       <width>731</width>
+       <width>671</width>
        <height>281</height>
       </rect>
      </property>
@@ -397,7 +397,7 @@ border-color: black;</string>
       <rect>
        <x>70</x>
        <y>140</y>
-       <width>311</width>
+       <width>381</width>
        <height>251</height>
       </rect>
      </property>
@@ -409,8 +409,8 @@ border-color: black;</string>
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>309</width>
-        <height>249</height>
+        <width>382</width>
+        <height>232</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -424,25 +424,36 @@ border-color: black;</string>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>visible o no</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>tipo de curva</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>color</string>
-           </property>
-          </widget>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="4">
+            <widget class="QPushButton" name="pushButton_3">
+             <property name="text">
+              <string>datos</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QPushButton" name="pushButton_2">
+             <property name="text">
+              <string>color</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="pushButton">
+             <property name="text">
+              <string>visibilidad</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="5">
+            <widget class="QPushButton" name="curva1_borrar_Button">
+             <property name="text">
+              <string>Borrar</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
@@ -474,46 +485,6 @@ border-color: black;</string>
        </item>
       </layout>
      </widget>
-    </widget>
-    <widget class="QWidget" name="gridLayoutWidget_3">
-     <property name="geometry">
-      <rect>
-       <x>69</x>
-       <y>400</y>
-       <width>311</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="4">
-       <widget class="QPushButton" name="pushButton_3">
-        <property name="text">
-         <string>datos</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QPushButton" name="pushButton_2">
-        <property name="text">
-         <string>color*</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="pushButton">
-        <property name="text">
-         <string>visibilidad</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="5">
-       <widget class="QPushButton" name="curva1_borrar_Button">
-        <property name="text">
-         <string>Borrar</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </widget>
    </widget>
   </widget>
