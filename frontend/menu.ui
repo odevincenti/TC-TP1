@@ -149,31 +149,6 @@ border-color: black;</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="3">
-       <widget class="QPushButton" name="borrarpushButton">
-        <property name="font">
-         <font>
-          <family>Open Sans</family>
-          <pointsize>15</pointsize>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="cursor">
-         <cursorShape>PointingHandCursor</cursorShape>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color:rgb(186, 12, 47);
-border-radius:15px;
-border-style: outset;
-border-width: 2px;
-border-color: black;</string>
-        </property>
-        <property name="text">
-         <string>BORRAR GRÁFICOS</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="0">
        <widget class="QPushButton" name="teoricoButton">
         <property name="font">
@@ -204,9 +179,9 @@ border-color: black;</string>
     <widget class="MplWidget" name="MplWidget" native="true">
      <property name="geometry">
       <rect>
-       <x>230</x>
+       <x>460</x>
        <y>140</y>
-       <width>901</width>
+       <width>671</width>
        <height>281</height>
       </rect>
      </property>
@@ -214,9 +189,9 @@ border-color: black;</string>
     <widget class="MplWidget" name="MplWidget2" native="true">
      <property name="geometry">
       <rect>
-       <x>230</x>
+       <x>400</x>
        <y>460</y>
-       <width>901</width>
+       <width>731</width>
        <height>281</height>
       </rect>
      </property>
@@ -281,19 +256,6 @@ border-color: black;</string>
       <string>Eje Y:</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="curva1_borrar_Button">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>400</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Borrar</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="aplicar_button_ejes1">
      <property name="geometry">
       <rect>
@@ -320,68 +282,6 @@ border-color: black;</string>
       <string>Aplicar</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="montecarloButton">
-     <property name="geometry">
-      <rect>
-       <x>200</x>
-       <y>90</y>
-       <width>260</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Open Sans</family>
-       <pointsize>15</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="cursor">
-      <cursorShape>PointingHandCursor</cursorShape>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgb(157, 29, 151);
-border-radius:15px;
-border-style: outset;
-border-width: 2px;
-border-color: black;</string>
-     </property>
-     <property name="text">
-      <string>MONTECARLO</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="resptempButton">
-     <property name="geometry">
-      <rect>
-       <x>730</x>
-       <y>90</y>
-       <width>261</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Open Sans</family>
-       <pointsize>15</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="cursor">
-      <cursorShape>PointingHandCursor</cursorShape>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgb(0, 156, 166);
-border-radius:15px;
-border-style: outset;
-border-width: 2px;
-border-color: black;</string>
-     </property>
-     <property name="text">
-      <string>RESPUESTA TEMPORAL</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="curva2_borrar_Button">
      <property name="geometry">
       <rect>
@@ -395,17 +295,7 @@ border-color: black;</string>
       <string>Borrar</string>
      </property>
     </widget>
-    <widget class="listwidget" name="listWidget">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>140</y>
-       <width>141</width>
-       <height>241</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="listwidget" name="listWidget_2">
+    <widget class="QListWidget" name="listWidget_2">
      <property name="geometry">
       <rect>
        <x>70</x>
@@ -414,6 +304,187 @@ border-color: black;</string>
        <height>241</height>
       </rect>
      </property>
+    </widget>
+    <widget class="QWidget" name="gridLayoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>80</y>
+       <width>1061</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2" rowstretch="0">
+      <item row="0" column="1">
+       <widget class="QPushButton" name="resptempButton">
+        <property name="font">
+         <font>
+          <family>Open Sans</family>
+          <pointsize>15</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:rgb(0, 156, 166);
+border-radius:15px;
+border-style: outset;
+border-width: 2px;
+border-color: black;</string>
+        </property>
+        <property name="text">
+         <string>RESPUESTA TEMPORAL</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="montecarloButton">
+        <property name="font">
+         <font>
+          <family>Open Sans</family>
+          <pointsize>15</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:rgb(157, 29, 151);
+border-radius:15px;
+border-style: outset;
+border-width: 2px;
+border-color: black;</string>
+        </property>
+        <property name="text">
+         <string>MONTECARLO</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="borrarpushButton">
+        <property name="font">
+         <font>
+          <family>Open Sans</family>
+          <pointsize>15</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:rgb(186, 12, 47);
+border-radius:15px;
+border-style: outset;
+border-width: 2px;
+border-color: black;</string>
+        </property>
+        <property name="text">
+         <string>BORRAR GRÁFICOS</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>140</y>
+       <width>381</width>
+       <height>251</height>
+      </rect>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>382</width>
+        <height>232</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>nombre</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="4">
+            <widget class="QPushButton" name="pushButton_3">
+             <property name="text">
+              <string>datos</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QPushButton" name="pushButton_2">
+             <property name="text">
+              <string>color</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="pushButton">
+             <property name="text">
+              <string>visibilidad</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="5">
+            <widget class="QPushButton" name="curva1_borrar_Button">
+             <property name="text">
+              <string>Borrar</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -424,11 +495,6 @@ border-color: black;</string>
    <extends>QWidget</extends>
    <header>mplwidget.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>listwidget</class>
-   <extends>QListWidget</extends>
-   <header>listwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

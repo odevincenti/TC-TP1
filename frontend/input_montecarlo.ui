@@ -13,56 +13,11 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QComboBox" name="montecarlo_comboBox">
-   <property name="geometry">
-    <rect>
-     <x>330</x>
-     <y>50</y>
-     <width>71</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>forma1</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>forma2</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>forma3</string>
-    </property>
-   </item>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>50</y>
-     <width>291</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Seleccione el formato de ingreso de datos:</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="upload_montecarlo_pushButton">
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>150</y>
+     <y>170</y>
      <width>171</width>
      <height>51</height>
     </rect>
@@ -81,7 +36,7 @@
    <property name="geometry">
     <rect>
      <x>170</x>
-     <y>230</y>
+     <y>240</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -100,7 +55,7 @@
    <property name="geometry">
     <rect>
      <x>220</x>
-     <y>100</y>
+     <y>130</y>
      <width>121</width>
      <height>20</height>
     </rect>
@@ -110,7 +65,7 @@
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>100</y>
+     <y>130</y>
      <width>101</width>
      <height>20</height>
     </rect>
@@ -123,6 +78,126 @@
    <property name="text">
     <string>Ingrese Nombre:</string>
    </property>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>90</y>
+     <width>211</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Seleccione unidad de fase</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="montecarlo_fase_comboBox">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>90</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>grados</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>rad</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>30</y>
+     <width>211</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Seleccione unidad de frecuencia</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="montecarlo_frec_comboBox">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>30</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>Hz</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>rad/seg</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>60</y>
+     <width>211</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Seleccione unidad de modulo</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="montecarlo_modulo_comboBox">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>60</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>dB</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Veces</string>
+    </property>
+   </item>
   </widget>
  </widget>
  <resources/>

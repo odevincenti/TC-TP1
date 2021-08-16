@@ -1,3 +1,4 @@
+import sys
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
@@ -92,7 +93,7 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         loadUi("menu.ui", self)
         self.setWindowTitle("Plot Tool")
 
-        #self.curve_list = curva_listWidget()
+
         self.teoricoButton.clicked.connect(self.goto_graphInfoTeorico)
         self.simulacionButton.clicked.connect(self.goto_graphInfoSimulacion)
         self.medicionButton.clicked.connect(self.goto_graphInfoMedicion)
@@ -102,7 +103,6 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
     def goto_graphInfoTeorico(self):
         self.Input_Teorico = Input_Teorico_Window()
         self.Input_Teorico.ok_teorico_pushButton.clicked.connect(self.show_graph)
-        #self.curve_list.add_curve()
         self.Input_Teorico.cancel_teorico_pushButton.clicked.connect(self.close)
 
     def goto_graphInfoSimulacion(self):
@@ -166,4 +166,7 @@ cs = Curvespace()
 app = QApplication([])
 window = MatplotlibWidget()
 window.show()
-app.exec_()
+try:
+    sys.exit(app.exec_())
+except:
+    print("saliendo")
