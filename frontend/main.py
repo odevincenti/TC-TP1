@@ -129,6 +129,7 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.borrarpushButton.clicked.connect(self.goto_borrar)
         self.aplicar_button_ejes1.clicked.connect(self.goto_graphModulo_Axis)
         self.aplicar_button_ejes2.clicked.connect(self.goto_graphFase_Axis)
+        self.current_delete = 0
 
     def goto_graphInfoTeorico(self):
         self.Input_Teorico = Input_Teorico_Window()
@@ -218,6 +219,8 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
             cs.plot_ph(self.MplWidget2.canvas.axes)
             self.MplWidget.canvas.draw()
             self.MplWidget2.canvas.draw()
+        else:
+            self.hide_graph()
 
     def hide_graph(self):
         self.MplWidget.canvas.axes.clear()
