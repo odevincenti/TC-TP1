@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
 from backend import *
+from listwidget import ListWidget
 
 class Input_Teorico_Window(QWidget):
 
@@ -17,16 +18,16 @@ class Input_Teorico_Window(QWidget):
 
 
     def display_ok(self):
-        nombre_input = self.nombre_graph_teorico.text()
+        self.nombre_input = self.nombre_graph_teorico.text()
         numerador_input = self.numerador_teorico.text()
         denominador_input = self.denominador_teorico.text()
-        color_t = self.teorico_color_comboBox.currentText()
+        self.color_t = self.teorico_color_comboBox.currentText()
         unidad_frec = self.teorico_frec_comboBox.currentText()
         unidad_modulo = self.teorico_modulo_comboBox.currentText()
         unidad_fase = self.teorico_fase_comboBox.currentText()
         if unidad_fase == "grados":
             unidad_fase = "°"
-        cs.add_curve(1, [numerador_input, denominador_input], nombre_input, color_t, unidad_frec, unidad_modulo, unidad_fase)
+        cs.add_curve(1, [numerador_input, denominador_input], self.nombre_input, self.color_t, unidad_frec, unidad_modulo, unidad_fase)
         self.close()
 
 
@@ -119,6 +120,8 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         loadUi("menu.ui", self)
         self.setWindowTitle("Plot Tool")
 
+        self.Curve_0.hide()
+
         self.teoricoButton.clicked.connect(self.goto_graphInfoTeorico)
         self.simulacionButton.clicked.connect(self.goto_graphInfoSimulacion)
         self.medicionButton.clicked.connect(self.goto_graphInfoMedicion)
@@ -129,7 +132,7 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
 
     def goto_graphInfoTeorico(self):
         self.Input_Teorico = Input_Teorico_Window()
-        self.Input_Teorico.ok_teorico_pushButton.clicked.connect(self.show_graph)
+        self.Input_Teorico.ok_teorico_pushButton.clicked.connect(self.addCurve)
         self.Input_Teorico.cancel_teorico_pushButton.clicked.connect(self.close)
 
 
@@ -145,18 +148,24 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.Input_Montecarlo = Input_Montecarlo_Window()
         self.Input_Montecarlo.ok_montecarlo_pushButton_2.clicked.connect(self.show_graph)
 
+
+    def addCurve (self):
+        aux_curve = ListWidget(self.Input_Teorico.nombre_input)
+        self.CurveList.layout().addWidget(aux_curve)
+        self.show_graph()
+
     def goto_graphModulo_Axis(self):
         if len(self.ejex_lineEdit.text()) == 0:
             ax_x = "Eje X"
         else:
-            ax_x = self.ejextextEdit.text()
+            ax_x = self.ejex_lineEdit.text()
         if len(self.ejey_lineEdit.text()) == 0:
             ax_y = "Eje Y"
         else:
-            ax_y = self.ejeytextEdit.text()
+            ax_y = self.ejey_lineEdit.text()
 
-        self.ejex_lineEdit.setPlainText(" ")
-        self.ejey_lineEdit.setPlainText(" ")
+        #self.ejex_lineEdit.setPlainText("")
+        #self.ejey_lineEdit.setPlainText("")
         cs.change_x_mod_label(ax_x)
         cs.change_y_mod_label(ax_y)
         self.show_graph()
@@ -165,14 +174,14 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         if len(self.ejex2_lineEdit.text()) == 0:
             ax_x = "Eje X"
         else:
-            ax_x = self.ejextextEdit.text()
+            ax_x = self.ejex2_lineEdit.text()
         if len(self.ejey2_lineEdit.text()) == 0:
             ax_y = "Eje Y"
         else:
-            ax_y = self.ejeytextEdit.text()
+            ax_y = self.ejey2_lineEdit.text()
 
-        self.ejex2_lineEdit.setPlainText(" ")
-        self.ejey2_lineEdit.setPlainText(" ")
+        #self.ejex2_lineEdit.setPlainText(" ")
+        #self.ejey2_lineEdit.setPlainText(" ")
         cs.change_x_ph_label(ax_x)
         cs.change_y_ph_label(ax_y)
         self.show_graph()

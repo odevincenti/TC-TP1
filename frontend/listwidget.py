@@ -1,20 +1,29 @@
 from PyQt5.QtWidgets import *
+from PyQt5.uic import loadUi
 
-class listWidget(QListWidget):
+class ListWidget(QWidget):
 
-    def __init__(self, parent=None):
-        QListWidget.__init__(self, parent)
+    def __init__(self, nombre = None):
+        QMainWindow.__init__(self)
+        loadUi("ListWidget.ui", self)
 
-        self.add_item()
-        vbox = QVBoxLayout()
-        self.list = QListWidget()
-        self.list.insertItem(0, "curva 1")
-        vbox.addWidget(self.list)
-        self.setLayout(vbox)
-        #vbox.addItem(QListWidgetItem("curva 1"))
+        self.nombre_list.setText(nombre)
+        #self.color.setStyleSheet("background-color:"+color)
+        self.visibilidad_list.clicked.connect(self.goto_visibilidad)
+        self.color_list.clicked.connect(self.goto_color)
+        self.datos_list.clicked.connect(self.goto_datos)
+        self.borrar_list.clicked.connect(self.goto_borrar)
+
+    def goto_visibilidad (self):
+        print("messi")
+
+    def goto_color(self):
+        print("messi")
+
+    def goto_datos(self):
+        print("messi")
+
+    def goto_borrar(self):
+        print("messi")
 
 
-#def add_curve(self):
-        #for i in range(len(cs.curves)):
-        #    self.addItem("curva"+str(i))
-        #    self.addItem(QListWidgetItem("curva"+str(i)))
