@@ -318,7 +318,7 @@
     <string>Color</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="teorico_fase_comboBox_2">
+  <widget class="QComboBox" name="teorico_color_comboBox">
    <property name="geometry">
     <rect>
      <x>420</x>
