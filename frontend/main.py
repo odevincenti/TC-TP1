@@ -199,8 +199,8 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         else:
             ax_y = self.ejey2_lineEdit.text()
 
-        self.ejex2_lineEdit.setPlainText(" ")
-        self.ejey2_lineEdit.setPlainText(" ")
+        self.ejex2_lineEdit.setText(" ")
+        self.ejey2_lineEdit.setText(" ")
         cs.change_x_ph_label(ax_x)
         cs.change_y_ph_label(ax_y)
         self.show_graph()
