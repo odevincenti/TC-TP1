@@ -288,7 +288,7 @@
     <enum>Qt::Vertical</enum>
    </property>
   </widget>
-  <widget class="latexWidget" name="latexWidget" native="true">
+  <widget class="QWidget" name="latexWidget" native="true">
    <property name="geometry">
     <rect>
      <x>130</x>
@@ -329,54 +329,46 @@
    </property>
    <item>
     <property name="text">
-     <string>Azul</string>
+     <string>blue</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>Naranja</string>
+     <string>orange</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>Verde</string>
+     <string>green</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>Rojo</string>
+     <string>red</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>Cyan</string>
+     <string>cyan</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>Magenta</string>
+     <string>magenta</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>Dorado</string>
+     <string>gold</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>Violeta</string>
+     <string>violet</string>
     </property>
    </item>
   </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>latexWidget</class>
-   <extends>QWidget</extends>
-   <header>latexwidget.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

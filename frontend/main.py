@@ -21,12 +21,13 @@ class Input_Teorico_Window(QWidget):
         nombre_input = self.nombre_graph_teorico.text()
         numerador_input = self.numerador_teorico.text()
         denominador_input = self.denominador_teorico.text()
+        color_t = self.teorico_color_comboBox.currentText()
         unidad_frec = self.teorico_frec_comboBox.currentText()
         unidad_modulo = self.teorico_modulo_comboBox.currentText()
         unidad_fase = self.teorico_fase_comboBox.currentText()
         if unidad_fase == "grados":
             unidad_fase = "º"
-        cs.add_curve(1, [numerador_input, denominador_input], nombre_input, unidad_frec, unidad_modulo,unidad_fase)
+        cs.add_curve(1, [numerador_input, denominador_input], nombre_input, color_t, unidad_frec, unidad_modulo, unidad_fase)
         self.close()
 
 
@@ -48,12 +49,13 @@ class Input_Simulacion_Window(QWidget):
 
     def display_ok(self):
         nombre_input = self.nombre_graph_simulacion.text()
+        color = self.teorico_color_comboBox.currentText()
         unidad_frec = self.simulacion_frec_comboBox.currentText()
         unidad_modulo = self.simulacion_modulo_comboBox.currentText()
         unidad_fase = self.simulacion_fase_comboBox.currentText()
         if unidad_fase == "grados":
             unidad_fase = "º"
-        cs.add_curve(2, nombre_input, unidad_frec, unidad_modulo, unidad_fase)
+        cs.add_curve(2, nombre_input, color,unidad_frec, unidad_modulo, unidad_fase)
         self.close()
 
 
@@ -74,12 +76,13 @@ class Input_Medicion_Window(QWidget):
 
     def display_ok(self):
         nombre_input = self.nombre_graph_medicion.text()
+        color = self.teorico_color_comboBox.currentText()
         unidad_frec = self.medicion_frec_comboBox.currentText()
         unidad_modulo = self.medicion_modulo_comboBox.currentText()
         unidad_fase = self.medicion_fase_comboBox.currentText()
         if unidad_fase == "grados":
             unidad_fase = "º"
-        cs.add_curve(3, nombre_input, unidad_frec, unidad_modulo, unidad_fase)
+        cs.add_curve(3, nombre_input, color, unidad_frec, unidad_modulo, unidad_fase)
         self.close()
 
 class Input_Montecarlo_Window(QWidget):
@@ -99,12 +102,13 @@ class Input_Montecarlo_Window(QWidget):
 
     def display_ok(self):
         nombre_input = self.nombre_graph_montecarlo.text()
+        color = self.teorico_color_comboBox.currentText()
         unidad_frec = self.montecarlo_frec_comboBox.currentText()
         unidad_modulo = self.montecarlo_modulo_comboBox.currentText()
         unidad_fase = self.montecarlo_fase_comboBox.currentText()
         if unidad_fase == "grados":
             unidad_fase = "º"
-        cs.add_curve(4, nombre_input, unidad_frec, unidad_modulo, unidad_fase)
+        cs.add_curve(4, nombre_input, color, unidad_frec, unidad_modulo, unidad_fase)
         self.close()
 
 
@@ -129,6 +133,7 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.Input_Teorico.ok_teorico_pushButton.clicked.connect(self.show_graph)
         self.Input_Teorico.cancel_teorico_pushButton.clicked.connect(self.close)
 
+
     def goto_graphInfoSimulacion(self):
         self.Input_Simulacion = Input_Simulacion_Window()
         self.Input_Simulacion.ok_simulacion_pushButton_2.clicked.connect(self.show_graph)
@@ -140,7 +145,6 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
     def goto_graphInfoMontecarlo(self):
         self.Input_Montecarlo = Input_Montecarlo_Window()
         self.Input_Montecarlo.ok_montecarlo_pushButton_2.clicked.connect(self.show_graph)
-
 
     def goto_graphModulo_Axis(self):
         if len(self.ejex_lineEdit.text()) == 0:
