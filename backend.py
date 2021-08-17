@@ -42,7 +42,6 @@ class Curvespace:
         if not self.switch_ctypes.get(c_type, self.c_type_error)(self, data, name, color, w_unit, mod_unit, ph_unit):
             print("Error creando la curva")
 
-
     # delCurve: Saca la curva del Curvespace y la destruye
     # Recibe la curva (elemento) (Lo puedo cambiar al índice o nombre, lo que resulte más cómodo)
     def del_curve(self, c):
@@ -229,7 +228,7 @@ class Curvespace:
     def montecarlo(self, data, name, color, w_unit="Hz", mod_unit="dB", ph_unit="°"):
         # print("montecarlo")
         r = True
-        mc = MC(3, data, name, color, w_unit, mod_unit, ph_unit)
+        mc = MC(4, data, name, color, w_unit, mod_unit, ph_unit)
         if mc.w != [] and mc.mod != [] and mc.ph != []:
             self.curves.append(mc)
         else:
@@ -237,9 +236,15 @@ class Curvespace:
             r = False
         return r
 
-    def respuesta(self, data, name, color):
+    def respuesta(self, data, name, color, w_unit, mod_unit, ph_unit):
         r = True
-        print("rta")
+        '''
+        rta = Respuesta(5, data, name, color, w_unit, mod_unit, ph_unit)
+        if rta.w != [] and rta.mod != [] and rta.ph != []:
+            self.curves.append(rta)
+        else:
+            print("Los datos ingresados no son válidos")
+            r = False'''
         return r
 
     def c_type_error(self):
@@ -291,9 +296,9 @@ class Curve:
         self.mod_unit = mod_unit    # Unidad del módulo, se asume dB
         self.ph_unit = ph_unit      # Unidad de la fase, se asume °
 
-    # change_visibility: Setter para la visibilidad. Recibe un boolean
-    def change_visibility(self, b):
-        self.visibility = b
+    # change_visibility: Cambia la visibilidad
+    def change_visibility(self):
+        self.visibility = not self.visibility
         return
 
     def plot_curve_mod(self, ax):
@@ -683,6 +688,166 @@ def fix_coefs(coefs):
     if not r:
         coefs = None
     return coefs
+########################################################################################################################
+
+########################################################################################################################
+# Clase MC: Simulación de Monte Carlo, hija de la clase Curve
+# Tiene unos parámetros extra: - Tipo de respuesta
+#                              - Intervalo de tiempo
+# w, mod y ph serán [] si hubo error
+# ----------------------------------------------------------------------------------------------------------------------
+'''class Respuesta(Curve):
+    def __init__(self, c_type, data, name, color, w_unit="Hz", mod_unit="dB", ph_unit="°"):
+        super().__init__(5, data, name, color, w_unit, mod_unit, ph_unit)
+
+        data = curve, r_type, r_data
+
+        if isinstance(data, str):
+            print("Es un archivo")
+        else:
+            print("es una teórica")
+
+
+
+        if not switch_rtypes.get(c_type, none)(t, A=1.0):
+            print("Error creando la curva")
+
+        if self.check_file(data):
+            self.w, self.mod, self.ph = self.check_data(self.rawdata)
+
+    # change_data: Setter para los datos
+    # Devuelve False si hubo error
+    def change_data(self, path):
+        r = False
+        if self.check_file(path):
+            self.rawdata = path
+            self.w, self.mod, self.ph = self.check_data(self.rawdata)
+            r = True
+        return r
+
+    # check_data: Parsea el txt de la simulación de LTSpice, asume que tiene el formato de los ejemplos
+    # Devuelve w, mod, ph
+    def check_data(self, path):
+        file = open(path, "r")
+        file.readline()
+        aux = file.readline()
+        j1 = aux.find("/")
+        j2 = aux.find(")")
+        runs = int(aux[j1 + 1: j2])
+        aux = file.readline().split("\t")
+        aux_mod, aux_ph = aux[1][1:-2].split(",")
+
+        count = 2
+        self.mod_unit = get_unit(aux_mod)
+        self.ph_unit = get_unit(aux_ph)
+        for line in file:
+            if line != 'Step Information: Run=2  (Run: 2/' + str(runs) + ')\n':
+                count += 1
+            else:
+                break
+        file.close()
+
+        w = np.zeros((runs, count - 1))
+        mod = np.zeros((runs, count - 1))
+        ph = np.zeros((runs, count - 1))
+
+        l = open(path, "r")
+
+        l.readline()
+        for k in range(runs):
+            l.readline()
+            for i in range(count - 1):
+                aux = l.readline().split("\t")
+                w[k][i] = aux[0]
+                aux_mod, aux_ph = aux[1][1:-2].split(",")
+                mod[k][i] = aux_mod.replace(self.mod_unit, "")
+                ph[k][i] = aux_ph.replace(self.ph_unit, "")
+        l.close()
+
+        if self.ph_unit == 'Â°': self.ph_unit = '°'
+
+        return w, mod, ph
+
+    # check_file: Revisa que el archivo exista, que sea .txt y que tenga el formato adecuado
+    # Devuelve False en caso de error
+    def check_file(self, path):
+        r = True
+        ext = os.path.splitext(path)[1]
+        if self.type == 2 and ext != ".txt":
+            print("El archivo de la simulación no está en formato .txt")
+            r = False
+            return r
+        if not os.path.isfile(path):
+            print("El archivo no existe")
+            r = False
+        else:
+            if not os.access(path, os.R_OK):
+                print("El archivo no es legible")
+                r = False
+            else:
+                file = open(path, "r")
+                if len(file.readline().split("\t")) != 2:
+                    print("El archivo no cumple con el formato adecuado")
+                    r = False
+                elif file.readline().find('Step Information: Run=1') == -1:
+                    print("El archivo no cumple con el formato adecuado")
+                    r = False
+        return r
+
+
+
+
+########################################################################################################################
+
+########################################################################################################################
+def none():
+    return
+# ----------------------------------------------------------------------------------------------------------------------
+# sine: Devuelve una senoide en el intervalo dado con la frecuencia y amplitud determinada
+# Parámetros: - t: intervalo de tiempo que se tomará en cuenta
+#             - f: frecuencia de la senoide
+#             - A: amplitud de la senoide
+# ----------------------------------------------------------------------------------------------------------------------
+def sine(t, f=1.0, A=1.0):
+    x = A * np.sin(2 * np.pi * f * t)
+    return x
+# ----------------------------------------------------------------------------------------------------------------------
+# heaviside: Devuelve la función escalón en el intervalo dado con la amplitud dada
+# Parámetros: - t: intervalo de tiempo que se tomará en cuenta
+#             - A: amplitud de la señal
+def heaviside(self, t, A=1.0):
+    x = A * (np.sign(t))
+    return x
+# ----------------------------------------------------------------------------------------------------------------------
+# pulse_ train: Devuelve un tren de pulsos en el intervalo dado con la amplitud, frecuencia y DC dados
+# Parámetros: - t: intervalo de tiempo que se tomará en cuenta
+#             - f: frecuencia del tren
+#             - A: amplitud de la señal
+#             - Dc: duty cycle
+def pulse_train(self, t, f=1.0, A=1.0, dc=0.5):
+    x = A * ss.square(2 * np.pi * f * t, dc)
+    return x
+# ----------------------------------------------------------------------------------------------------------------------
+# impulse: Devuelve un impulso en el intervalo dado de la amplitud dada y en el instante t0
+def impulse(self, t, t0, A=1.0):
+    idx = t.index(t0)
+    x = A*ss.unit_impulse(len(t), idx)
+    return x
+# ----------------------------------------------------------------------------------------------------------------------
+# pulse: Devuelve un pulso en el intervalo dado con la amplitud dada
+def pulse(self, t, A=1.0):
+    x = A * ss.step(self.data.H, T=t)[1]
+    return x
+# ----------------------------------------------------------------------------------------------------------------------
+# SWITCH
+switch_rtypes = {
+    0: none,
+    1: sine,
+    2: heaviside,
+    3: pulse_train,
+    4: impulse,
+    5: pulse
+}'''
 ########################################################################################################################
 
 ########################################################################################################################
