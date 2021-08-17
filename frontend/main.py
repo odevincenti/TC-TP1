@@ -119,12 +119,13 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         loadUi("menu.ui", self)
         self.setWindowTitle("Plot Tool")
 
-        self.Curve_0.hide()
+        #self.Curve_0.hide()
 
         self.teoricoButton.clicked.connect(self.goto_graphInfoTeorico)
         self.simulacionButton.clicked.connect(self.goto_graphInfoSimulacion)
         self.medicionButton.clicked.connect(self.goto_graphInfoMedicion)
         self.montecarloButton.clicked.connect(self.goto_graphInfoMontecarlo)
+        self.resptempButton.clicked.connect(self.goto_graphInfoRespTemp)
         self.borrarpushButton.clicked.connect(self.goto_borrar)
         self.aplicar_button_ejes1.clicked.connect(self.goto_graphModulo_Axis)
         self.aplicar_button_ejes2.clicked.connect(self.goto_graphFase_Axis)
@@ -146,6 +147,9 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
     def goto_graphInfoMontecarlo(self):
         self.Input_Montecarlo = Input_Montecarlo_Window()
         self.Input_Montecarlo.ok_montecarlo_pushButton_2.clicked.connect(self.addCurveMontecarlo)
+
+    def goto_graphInfoRespTemp(self):
+        print("messi")
 
 
     def addCurveTeorico(self):
