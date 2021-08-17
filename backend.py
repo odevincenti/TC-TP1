@@ -86,7 +86,7 @@ class Curvespace:
     def get_names(self, v=False):
         names = []
         for i in range(len(self.curves)):
-            if v or self.curves[i].visibility:
+            if not v or self.curves[i].visibility:
                 names.append(self.curves[i].name)
         return names
 
@@ -169,7 +169,7 @@ class Curvespace:
     def change_mod_unit(self, unit=""):
         if self.mod_unit != unit:
             if self.mod_unit == "dB":
-                self.mod_unit = "??"
+                self.mod_unit = "veces"
             else:
                 self.mod_unit = "dB"
         return
@@ -344,11 +344,11 @@ class Curve:
     def change_mod_unit(self, unit=""):
         if self.mod_unit != unit:
             if self.mod_unit == "dB":
-                self.mod_unit = "??"
-                # conversión de dB a ??
+                self.mod_unit = "veces"
+                self.mod = np.power(10, self.mod/20)
             else:
                 self.mod_unit = "dB"
-                # conversión de ?? a dB
+                self.mod = 20*np.log10(self.mod)
         return
 
     # change_ph_unit: Cambia la unidad de la fase de ° a rad o viceversa

@@ -8,9 +8,10 @@ from backend import Curvespace
 # TEST
 CS = Curvespace()
 CS.add_curve(1, ["1", "1, 2"])
-#CS.add_curve(1, ["-1E11", "1, 2E6, 1E12"], name="Prueba")
-#CS.add_curve(4, "montecarlo-simulacion.txt", name="Montecarlo 4", color="cyan")
-#CS.add_curve(4, "montecarlo2-simulacion.txt", name="Montecarlo 2")
+CS.add_curve(1, ["-1E11", "1, 2E6, 1E12"], name="Prueba")
+CS.add_curve(4, "montecarlo-simulacion.txt", name="Montecarlo 4", color="cyan")
+CS.add_curve(4, "montecarlo2-simulacion.txt", name="Montecarlo 2")
+CS.change_mod_unit("veces")
 C = 68E-9
 R = 2.2E2
 w_0 = 2*np.pi*10.8E3
