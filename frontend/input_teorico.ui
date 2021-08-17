@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>501</width>
+    <width>612</width>
     <height>391</height>
    </rect>
   </property>
@@ -16,7 +16,7 @@
   <widget class="QPushButton" name="ok_teorico_pushButton">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>190</x>
      <y>340</y>
      <width>71</width>
      <height>23</height>
@@ -35,7 +35,7 @@
   <widget class="QPushButton" name="cancel_teorico_pushButton">
    <property name="geometry">
     <rect>
-     <x>290</x>
+     <x>350</x>
      <y>340</y>
      <width>71</width>
      <height>23</height>
@@ -51,234 +51,10 @@
     <string>CANCEL</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>80</y>
-     <width>101</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Ingrese Nombre:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>130</y>
-     <width>71</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Numerador:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>180</y>
-     <width>91</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Denominador:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>20</y>
-     <width>411</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Ingrese los coeficientes separados por coma (&quot;,&quot;)</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="nombre_graph_teorico">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>80</y>
-     <width>113</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="numerador_teorico">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>130</y>
-     <width>113</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="denominador_teorico">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>180</y>
-     <width>113</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_9">
-   <property name="geometry">
-    <rect>
-     <x>280</x>
-     <y>140</y>
-     <width>141</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-     <weight>50</weight>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Unidad de fase</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="teorico_fase_comboBox">
-   <property name="geometry">
-    <rect>
-     <x>420</x>
-     <y>140</y>
-     <width>71</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>grados</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>rad</string>
-    </property>
-   </item>
-  </widget>
-  <widget class="QLabel" name="label_6">
-   <property name="geometry">
-    <rect>
-     <x>280</x>
-     <y>80</y>
-     <width>141</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-     <weight>50</weight>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Unidad de frecuencia</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="teorico_frec_comboBox">
-   <property name="geometry">
-    <rect>
-     <x>420</x>
-     <y>80</y>
-     <width>71</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>Hz</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>rad/seg</string>
-    </property>
-   </item>
-  </widget>
-  <widget class="QLabel" name="label_8">
-   <property name="geometry">
-    <rect>
-     <x>280</x>
-     <y>110</y>
-     <width>141</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-     <weight>50</weight>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Unidad de modulo</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="teorico_modulo_comboBox">
-   <property name="geometry">
-    <rect>
-     <x>420</x>
-     <y>110</y>
-     <width>71</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>dB</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Veces</string>
-    </property>
-   </item>
-  </widget>
   <widget class="Line" name="line">
    <property name="geometry">
     <rect>
-     <x>250</x>
+     <x>300</x>
      <y>70</y>
      <width>21</width>
      <height>141</height>
@@ -291,82 +67,249 @@
   <widget class="QWidget" name="latexWidget" native="true">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>190</x>
      <y>230</y>
      <width>231</width>
      <height>91</height>
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label_10">
+  <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>180</y>
-     <width>101</width>
-     <height>21</height>
+     <x>50</x>
+     <y>0</y>
+     <width>511</width>
+     <height>80</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-     <weight>50</weight>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Color</string>
-   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Ingrese los coeficientes separados por coma (&quot;,&quot;)</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
-  <widget class="QComboBox" name="teorico_color_comboBox">
+  <widget class="QWidget" name="gridLayoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>420</x>
-     <y>180</y>
-     <width>71</width>
-     <height>21</height>
+     <x>50</x>
+     <y>80</y>
+     <width>241</width>
+     <height>131</height>
     </rect>
    </property>
-   <item>
-    <property name="text">
-     <string>blue</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>orange</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>green</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>red</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>cyan</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>magenta</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>gold</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>violet</string>
-    </property>
-   </item>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="nombre_graph_teorico"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Numerador:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="numerador_teorico"/>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Ingrese Nombre:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Denominador:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="denominador_teorico"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget_3">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>80</y>
+     <width>243</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="1" column="1">
+     <widget class="QComboBox" name="teorico_modulo_comboBox">
+      <item>
+       <property name="text">
+        <string>dB</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Veces</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_8">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Unidad de modulo</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QComboBox" name="teorico_fase_comboBox">
+      <item>
+       <property name="text">
+        <string>grados</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>rad</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_6">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Unidad de frecuencia</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_9">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Unidad de fase</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QComboBox" name="teorico_frec_comboBox">
+      <item>
+       <property name="text">
+        <string>Hz</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>rad/seg</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_10">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Color</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QComboBox" name="teorico_color_comboBox">
+      <item>
+       <property name="text">
+        <string>blue</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>orange</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>green</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>red</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>cyan</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>magenta</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gold</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>violet</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

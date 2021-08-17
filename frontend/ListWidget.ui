@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>162</width>
+    <width>258</width>
     <height>214</height>
    </rect>
   </property>
@@ -22,13 +22,8 @@
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QLabel" name="nombre_list">
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">color:blue;</string>
         </property>
         <property name="text">
          <string>nombre</string>
@@ -41,7 +36,11 @@
       <item>
        <widget class="QPushButton" name="visibilidad_list">
         <property name="styleSheet">
-         <string notr="true">background: cyan;</string>
+         <string notr="true">background-color:rgb(88, 224, 173);
+border-radius:15px;
+border-style: outset;
+border-width: 2px;
+border-color: black;</string>
         </property>
         <property name="text">
          <string>visibilidad</string>
@@ -49,19 +48,41 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="modificar_list">
+       <widget class="QPushButton" name="color_list">
         <property name="styleSheet">
-         <string notr="true">background: cyan;</string>
+         <string notr="true">background-color:rgb(88, 224, 173);
+border-radius:15px;
+border-style: outset;
+border-width: 2px;
+border-color: black;</string>
         </property>
         <property name="text">
-         <string>modificar</string>
+         <string>color</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="datos_list">
+        <property name="styleSheet">
+         <string notr="true">background-color:rgb(88, 224, 173);
+border-radius:15px;
+border-style: outset;
+border-width: 2px;
+border-color: black;</string>
+        </property>
+        <property name="text">
+         <string>datos</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="borrar_list">
         <property name="styleSheet">
-         <string notr="true">background: cyan;</string>
+         <string notr="true">background-color:rgb(88, 224, 173);
+border-radius:15px;
+border-style: outset;
+border-width: 2px;
+border-color: black;</string>
         </property>
         <property name="text">
          <string>Borrar</string>
