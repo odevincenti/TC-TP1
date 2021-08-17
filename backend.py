@@ -380,7 +380,7 @@ class Teo(Curve):
         self.H = None
         if num is not None and den is not None:         # Si están en orden, hace la modificación
             self.H = ss.TransferFunction(num, den)
-            self.w = np.linspace(1E2*(2*np.pi), 1E6*(2*np.pi), 50000)
+            #self.w = np.linspace(1E2*(2*np.pi), 1E6*(2*np.pi), 50000)
             self.w, self.mod, self.ph = ss.bode(self.H, self.w)
             if self.w_unit == "Hz":
                 self.w = self.w/(2*np.pi)
