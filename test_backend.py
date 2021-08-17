@@ -7,15 +7,15 @@ from backend import Curvespace
 
 # TEST
 CS = Curvespace()
-#C.add_curve(1, ["-1E11", "1, 2E6, 1E12"], name="Prueba")
-#C.add_curve(4, "montecarlo-simulacion.txt", name="Montecarlo 4", color="cyan")
-#C.add_curve(4, "montecarlo2-simulacion.txt", name="Montecarlo 2")
+CS.add_curve(1, ["-1E11", "1, 2E6, 1E12"], name="Prueba")
+CS.add_curve(4, "montecarlo-simulacion.txt", name="Montecarlo 4", color="cyan")
+CS.add_curve(4, "montecarlo2-simulacion.txt", name="Montecarlo 2")
 C = 68E-9
 R = 2.2E2
 w_0 = 2*np.pi*10.8E3
-CS.add_curve(1, [f"{w_0**-2}, 0, 1", f"{w_0**-2}, {4/w_0}, 1"], name="Teórica", color="mediumblue", w_unit="rad/seg", mod_unit="dB", ph_unit="°")
-CS.add_curve(2, "D:\Descargas\Rta_Frecruencia.txt", name="Simulada", color="orange")
-#C.add_curve(3, "Ejemplo1-medicion.csv", name="Prueba")
+#CS.add_curve(1, [f"{w_0**-2}, 0, 1", f"{w_0**-2}, {4/w_0}, 1"], name="Teórica", color="mediumblue", w_unit="rad/seg", mod_unit="dB", ph_unit="°")
+#CS.add_curve(2, "D:\Descargas\Rta_Frecruencia.txt", name="Simulada", color="orange")
+#CS.add_curve(3, "Ejemplo1-medicion.csv", name="Prueba")
 '''C.change_curve_name(1, "Pitusas")
 C.curves[2].change_ph_unit()
 C.change_w_unit("rad/s")

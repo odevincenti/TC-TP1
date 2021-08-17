@@ -71,13 +71,12 @@ class Curvespace:
                 if not self.curves[i].plot_curve_ph(ax):  # Grafico fase
                     self.curves[i].visibility = False
         ax.legend(self.get_names(True))
-        ''''if self.ph_unit == "°":
+        if self.ph_unit == "°":
             #todo: acomodar para que sea variable
             ax.set_yticks([-180, -135, -90, -45, 0, 45, 90, 135, 180])
         elif self.ph_unit == "rad":
             ax.set_yticks([-np.pi, -3*np.pi/4, -np.pi/2, -np.pi/4, 0, np.pi/4, np.pi/2, 3*np.pi/4, np.pi])
             ax.set_yticklabels(["$-\\pi$", "$-\\frac{3}{4} \\pi$", "$-\\frac{\\pi}{2}$", "$-\\frac{\\pi}{4}$", 0, "$\\frac{\\pi}{4}$", "$\\frac{\\pi}{2}$", "$\\frac{3}{4} \\pi$", "$\\pi$"])
-        '''
         ax.set_xlabel(self.x_ph_label + " $\\left[" + self.curves[0].w_unit + "\\right]$")
         ax.set_ylabel(self.y_ph_label + " $\\left[" + self.curves[0].ph_unit + "\\right]$")
         ax.grid()
@@ -380,8 +379,7 @@ class Teo(Curve):
         self.H = None
         if num is not None and den is not None:         # Si están en orden, hace la modificación
             self.H = ss.TransferFunction(num, den)
-            #self.w = np.linspace(1E2*(2*np.pi), 1E6*(2*np.pi), 50000)
-            self.w, self.mod, self.ph = ss.bode(self.H, self.w)
+            self.w, self.mod, self.ph = ss.bode(self.H)
             if self.w_unit == "Hz":
                 self.w = self.w/(2*np.pi)
 
@@ -712,4 +710,3 @@ def get_ls(type):
         ls = ''
     return ls
 ########################################################################################################################
-
