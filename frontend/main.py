@@ -19,7 +19,12 @@ class Input_Teorico_Window(QWidget):
         nombre_input = self.nombre_graph_teorico.text()
         numerador_input = self.numerador_teorico.text()
         denominador_input = self.denominador_teorico.text()
-        cs.add_curve(1, [numerador_input, denominador_input], nombre_input)
+        unidad_frec = self.teorico_frec_comboBox.currentText()
+        unidad_modulo = self.teorico_modulo_comboBox.currentText()
+        unidad_fase = self.teorico_fase_comboBox.currentText()
+        if unidad_fase == "grados":
+            unidad_fase = "º"
+        cs.add_curve(1, [numerador_input, denominador_input], nombre_input, unidad_frec, unidad_modulo,unidad_fase)
         self.close()
 
 class Input_Simulacion_Window(QWidget):
@@ -40,7 +45,12 @@ class Input_Simulacion_Window(QWidget):
 
     def display_ok(self):
         nombre_input = self.nombre_graph_simulacion.text()
-        cs.add_curve(2, self.path, nombre_input)
+        unidad_frec = self.simulacion_frec_comboBox.currentText()
+        unidad_modulo = self.simulacion_modulo_comboBox.currentText()
+        unidad_fase = self.simulacion_fase_comboBox.currentText()
+        if unidad_fase == "grados":
+            unidad_fase = "º"
+        cs.add_curve(2, nombre_input, unidad_frec, unidad_modulo, unidad_fase)
         self.close()
 
 
@@ -61,7 +71,12 @@ class Input_Medicion_Window(QWidget):
 
     def display_ok(self):
         nombre_input = self.nombre_graph_medicion.text()
-        cs.add_curve(3, self.path, nombre_input)
+        unidad_frec = self.medicion_frec_comboBox.currentText()
+        unidad_modulo = self.medicion_modulo_comboBox.currentText()
+        unidad_fase = self.medicion_fase_comboBox.currentText()
+        if unidad_fase == "grados":
+            unidad_fase = "º"
+        cs.add_curve(3, nombre_input, unidad_frec, unidad_modulo, unidad_fase)
         self.close()
 
 class Input_Montecarlo_Window(QWidget):
@@ -81,24 +96,30 @@ class Input_Montecarlo_Window(QWidget):
 
     def display_ok(self):
         nombre_input = self.nombre_graph_montecarlo.text()
-        cs.add_curve(4, self.path, nombre_input)
+        unidad_frec = self.montecarlo_frec_comboBox.currentText()
+        unidad_modulo = self.montecarlo_modulo_comboBox.currentText()
+        unidad_fase = self.montecarlo_fase_comboBox.currentText()
+        if unidad_fase == "grados":
+            unidad_fase = "º"
+        cs.add_curve(4, nombre_input, unidad_frec, unidad_modulo, unidad_fase)
         self.close()
+
 
 
 class MatplotlibWidget(QtWidgets.QMainWindow):
 
     def __init__(self):
-
         QMainWindow.__init__(self)
         loadUi("menu.ui", self)
         self.setWindowTitle("Plot Tool")
-
 
         self.teoricoButton.clicked.connect(self.goto_graphInfoTeorico)
         self.simulacionButton.clicked.connect(self.goto_graphInfoSimulacion)
         self.medicionButton.clicked.connect(self.goto_graphInfoMedicion)
         self.montecarloButton.clicked.connect(self.goto_graphInfoMontecarlo)
         self.borrarpushButton.clicked.connect(self.goto_borrar)
+        self.aplicar_button_ejes1.clicked.connect(self.goto_graphModulo_Axis)
+        self.aplicar_button_ejes2.clicked.connect(self.goto_graphFase_Axis)
 
     def goto_graphInfoTeorico(self):
         self.Input_Teorico = Input_Teorico_Window()
@@ -117,27 +138,32 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.Input_Montecarlo = Input_Montecarlo_Window()
         self.Input_Montecarlo.ok_montecarlo_pushButton_2.clicked.connect(self.show_graph)
 
+
     def goto_graphModulo_Axis(self):
-        if len(self.ejextextEdit.text()) == 0:
+        if len(self.ejex_lineEdit.text()) == 0:
             ax_x = "Eje X"
-        if len(self.ejeytextEdit.text()) == 0:
-            ax_y = "Eje Y"
-        if len(self.ejextextEdit.text()) != 0:
+        else:
             ax_x = self.ejextextEdit.text()
-        if len(self.ejeytextEdit.text()) != 0:
+        if len(self.ejey_lineEdit.text()) == 0:
+            ax_y = "Eje Y"
+        else:
             ax_y = self.ejeytextEdit.text()
-        # mandar al graph
-        self.MplWidget.canvas.draw()
+
+        self.ejex_lineEdit.setPlainText(" ")
+        self.ejey_lineEdit.setPlainText(" ")
 
     def goto_graphFase_Axis(self):
-        if len(self.ejextextEdit.text()) == 0:
+        if len(self.ejex2_lineEdit.text()) == 0:
             ax_x = "Eje X"
-        if len(self.ejeytextEdit.text()) == 0:
-            ax_y = "Eje Y"
-        if len(self.ejextextEdit.text()) != 0:
+        else:
             ax_x = self.ejextextEdit.text()
-        if len(self.ejeytextEdit.text()) != 0:
+        if len(self.ejey2_lineEdit.text()) == 0:
+            ax_y = "Eje Y"
+        else:
             ax_y = self.ejeytextEdit.text()
+
+        self.ejex2_lineEdit.setPlainText(" ")
+        self.ejey2_lineEdit.setPlainText(" ")
         # mandar al graph
 
     def show_graph(self):
