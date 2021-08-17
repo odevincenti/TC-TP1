@@ -13,7 +13,9 @@ class Input_Teorico_Window(QWidget):
 
         self.show()
         self.ok_teorico_pushButton.clicked.connect(self.display_ok)
+        print(self.ok_teorico_pushButton.clicked.connect(self.display_ok))
         self.cancel_teorico_pushButton.clicked.connect(self.close)
+
 
     def display_ok(self):
         nombre_input = self.nombre_graph_teorico.text()
@@ -26,6 +28,7 @@ class Input_Teorico_Window(QWidget):
             unidad_fase = "º"
         cs.add_curve(1, [numerador_input, denominador_input], nombre_input, unidad_frec, unidad_modulo,unidad_fase)
         self.close()
+
 
 class Input_Simulacion_Window(QWidget):
 
@@ -151,6 +154,9 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
 
         self.ejex_lineEdit.setPlainText(" ")
         self.ejey_lineEdit.setPlainText(" ")
+        cs.change_x_mod_label(ax_x)
+        cs.change_y_mod_label(ax_y)
+        self.show_graph()
 
     def goto_graphFase_Axis(self):
         if len(self.ejex2_lineEdit.text()) == 0:
@@ -164,7 +170,9 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
 
         self.ejex2_lineEdit.setPlainText(" ")
         self.ejey2_lineEdit.setPlainText(" ")
-        # mandar al graph
+        cs.change_x_ph_label(ax_x)
+        cs.change_y_ph_label(ax_y)
+        self.show_graph()
 
     def show_graph(self):
         self.MplWidget.canvas.axes.clear()
