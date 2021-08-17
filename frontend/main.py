@@ -3,7 +3,6 @@ from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
 from backend import *
-from listwidget import ListWidget
 
 class Input_Teorico_Window(QWidget):
 
@@ -150,22 +149,23 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
 
 
     def addCurveTeorico(self):
-        aux_curve = ListWidget(self.Input_Teorico.nombre_input)
+        aux_curve = ListWidget()
         self.CurveList.layout().addWidget(aux_curve)
+        self.aux_curve.visibilidad_list.clicked.connect(self.show_graph)
         self.show_graph()
 
     def addCurveSimulacion(self):
-        aux_curve = ListWidget(self.Input_Simulacion.nombre_input)
+        aux_curve = ListWidget()
         self.CurveList.layout().addWidget(aux_curve)
         self.show_graph()
 
     def addCurveMedicion(self):
-        aux_curve = ListWidget(self.Input_Medicion.nombre_input)
+        aux_curve = ListWidget()
         self.CurveList.layout().addWidget(aux_curve)
         self.show_graph()
 
     def addCurveMontecarlo(self):
-        aux_curve = ListWidget(self.Input_Montecarlo.nombre_input)
+        aux_curve = ListWidget()
         self.CurveList.layout().addWidget(aux_curve)
         self.show_graph()
 
@@ -223,6 +223,32 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.MplWidget.canvas.draw()
         self.MplWidget2.canvas.axes.clear()
         self.MplWidget2.canvas.draw()
+
+class ListWidget(QWidget):
+
+    def __init__(self):
+        QMainWindow.__init__(self)
+        loadUi("ListWidget.ui", self)
+
+        self.nombre_list.setText(cs.curves[-1].name)
+        #self.color.setStyleSheet("background-color:" + color)
+        self.visibilidad_list.clicked.connect(self.goto_visibilidad)
+        self.color_list.clicked.connect(self.goto_color)
+        self.datos_list.clicked.connect(self.goto_datos)
+        self.borrar_list.clicked.connect(self.goto_borrar)
+
+    def goto_visibilidad (self):
+        cs.curves[-1].change_visibility()
+
+    def goto_color(self):
+        print("messi")
+
+    def goto_datos(self):
+        print("messi")
+
+    def goto_borrar(self):
+        print("messi")
+
 
 cs = Curvespace()
 app = QApplication([])
