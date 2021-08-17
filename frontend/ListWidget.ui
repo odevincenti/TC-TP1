@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>524</width>
+    <height>72</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <widget class="QWidget" name="Curve_Element" native="true">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="nombre_list">
+        <property name="styleSheet">
+         <string notr="true">color:blue;</string>
+        </property>
+        <property name="text">
+         <string>nombre</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="visibilidad_list">
+        <property name="styleSheet">
+         <string notr="true">background: cyan;</string>
+        </property>
+        <property name="text">
+         <string>visibilidad</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="color_list">
+        <property name="styleSheet">
+         <string notr="true">background: cyan;</string>
+        </property>
+        <property name="text">
+         <string>color</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="datos_list">
+        <property name="styleSheet">
+         <string notr="true">background: cyan;</string>
+        </property>
+        <property name="text">
+         <string>datos</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="borrar_list">
+        <property name="styleSheet">
+         <string notr="true">background: cyan;</string>
+        </property>
+        <property name="text">
+         <string>Borrar</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
