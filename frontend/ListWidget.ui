@@ -49,7 +49,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="datos_list">
+       <widget class="QPushButton" name="modificar_list">
         <property name="styleSheet">
          <string notr="true">background: cyan;</string>
         </property>
