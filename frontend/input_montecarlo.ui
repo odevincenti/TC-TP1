@@ -56,13 +56,13 @@
     <rect>
      <x>40</x>
      <y>30</y>
-     <width>357</width>
-     <height>80</height>
+     <width>358</width>
+     <height>82</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="1">
-     <widget class="QComboBox" name="montecarlo_frec_comboBox_2">
+     <widget class="QComboBox" name="montecarlo_frec_comboBox">
       <item>
        <property name="text">
         <string>Hz</string>
@@ -104,7 +104,7 @@
      </widget>
     </item>
     <item row="1" column="1">
-     <widget class="QComboBox" name="montecarlo_modulo_comboBox_2">
+     <widget class="QComboBox" name="montecarlo_modulo_comboBox">
       <item>
        <property name="text">
         <string>dB</string>
@@ -132,7 +132,7 @@
      </widget>
     </item>
     <item row="2" column="1">
-     <widget class="QComboBox" name="montecarlo_fase_comboBox_2">
+     <widget class="QComboBox" name="montecarlo_fase_comboBox">
       <item>
        <property name="text">
         <string>grados</string>
@@ -170,7 +170,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="nombre_graph_montecarlo_2"/>
+     <widget class="QLineEdit" name="nombre_graph_montecarlo"/>
     </item>
    </layout>
   </widget>

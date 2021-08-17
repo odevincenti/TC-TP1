@@ -254,6 +254,7 @@ class ListWidget(QWidget):
     def goto_borrar(self):
         cs.del_curve(cs.curves[self.index])
         self.hide()
+        window.show_graph()
 
 
 cs = Curvespace()

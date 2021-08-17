@@ -113,9 +113,6 @@
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="nombre_graph_teorico"/>
-    </item>
     <item row="1" column="0">
      <widget class="QLabel" name="label_2">
       <property name="font">
@@ -125,21 +122,6 @@
       </property>
       <property name="text">
        <string>Numerador:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="numerador_teorico"/>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Ingrese Nombre:</string>
       </property>
      </widget>
     </item>
@@ -158,6 +140,24 @@
     <item row="2" column="1">
      <widget class="QLineEdit" name="denominador_teorico"/>
     </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="numerador_teorico"/>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="nombre_graph_teorico"/>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Ingrese Nombre:</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QWidget" name="gridLayoutWidget_3">
@@ -170,16 +170,16 @@
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_3">
-    <item row="1" column="1">
-     <widget class="QComboBox" name="teorico_modulo_comboBox">
+    <item row="2" column="1">
+     <widget class="QComboBox" name="teorico_fase_comboBox">
       <item>
        <property name="text">
-        <string>dB</string>
+        <string>grados</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Veces</string>
+        <string>rad</string>
        </property>
       </item>
      </widget>
@@ -198,18 +198,18 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
-     <widget class="QComboBox" name="teorico_fase_comboBox">
-      <item>
-       <property name="text">
-        <string>grados</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>rad</string>
-       </property>
-      </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_9">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Unidad de fase</string>
+      </property>
      </widget>
     </item>
     <item row="0" column="0">
@@ -223,20 +223,6 @@
       </property>
       <property name="text">
        <string>Unidad de frecuencia</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_9">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Unidad de fase</string>
       </property>
      </widget>
     </item>
@@ -254,18 +240,18 @@
       </item>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_10">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Color</string>
-      </property>
+    <item row="1" column="1">
+     <widget class="QComboBox" name="teorico_modulo_comboBox">
+      <item>
+       <property name="text">
+        <string>dB</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Veces</string>
+       </property>
+      </item>
      </widget>
     </item>
     <item row="3" column="1">
@@ -310,6 +296,20 @@
         <string>violet</string>
        </property>
       </item>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_10">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Color</string>
+      </property>
      </widget>
     </item>
    </layout>
