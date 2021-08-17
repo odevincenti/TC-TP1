@@ -25,7 +25,7 @@ class Input_Teorico_Window(QWidget):
         unidad_modulo = self.teorico_modulo_comboBox.currentText()
         unidad_fase = self.teorico_fase_comboBox.currentText()
         if unidad_fase == "grados":
-            unidad_fase = "º"
+            unidad_fase = "°"
         cs.add_curve(1, [numerador_input, denominador_input], nombre_input, color_t, unidad_frec, unidad_modulo, unidad_fase)
         self.close()
 

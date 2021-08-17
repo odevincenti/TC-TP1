@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import *
 
 class listWidget(QListWidget):
+
     def __init__(self, parent=None):
         QListWidget.__init__(self, parent)
 
