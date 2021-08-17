@@ -22,11 +22,19 @@
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QLabel" name="nombre_list">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="styleSheet">
-         <string notr="true">color:blue;</string>
+         <string notr="true"/>
         </property>
         <property name="text">
          <string>nombre</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -41,22 +49,12 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="color_list">
-        <property name="styleSheet">
-         <string notr="true">background: cyan;</string>
-        </property>
-        <property name="text">
-         <string>color</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QPushButton" name="datos_list">
         <property name="styleSheet">
          <string notr="true">background: cyan;</string>
         </property>
         <property name="text">
-         <string>datos</string>
+         <string>modificar</string>
         </property>
        </widget>
       </item>

@@ -375,7 +375,7 @@ border-color: black;</string>
        <x>10</x>
        <y>323</y>
        <width>331</width>
-       <height>241</height>
+       <height>221</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -390,7 +390,7 @@ border-color: black;</string>
         <x>0</x>
         <y>0</y>
         <width>329</width>
-        <height>239</height>
+        <height>219</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -402,8 +402,16 @@ border-color: black;</string>
             <layout class="QVBoxLayout" name="verticalLayout_3">
              <item>
               <widget class="QLabel" name="label">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
                <property name="text">
                 <string>nombre</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -418,22 +426,12 @@ border-color: black;</string>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_2">
-               <property name="styleSheet">
-                <string notr="true">background: cyan;</string>
-               </property>
-               <property name="text">
-                <string>color</string>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QPushButton" name="pushButton_3">
                <property name="styleSheet">
                 <string notr="true">background: cyan;</string>
                </property>
                <property name="text">
-                <string>datos</string>
+                <string>modificar</string>
                </property>
               </widget>
              </item>
