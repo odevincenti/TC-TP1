@@ -151,8 +151,8 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
     def addCurveTeorico(self):
         aux_curve = ListWidget()
         self.CurveList.layout().addWidget(aux_curve)
-        self.aux_curve.visibilidad_list.clicked.connect(self.show_graph)
         self.show_graph()
+        self.aplicar_button_ejes1.clicked.connect(self.show_graph)
 
     def addCurveSimulacion(self):
         aux_curve = ListWidget()
@@ -236,9 +236,11 @@ class ListWidget(QWidget):
         self.color_list.clicked.connect(self.goto_color)
         self.datos_list.clicked.connect(self.goto_datos)
         self.borrar_list.clicked.connect(self.goto_borrar)
+        self.index = cs.curves.index(cs.curves[-1])
 
     def goto_visibilidad (self):
-        cs.curves[-1].change_visibility()
+        cs.curves[self.index].change_visibility()
+        window.show_graph()
 
     def goto_color(self):
         print("messi")
@@ -247,7 +249,8 @@ class ListWidget(QWidget):
         print("messi")
 
     def goto_borrar(self):
-        print("messi")
+        cs.del_curve(cs.curves[self.index])
+        self.hide()
 
 
 cs = Curvespace()
