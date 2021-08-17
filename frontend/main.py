@@ -152,6 +152,7 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         aux_curve = ListWidget()
         self.CurveList.layout().addWidget(aux_curve)
         self.show_graph()
+        self.aplicar_button_ejes1.clicked.connect(self.show_graph)
 
     def addCurveSimulacion(self):
         aux_curve = ListWidget()
@@ -179,9 +180,8 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         else:
             ax_y = self.ejey_lineEdit.text()
 
-        self.ejex_lineEdit.setText("")
-        self.ejey_lineEdit.setText("")
-
+        #self.ejex_lineEdit.setPlainText("")
+        #self.ejey_lineEdit.setPlainText("")
         cs.change_x_mod_label(ax_x)
         cs.change_y_mod_label(ax_y)
         self.show_graph()
@@ -196,9 +196,8 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         else:
             ax_y = self.ejey2_lineEdit.text()
 
-        self.ejex2_lineEdit.setText(" ")
-        self.ejey2_lineEdit.setText(" ")
-
+        #self.ejex2_lineEdit.setPlainText(" ")
+        #self.ejey2_lineEdit.setPlainText(" ")
         cs.change_x_ph_label(ax_x)
         cs.change_y_ph_label(ax_y)
         self.show_graph()
@@ -232,7 +231,9 @@ class ListWidget(QWidget):
         loadUi("ListWidget.ui", self)
 
         self.nombre_list.setText(cs.curves[-1].name)
+        #self.color.setStyleSheet("background-color:" + color)
         self.visibilidad_list.clicked.connect(self.goto_visibilidad)
+        self.color_list.clicked.connect(self.goto_color)
         self.datos_list.clicked.connect(self.goto_datos)
         self.borrar_list.clicked.connect(self.goto_borrar)
         self.index = cs.curves.index(cs.curves[-1])
@@ -240,6 +241,9 @@ class ListWidget(QWidget):
     def goto_visibilidad (self):
         cs.curves[self.index].change_visibility()
         window.show_graph()
+
+    def goto_color(self):
+        print("messi")
 
     def goto_datos(self):
         print("messi")
