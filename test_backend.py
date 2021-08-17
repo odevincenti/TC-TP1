@@ -7,9 +7,10 @@ from backend import Curvespace
 
 # TEST
 CS = Curvespace()
-CS.add_curve(1, ["-1E11", "1, 2E6, 1E12"], name="Prueba")
-CS.add_curve(4, "montecarlo-simulacion.txt", name="Montecarlo 4", color="cyan")
-CS.add_curve(4, "montecarlo2-simulacion.txt", name="Montecarlo 2")
+CS.add_curve(1, ["1", "1, 2"])
+#CS.add_curve(1, ["-1E11", "1, 2E6, 1E12"], name="Prueba")
+#CS.add_curve(4, "montecarlo-simulacion.txt", name="Montecarlo 4", color="cyan")
+#CS.add_curve(4, "montecarlo2-simulacion.txt", name="Montecarlo 2")
 C = 68E-9
 R = 2.2E2
 w_0 = 2*np.pi*10.8E3
@@ -22,11 +23,11 @@ C.change_w_unit("rad/s")
 C.change_x_mod_label("w")
 C.change_x_ph_label("Frecuencia")'''
 
-fig, ax = plt.subplots(1)
-#fig, ax = plt.subplots(2, 1)
+#fig, ax = plt.subplots(1)
+fig, ax = plt.subplots(2, 1)
 fig.suptitle("Respuesta en frecuencia")
-CS.plot_mod(ax)#[0])
-#C.plot_ph(ax[1])
+CS.plot_mod(ax[0])
+CS.plot_ph(ax[1])
 fig.tight_layout()
 plt.show()
 
