@@ -13,7 +13,6 @@ class Input_Teorico_Window(QWidget):
 
         self.show()
         self.ok_teorico_pushButton.clicked.connect(self.display_ok)
-        print(self.ok_teorico_pushButton.clicked.connect(self.display_ok))
         self.cancel_teorico_pushButton.clicked.connect(self.close)
 
 
