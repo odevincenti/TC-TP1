@@ -29,7 +29,7 @@
     </font>
    </property>
    <property name="text">
-    <string>UPLOAD</string>
+    <string notr="true">UPLOAD</string>
    </property>
   </widget>
   <widget class="QPushButton" name="ok_simulacion_pushButton_2">
