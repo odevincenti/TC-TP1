@@ -138,6 +138,15 @@ class Curvespace:
             self.curves[index].color = color
         return r
 
+    # change_title: Setter para el título del gráfico
+    # Devuelve False en caso de error
+    def change_title(self, title):
+        r = False
+        if isinstance(title, str):
+            self.title = title
+            r = True
+        return r
+
     # change_mod_title: Setter para el título del gráfico del módulo
     # Devuelve False en caso de error
     def change_mod_title(self, title):
