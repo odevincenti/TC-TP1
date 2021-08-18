@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>631</width>
-    <height>391</height>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -73,6 +73,45 @@
      <height>91</height>
     </rect>
    </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="label_numerador">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="Line" name="line_ecuacion">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_denominador">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
@@ -314,7 +353,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QPushButton" name="ingresar_teorico_pushButton">
+  <widget class="QPushButton" name="ecuacion_teorico_pushButton">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -330,7 +369,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Ingresar</string>
+    <string>Ecuacion</string>
    </property>
   </widget>
  </widget>

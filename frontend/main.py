@@ -12,7 +12,9 @@ class Input_Teorico_Window(QWidget):
         self.setWindowTitle("Input Teórico")
 
         self.show()
+        self.line_ecuacion.hide()
         self.ok_teorico_pushButton.clicked.connect(self.display_ok)
+        self.ecuacion_teorico_pushButton.clicked.connect(self.display_ecuacion)
         self.cancel_teorico_pushButton.clicked.connect(self.close)
 
 
@@ -28,6 +30,35 @@ class Input_Teorico_Window(QWidget):
             unidad_fase = "°"
         cs.add_curve(1, [numerador_input, denominador_input], self.nombre_input, self.color_t, unidad_frec, unidad_modulo, unidad_fase)
         self.close()
+
+    def display_ecuacion(self):
+        self.line_ecuacion.show()
+        numerador = self.numerador_teorico.text()
+        denominador = self.denominador_teorico.text()
+        num_coef = numerador.split(',')
+        den_coef = denominador.split(',')
+
+        num_len = len(num_coef)
+        num_str = ""
+        for i in range(0, num_len):
+            if (num_len - i) > 2:
+                num_str += str(num_coef[i]) + ".s^" + str(num_len - 1 - i) + "+"
+            elif (num_len - i) == 2:
+                num_str += str(num_coef[i]) + ".s +"
+            else:
+                num_str += str(num_coef[i])
+
+        den_len = len(den_coef)
+        den_str = ""
+        for i in range(0, den_len):
+            if (den_len - i) > 2:
+                den_str += str(den_coef[i]) + ".s^" + str(den_len - 1 - i) + "+"
+            elif (den_len - i) == 2:
+                den_str += str(den_coef[i]) + ".s +"
+            else:
+                den_str += str(den_coef[i])
+        self.label_numerador.setText(num_str)
+        self.label_denominador.setText(den_str)
 
 
 class Input_Simulacion_Window(QWidget):
@@ -118,15 +149,18 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         QMainWindow.__init__(self)
         loadUi("menu.ui", self)
         self.setWindowTitle("Plot Tool")
+        self.MplWidget.make_ToolBar(self.ToolBar1)
+        self.MplWidget2.make_ToolBar(self.ToolBar2)
 
-        #self.Curve_0.hide()
+        self.Curve_0.hide()
+        self.Curves_in_the_List = []
 
         self.teoricoButton.clicked.connect(self.goto_graphInfoTeorico)
         self.simulacionButton.clicked.connect(self.goto_graphInfoSimulacion)
         self.medicionButton.clicked.connect(self.goto_graphInfoMedicion)
         self.montecarloButton.clicked.connect(self.goto_graphInfoMontecarlo)
         self.resptempButton.clicked.connect(self.goto_graphInfoRespTemp)
-        self.borrarpushButton.clicked.connect(self.goto_borrar)
+        self.borrarpushButton.clicked.connect(self.goto_Borrar_Graficos)
         self.aplicar_button_ejes1.clicked.connect(self.goto_graphModulo_Axis)
         self.aplicar_button_ejes2.clicked.connect(self.goto_graphFase_Axis)
         self.current_delete = 0
@@ -155,25 +189,29 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
 
     def addCurveTeorico(self):
         if len(cs.curves) != 0:
-            aux_curve = ListWidget()
+            aux_curve = ListWidget(self)
+            self.Curves_in_the_List.append(aux_curve)
             self.CurveList.layout().addWidget(aux_curve)
         self.show_graph()
 
     def addCurveSimulacion(self):
         if len(cs.curves) != 0:
-            aux_curve = ListWidget()
+            aux_curve = ListWidget(self)
+            self.Curves_in_the_List.append(aux_curve)
             self.CurveList.layout().addWidget(aux_curve)
         self.show_graph()
 
     def addCurveMedicion(self):
         if len(cs.curves) != 0:
-            aux_curve = ListWidget()
+            aux_curve = ListWidget(self)
+            self.Curves_in_the_List.append(aux_curve)
             self.CurveList.layout().addWidget(aux_curve)
         self.show_graph()
 
     def addCurveMontecarlo(self):
         if len(cs.curves) != 0:
-            aux_curve = ListWidget()
+            aux_curve = ListWidget(self)
+            self.Curves_in_the_List.append(aux_curve)
             self.CurveList.layout().addWidget(aux_curve)
         self.show_graph()
 
@@ -210,6 +248,13 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         cs.change_y_ph_label(ax_y)
         self.show_graph()
 
+    def update_Curve_in_the_List(self, index_deleted_widget):
+        #self.Curves_in_the_List[index_deleted_widget].goto_borrar()
+        self.Curves_in_the_List.pop(index_deleted_widget)
+        for i in range(index_deleted_widget, len(self.Curves_in_the_List)):
+            self.Curves_in_the_List[i].update_index(i)
+
+
     def show_graph(self):
         self.MplWidget.canvas.axes.clear()
         self.MplWidget2.canvas.axes.clear()
@@ -228,7 +273,14 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.MplWidget2.canvas.axes.clear()
         self.MplWidget2.canvas.draw()
 
-    def goto_borrar(self):
+    def goto_Borrar_Graficos(self):
+        while len(self.Curves_in_the_List) != 0:
+            self.Curves_in_the_List[0].goto_borrar()
+        #for i in range(len(self.Curves_in_the_List))[::-1]:
+        #    self.Curves_in_the_List[i].goto_borrar()
+        #    self.Curves_in_the_List.pop(i)
+        #for i in range(len(cs.curves)):
+        #    cs.del_curve(cs.curves[0])
         self.MplWidget.canvas.axes.clear()
         self.MplWidget.canvas.draw()
         self.MplWidget2.canvas.axes.clear()
@@ -236,12 +288,12 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
 
 class ListWidget(QWidget):
 
-    def __init__(self):
+    def __init__(self, mainWindow):
         QMainWindow.__init__(self)
         loadUi("ListWidget.ui", self)
 
         self.nombre_list.setText(cs.curves[-1].name)
-        #self.color.setStyleSheet("background-color:" + color)
+        self.mainWindow = mainWindow
         self.visibilidad_list.clicked.connect(self.goto_visibilidad)
         self.modificar_list.clicked.connect(self.goto_modificar)
         self.borrar_list.clicked.connect(self.goto_borrar)
@@ -252,12 +304,19 @@ class ListWidget(QWidget):
         window.show_graph()
 
     def goto_modificar(self):
-        print("messi")
+        #switch_tipo = cs.curves[self.index].type
+        self.Input_Teorico_modificar = Input_Teorico_Window_Modificar()
+
+
+
+    def update_index(self, new_index):
+        self.index = new_index
 
     def goto_borrar(self):
         cs.del_curve(cs.curves[self.index])
         self.hide()
         window.show_graph()
+        self.mainWindow.update_Curve_in_the_List(self.index)
 
 
 cs = Curvespace()
