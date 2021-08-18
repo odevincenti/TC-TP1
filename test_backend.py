@@ -1,21 +1,26 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.signal as ss
-from backend import Curvespace
+#from backend import Curvespace
+from frecspace import Frecspace
+from timespace import Timespace
 
 # ARCHIVO PARA PROBAR LAS FUNCIONALIDADES DEL BACKEND ANTES DE AGREGAR EL FRONT
 
 # TEST
-CS = Curvespace()
+CS = Frecspace()
+TS = Timespace()
 CS.add_curve(1, ["1", "1, 2"])
+w_0 = 2*np.pi*10.8E3
 CS.add_curve(1, ["-1E11", "1, 2E6, 1E12"], name="Prueba")
+CS.add_curve(1, [f"{w_0**-2}, 0, 1", f"{w_0**-2}, {4/w_0}, 1"], name="Teórica", color="mediumblue", w_unit="rad/seg", mod_unit="dB", ph_unit="°")
 CS.add_curve(4, "montecarlo-simulacion.txt", name="Montecarlo 4", color="cyan")
 CS.add_curve(4, "montecarlo2-simulacion.txt", name="Montecarlo 2")
 CS.change_mod_unit("veces")
 C = 68E-9
 R = 2.2E2
-w_0 = 2*np.pi*10.8E3
-#CS.add_curve(1, [f"{w_0**-2}, 0, 1", f"{w_0**-2}, {4/w_0}, 1"], name="Teórica", color="mediumblue", w_unit="rad/seg", mod_unit="dB", ph_unit="°")
+TS.add_curve(0, "Rta_Escalon_Op4.txt", name="escalon 4")
+TS.add_curve(2, [CS.curves[2], np.linspace(0, 300E-6, 1000), [1.0]])
 #CS.add_curve(2, "D:\Descargas\Rta_Frecruencia.txt", name="Simulada", color="orange")
 #CS.add_curve(3, "Ejemplo1-medicion.csv", name="Prueba")
 '''C.change_curve_name(1, "Pitusas")
@@ -31,6 +36,13 @@ CS.plot_mod(ax[0])
 CS.plot_ph(ax[1])
 fig.tight_layout()
 plt.savefig(CS.title + ".jpg", dpi=300)
+plt.show()
+
+fig2, ax2 = plt.subplots(1)
+fig2.suptitle(TS.title)
+TS.plot_time(ax2)
+fig2.tight_layout()
+plt.savefig(TS.title + ".jpg", dpi=300)
 plt.show()
 
 '''
