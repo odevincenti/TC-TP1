@@ -2,7 +2,8 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
-from backend import *
+from frecspace import *
+from timespace import *
 
 class Input_Teorico_Window(QWidget):
 
@@ -60,7 +61,6 @@ class Input_Teorico_Window(QWidget):
         self.label_numerador.setText(num_str)
         self.label_denominador.setText(den_str)
 
-
 class Input_Simulacion_Window(QWidget):
 
     def __init__(self, parent=None):
@@ -87,7 +87,6 @@ class Input_Simulacion_Window(QWidget):
             unidad_fase = "°"
         cs.add_curve(2, self.path, self.nombre_input, self.color_t,unidad_frec, unidad_modulo, unidad_fase)
         self.close()
-
 
 class Input_Medicion_Window(QWidget):
 
@@ -201,7 +200,6 @@ class Input_Teorico_Window_Modificar(QWidget):
         self.label_numerador_m.setText(num_str)
         self.label_denominador_m.setText(den_str)
 
-
 class Input_Simulacion_Window_Modificar(QWidget):
 
     def __init__(self, mainWin):
@@ -231,7 +229,6 @@ class Input_Simulacion_Window_Modificar(QWidget):
         self.close()
         window.show_graph()
         self.mainWind.update_name(cs.curves[self.mainWind.index].name)
-
 
 class Input_Medicion_Window_Modificar(QWidget):
 
@@ -292,6 +289,189 @@ class Input_Montecarlo_Window_Modificar(QWidget):
         self.mainWind.update_name(cs.curves[self.mainWind.index].name)
 
 
+class Input_Resp_Temp_Window(QWidget):
+
+    def __init__(self, parent=None):
+        QWidget.__init__(self, parent)
+        loadUi("input_resp_temp.ui", self)
+        self.setWindowTitle("Input Respuesta Temporal")
+
+        self.show()
+
+        self.resp_temp_teo_label.hide()
+        self.resp_temp_teo_comboBox.hide()
+        self.teo_aplicar.hide()
+
+        self.resp_temp_simu_label.hide()
+        self.resp_temp_simu_upload.hide()
+        self.simu_graficar.hide()
+
+        self.t_inicial_resp_temp_label.hide()
+        self.t_inicial_resp_temp_line.hide()
+        self.t_final_resp_temp_label.hide()
+        self.t_final_resp_temp_line.hide()
+        self.amp_resp_temp_label.hide()
+        self.amp_resp_temp_line.hide()
+        self.dc_resp_temp_label.hide()
+        self.dc_resp_temp_line.hide()
+        self.exp_resp_temp_label.hide()
+        self.exp_resp_temp_line.hide()
+        self.frec_resp_temp_label.hide()
+        self.frec_resp_temp_line.hide()
+        self.resp_temp_graficar.hide()
+
+        self.teo_simu_aplicar.clicked.connect(self.display_teo_simu)
+
+    def diplay_teo_simu(self):
+
+        self.teo_simu = self.resp_temp_teo_simu_comboBox.currentIndex()
+
+        if (self.teo_simu == 0):
+            self.resp_temp_teo_simu_label.hide()
+            self.resp_temp_teo_simu_comboBox.hide()
+            self.teo_simu_aplicar.hide()
+
+            self.resp_temp_teo_label.show()
+            self.resp_temp_teo_comboBox.show()
+            self.teo_aplicar.show()
+            self.teo_aplicar.clicked.connect(self.display_ok_teo)
+        else:
+            self.resp_temp_teo_simu_label.hide()
+            self.resp_temp_teo_simu_comboBox.hide()
+            self.teo_simu_aplicar.hide()
+
+            self.resp_temp_simu_label.show()
+            self.resp_temp_simu_upload.show()
+            self.simu_graficar.show()
+            self.resp_temp_simu_upload.clicked.connect(self.get_simulation_file)
+            self.simu_graficar.clicked.connect(self.display_ok_simu)
+
+    def display_ok_teo(self):
+        self.resp_temp_graficar.show()
+        self.teo_aplicar.clicked.connect(self.display_fun)
+        self.senal = self.resp_temp_teo_comboBox.currentIndex()
+
+        if (self.senal == 0):  # senoidal
+            self.t_inicial_resp_temp_label.show()
+            self.t_inicial_resp_temp_line.show()
+            self.t_final_resp_temp_label.show()
+            self.t_final_resp_temp_line.show()
+            self.amp_resp_temp_label.show()
+            self.amp_resp_temp_line.show()
+            self.frec_resp_temp_label.show()
+            self.frec_resp_temp_line.show()
+
+        elif (self.senal == 1):  # escalon
+            self.t_inicial_resp_temp_label.show()
+            self.t_inicial_resp_temp_line.show()
+            self.t_final_resp_temp_label.show()
+            self.t_final_resp_temp_line.show()
+            self.amp_resp_temp_label.show()
+            self.amp_resp_temp_line.show()
+
+        elif (self.senal == 2):  # tren de pulsos
+            self.t_inicial_resp_temp_label.show()
+            self.t_inicial_resp_temp_line.show()
+            self.t_final_resp_temp_label.show()
+            self.t_final_resp_temp_line.show()
+            self.amp_resp_temp_label.show()
+            self.amp_resp_temp_line.show()
+            self.dc_resp_temp_label.show()
+            self.dc_resp_temp_line.show()
+            self.frec_resp_temp_label.show()
+            self.frec_resp_temp_line.show()
+
+        elif (self.senal == 3):  # impulso
+            self.t_inicial_resp_temp_label.show()
+            self.t_inicial_resp_temp_line.show()
+            self.t_final_resp_temp_label.show()
+            self.t_final_resp_temp_line.show()
+            self.amp_resp_temp_label.show()
+            self.amp_resp_temp_line.show()
+
+        elif (self.senal == 4):  # rampa
+            self.t_inicial_resp_temp_label.show()
+            self.t_inicial_resp_temp_line.show()
+            self.t_final_resp_temp_label.show()
+            self.t_final_resp_temp_line.show()
+            self.amp_resp_temp_label.show()
+            self.amp_resp_temp_line.show()
+            self.dc_resp_temp_label.setText("pendiente")
+
+        elif (self.senal == 5):  # exponencial
+            self.t_inicial_resp_temp_label.show()
+            self.t_inicial_resp_temp_line.show()
+            self.t_final_resp_temp_label.show()
+            self.t_final_resp_temp_line.show()
+            self.amp_resp_temp_label.show()
+            self.amp_resp_temp_line.show()
+            self.exp_resp_temp_label.show()
+            self.exp_resp_temp_line.show()
+
+    def diplay_fun(self):
+        self.resp_temp_teo_label.hide()
+        self.resp_temp_teo_comboBox.hide()
+        self.teo_aplicar.hide()
+
+        self.nombre_input = self.resp_temp_nombre_lineEdit.text()
+        self.color_t = self.resp_temp_color_comboBox.currentText()
+        self.eje_x = self.resp_temp_ejex.currentText()
+        self.eje_y = self.resp_temp_ejey.currentText()
+
+        if (self.senal == 0):  # senoidal
+            self.ti = self.t_inicial_resp_temp_line.currentText()
+            self.tf = self.t_final_resp_temp_line.currentText()
+            self.amp = self.amp_resp_temp_line.currentText()
+            self.frec = self.frec_resp_temp_line.currentText()
+
+        elif (self.senal == 1):  # escalon
+            self.ti = self.t_inicial_resp_temp_line.currentText()
+            self.tf = self.t_final_resp_temp_line.currentText()
+            self.amp = self.amp_resp_temp_line.currentText()
+
+        elif (self.senal == 2):  # tren de pulsos
+            self.ti = self.t_inicial_resp_temp_line.currentText()
+            self.tf = self.t_final_resp_temp_line.currentText()
+            self.amp = self.amp_resp_temp_line.currentText()
+            self.dc = self.dc_resp_temp_line.currentText()
+            self.frec = self.frec_resp_temp_line.currentText()
+
+        elif (self.senal == 3):  # impulso
+            self.ti = self.t_inicial_resp_temp_line.currentText()
+            self.tf = self.t_final_resp_temp_line.currentText()
+            self.amp = self.amp_resp_temp_line.currentText()
+
+        elif (self.senal == 4):  # rampa
+            self.ti = self.t_inicial_resp_temp_line.currentText()
+            self.tf = self.t_final_resp_temp_line.currentText()
+            self.amp = self.amp_resp_temp_line.currentText()
+            self.dc_resp_temp_label.setText("pendiente")
+            self.pendiente = self.dc_resp_temp_line.currentText()
+
+        elif (self.senal == 5):  # exponencial
+            self.ti = self.t_inicial_resp_temp_line.currentText()
+            self.tf = self.t_final_resp_temp_line.currentText()
+            self.amp = self.amp_resp_temp_line.currentText()
+            self.exp = self.exp_resp_temp_line.currentText()
+
+        ##HAY QUE CAMBIAR ESTE ADD_CURVE PARA TS
+        ts.add_curve(2, self.path, self.nombre_input, self.color_t, unidad_frec, unidad_modulo, unidad_fase)
+        self.close()
+
+    def get_simulation_file(self):
+        filename = QFileDialog.getOpenFileNames()
+        self.path = filename[0][0]
+
+    def display_ok_simu(self):
+        self.nombre_input = self.resp_temp_nombre_lineEdit.text()
+        self.color_t = self.resp_temp_color_comboBox.currentText()
+        self.eje_x = self.resp_temp_ejex.currentText()
+        self.eje_y = self.resp_temp_ejey.currentText()
+
+        ##HAY QUE CAMBIAR ESTE ADD_CURVE PARA TS
+        ts.add_curve(2, self.path, self.nombre_input, self.color_t, unidad_frec, unidad_modulo, unidad_fase)
+        self.close()
+
 class MatplotlibWidget(QtWidgets.QMainWindow):
 
     def __init__(self):
@@ -300,22 +480,27 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.setWindowTitle("Plot Tool")
         self.MplWidget.make_ToolBar(self.ToolBar1)
         self.MplWidget2.make_ToolBar(self.ToolBar2)
+        self.MplWidget.make_ToolBar(self.ToolBar3)
 
         self.Curve_0.hide()
+        self.Curve_1.hide()
         self.Curves_in_the_List = []
+        self.Temp_in_the_List = []
 
         self.teoricoButton.clicked.connect(self.goto_graphInfoTeorico)
         self.simulacionButton.clicked.connect(self.goto_graphInfoSimulacion)
         self.medicionButton.clicked.connect(self.goto_graphInfoMedicion)
         self.montecarloButton.clicked.connect(self.goto_graphInfoMontecarlo)
-        self.resptempButton.clicked.connect(self.goto_graphInfoRespTemp)
+        #self.resptempButton.clicked.connect(self.goto_graphInfoRespTemp)
 
         self.borrarpushButton.clicked.connect(self.goto_Borrar_Graficos)
 
         self.aplicar_button_ejes1.clicked.connect(self.goto_graphModulo_Axis)
         self.aplicar_button_ejes2.clicked.connect(self.goto_graphFase_Axis)
+        self.aplicar_button_ejes3.clicked.connect(self.goto_graphTemp_Axis)
         self.aplicar_titulo_1.clicked.connect(self.goto_graphTitulo_1)
         self.aplicar_titulo_2.clicked.connect(self.goto_graphTitulo_2)
+        self.aplicar_titulo_3.clicked.connect(self.goto_graphTitulo_3)
 
     def goto_graphInfoTeorico(self):
         self.Input_Teorico = Input_Teorico_Window()
@@ -335,9 +520,8 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.Input_Montecarlo = Input_Montecarlo_Window()
         self.Input_Montecarlo.ok_montecarlo_pushButton_2.clicked.connect(self.addCurveMontecarlo)
 
-    def goto_graphInfoRespTemp(self):
-        print("messi")
-
+    #def goto_graphInfoRespTemp(self):
+    #   self.Input_Resp_Temp = Input_Resp_Temp_Window()
 
     def addCurveTeorico(self):
         if len(cs.curves) != 0:
@@ -384,6 +568,7 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.ejey_lineEdit.setText("")
         self.show_graph()
 
+
     def goto_graphFase_Axis(self):
         if len(self.ejex2_lineEdit.text()) == 0:
             ax_x = "Eje X"
@@ -398,6 +583,22 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         cs.change_y_ph_label(ax_y)
         self.ejex2_lineEdit.setText("")
         self.ejey2_lineEdit.setText("")
+        self.show_graph()
+
+    def goto_graphTemp_Axis(self):
+        if len(self.ejex3_lineEdit.text()) == 0:
+            ax_t = "Eje T"
+        else:
+            ax_t = self.ejex3_lineEdit.text()
+        if len(self.ejey3_lineEdit.text()) == 0:
+            ax_y = "Eje Y"
+        else:
+            ax_y = self.ejey3_lineEdit.text()
+
+        ts.change_t_label(ax_t)
+        ts.change_y_label(ax_y)
+        self.ejex3_lineEdit.setText("")
+        self.ejey3_lineEdit.setText("")
         self.show_graph()
 
     def goto_graphTitulo_1(self):
@@ -420,16 +621,33 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.Titulo_2.setText("")
         self.show_graph()
 
+    def goto_graphTitulo_3(self):
+        if len(self.Titulo_3.text()) == 0:
+            titulo = "Respuesta Temporal"
+        else:
+            titulo = self.Titulo_3.text()
+
+        ts.change_title(titulo)
+        self.Titulo_3.setText("")
+        self.show_graph()
+
     def update_Curve_in_the_List(self, index_deleted_widget):
         #self.Curves_in_the_List[index_deleted_widget].goto_borrar()
         self.Curves_in_the_List.pop(index_deleted_widget)
         for i in range(index_deleted_widget, len(self.Curves_in_the_List)):
             self.Curves_in_the_List[i].update_index(i)
 
+    def update_Temp_in_the_List(self, index_deleted_widget):
+        #self.Curves_in_the_List[index_deleted_widget].goto_borrar()
+        self.Temp_in_the_List.pop(index_deleted_widget)
+        for i in range(index_deleted_widget, len(self.Temp_in_the_List)):
+            self.Temp_in_the_List[i].update_index(i)
+
 
     def show_graph(self):
         self.MplWidget.canvas.axes.clear()
         self.MplWidget2.canvas.axes.clear()
+        self.MplWidget3.canvas.axes.clear()
         print(len(cs.curves))
         if len(cs.curves) != 0:
             cs.plot_mod(self.MplWidget.canvas.axes)
@@ -437,17 +655,36 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
             self.MplWidget.canvas.draw()
             self.MplWidget2.canvas.draw()
         else:
-            self.hide_graph()
+            self.hide_frec_graph()
+        if len(ts.curves) != 0:
+            ts.plot_time(self.MplWidget3.canvas.axes)
+            self.MplWidget3.canvas.draw()
+        else:
+            self.hide_resp_graph()
+
+    def hide_frec_graph(self):
+        self.MplWidget.canvas.axes.clear()
+        self.MplWidget.canvas.draw()
+        self.MplWidget2.canvas.axes.clear()
+        self.MplWidget2.canvas.draw()
+
+    def hide_resp_graph(self):
+        self.MplWidget3.canvas.axes.clear()
+        self.MplWidget3.canvas.draw()
 
     def hide_graph(self):
         self.MplWidget.canvas.axes.clear()
         self.MplWidget.canvas.draw()
         self.MplWidget2.canvas.axes.clear()
         self.MplWidget2.canvas.draw()
+        self.MplWidget3.canvas.axes.clear()
+        self.MplWidget3.canvas.draw()
 
     def goto_Borrar_Graficos(self):
         while len(self.Curves_in_the_List) != 0:
             self.Curves_in_the_List[0].goto_borrar()
+        while len(self.Temp_in_the_List) != 0:
+            self.Temp_in_the_List[0].goto_borrar()
         #for i in range(len(self.Curves_in_the_List))[::-1]:
         #    self.Curves_in_the_List[i].goto_borrar()
         #    self.Curves_in_the_List.pop(i)
@@ -457,6 +694,8 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.MplWidget.canvas.draw()
         self.MplWidget2.canvas.axes.clear()
         self.MplWidget2.canvas.draw()
+        self.MplWidget3.canvas.axes.clear()
+        self.MplWidget3.canvas.draw()
 
 class ListWidget(QWidget):
 
@@ -498,8 +737,42 @@ class ListWidget(QWidget):
         window.show_graph()
         self.mainWindow.update_Curve_in_the_List(self.index)
 
+class ListWidget2(QWidget):
 
-cs = Curvespace()
+        def __init__(self, mainWindow):
+            QMainWindow.__init__(self)
+            loadUi("ListWidget.ui", self)
+
+            self.nombre_list.setText(ts.curves[-1].name)
+            self.type_list = ts.curves[-1].type
+            self.mainWindow = mainWindow
+            self.visibilidad_list.clicked.connect(self.goto_visibilidad)
+            self.modificar_list.clicked.connect(self.goto_modificar)
+            self.borrar_list.clicked.connect(self.goto_borrar)
+            self.index = ts.curves.index(ts.curves[-1])
+
+        def goto_visibilidad(self):
+            ts.curves[self.index].change_visibility()
+            window.show_graph()
+
+        def goto_modificar(self):
+            self.Input_Resp_Temp_Modificar = Input_Teorico_Window_Modificar(self)
+
+        def update_name(self, new_name):
+            self.nombre_list.setText(new_name)
+
+        def update_index(self, new_index):
+            self.index = new_index
+
+        def goto_borrar(self):
+            ts.del_curve(ts.curves[self.index])
+            self.hide()
+            window.show_graph()
+            self.mainWindow.update_Temp_in_the_List(self.index)
+
+
+cs = Frecspace()
+ts = Timespace()
 app = QApplication([])
 window = MatplotlibWidget()
 window.show()
