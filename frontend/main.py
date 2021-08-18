@@ -170,7 +170,7 @@ class Input_Teorico_Window_Modificar(QWidget):
         cs.update(self.mainWind.index, [numerador_input, denominador_input], self.nombre_input, self.color_t, unidad_frec, unidad_modulo, unidad_fase)
         self.close()
         window.show_graph()
-        self.mainWind.update_name(self.nombre_input)
+        self.mainWind.update_name(cs.curves[self.mainWind.index].name)
 
     def display_ecuacion(self):
         self.line_ecuacion_m.show()
@@ -230,7 +230,7 @@ class Input_Simulacion_Window_Modificar(QWidget):
         cs.update(self.mainWind.index, self.path, self.nombre_input, self.color_t,unidad_frec, unidad_modulo, unidad_fase)
         self.close()
         window.show_graph()
-        self.mainWind.update_name(self.nombre_input)
+        self.mainWind.update_name(cs.curves[self.mainWind.index].name)
 
 
 class Input_Medicion_Window_Modificar(QWidget):
@@ -260,7 +260,7 @@ class Input_Medicion_Window_Modificar(QWidget):
         cs.update(self.mainWind.index, self.path, self.nombre_input, self.color_t, unidad_frec, unidad_modulo, unidad_fase)
         self.close()
         window.show_graph()
-        self.mainWind.update_name(self.nombre_input)
+        self.mainWind.update_name(cs.curves[self.mainWind.index].name)
 
 class Input_Montecarlo_Window_Modificar(QWidget):
 
@@ -289,7 +289,7 @@ class Input_Montecarlo_Window_Modificar(QWidget):
         cs.update(self.mainWind.index, self.path, self.nombre_input, self.color_t, unidad_frec, unidad_modulo, unidad_fase)
         self.close()
         window.show_graph()
-        self.mainWind.update_name(self.nombre_input)
+        self.mainWind.update_name(cs.curves[self.mainWind.index].name)
 
 
 class MatplotlibWidget(QtWidgets.QMainWindow):
