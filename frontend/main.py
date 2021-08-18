@@ -142,6 +142,155 @@ class Input_Montecarlo_Window(QWidget):
         self.close()
 
 
+class Input_Teorico_Window_Modificar(QWidget):
+
+    def __init__(self, mainWin):
+        QWidget.__init__(self)
+        loadUi("input_teorico_modificar.ui", self)
+        self.setWindowTitle("Input Teórico Modificar")
+
+        self.mainWind = mainWin
+        self.show()
+        self.line_ecuacion_m.hide()
+        self.ok_teorico_pushButton_m.clicked.connect(self.display_ok)
+        self.ecuacion_teorico_pushButton_m.clicked.connect(self.display_ecuacion)
+        self.cancel_teorico_pushButton_m.clicked.connect(self.close)
+
+
+    def display_ok(self):
+        self.nombre_input = self.nombre_graph_teorico_m.text()
+        numerador_input = self.numerador_teorico_m.text()
+        denominador_input = self.denominador_teorico_m.text()
+        self.color_t = self.teorico_color_comboBox_m.currentText()
+        unidad_frec = self.teorico_frec_comboBox_m.currentText()
+        unidad_modulo = self.teorico_modulo_comboBox_m.currentText()
+        unidad_fase = self.teorico_fase_comboBox_m.currentText()
+        if unidad_fase == "grados":
+            unidad_fase = "°"
+        cs.update(self.mainWind.index, [numerador_input, denominador_input], self.nombre_input, self.color_t, unidad_frec, unidad_modulo, unidad_fase)
+        self.close()
+        window.show_graph()
+        self.mainWind.update_name(self.nombre_input)
+
+    def display_ecuacion(self):
+        self.line_ecuacion_m.show()
+        numerador = self.numerador_teorico_m.text()
+        denominador = self.denominador_teorico_m.text()
+        num_coef = numerador.split(',')
+        den_coef = denominador.split(',')
+
+        num_len = len(num_coef)
+        num_str = ""
+        for i in range(0, num_len):
+            if (num_len - i) > 2:
+                num_str += str(num_coef[i]) + ".s^" + str(num_len - 1 - i) + "+"
+            elif (num_len - i) == 2:
+                num_str += str(num_coef[i]) + ".s +"
+            else:
+                num_str += str(num_coef[i])
+
+        den_len = len(den_coef)
+        den_str = ""
+        for i in range(0, den_len):
+            if (den_len - i) > 2:
+                den_str += str(den_coef[i]) + ".s^" + str(den_len - 1 - i) + "+"
+            elif (den_len - i) == 2:
+                den_str += str(den_coef[i]) + ".s +"
+            else:
+                den_str += str(den_coef[i])
+        self.label_numerador_m.setText(num_str)
+        self.label_denominador_m.setText(den_str)
+
+
+class Input_Simulacion_Window_Modificar(QWidget):
+
+    def __init__(self, mainWin):
+        QWidget.__init__(self)
+        loadUi("input_simulacion_modificar.ui", self)
+        self.setWindowTitle("Input Simulación Modificar")
+
+        self.mainWind = mainWin
+        self.show()
+        self.upload_simulacion_pushButton_m.clicked.connect(self.get_simulation_file)
+        self.ok_simulacion_pushButton_2_m.clicked.connect(self.display_ok)
+
+    def get_simulation_file(self):
+        filename = QFileDialog.getOpenFileNames()
+        self.path = filename[0][0]
+
+
+    def display_ok(self):
+        self.nombre_input = self.nombre_graph_simulacion_m.text()
+        self.color_t = self.simulacion_color_comboBox_m.currentText()
+        unidad_frec = self.simulacion_frec_comboBox_m.currentText()
+        unidad_modulo = self.simulacion_modulo_comboBox_m.currentText()
+        unidad_fase = self.simulacion_fase_comboBox_m.currentText()
+        if unidad_fase == "grados":
+            unidad_fase = "°"
+        cs.update(self.mainWind.index, self.path, self.nombre_input, self.color_t,unidad_frec, unidad_modulo, unidad_fase)
+        self.close()
+        window.show_graph()
+        self.mainWind.update_name(self.nombre_input)
+
+
+class Input_Medicion_Window_Modificar(QWidget):
+
+    def __init__(self, mainWin):
+        QWidget.__init__(self)
+        loadUi("input_medicion_modificar.ui", self)
+        self.setWindowTitle("Input Medición Modificar")
+
+        self.mainWind = mainWin
+        self.show()
+        self.upload_medicion_pushButton_m.clicked.connect(self.get_medicion_file)
+        self.ok_medicion_pushButton_2_m.clicked.connect(self.display_ok)
+
+    def get_medicion_file(self):
+        filename = QFileDialog.getOpenFileNames()
+        self.path = filename[0][0]
+
+    def display_ok(self):
+        self.nombre_input = self.nombre_graph_medicion_m.text()
+        self.color_t = self.medicion_color_comboBox_m.currentText()
+        unidad_frec = self.medicion_frec_comboBox_m.currentText()
+        unidad_modulo = self.medicion_modulo_comboBox_m.currentText()
+        unidad_fase = self.medicion_fase_comboBox_m.currentText()
+        if unidad_fase == "grados":
+            unidad_fase = "°"
+        cs.update(self.mainWind.index, self.path, self.nombre_input, self.color_t, unidad_frec, unidad_modulo, unidad_fase)
+        self.close()
+        window.show_graph()
+        self.mainWind.update_name(self.nombre_input)
+
+class Input_Montecarlo_Window_Modificar(QWidget):
+
+    def __init__(self, mainWin):
+        QWidget.__init__(self)
+        loadUi("input_montecarlo_modificar.ui", self)
+        self.setWindowTitle("Input Montecarlo Modificar")
+
+        self.mainWind = mainWin
+        self.show()
+        self.upload_montecarlo_pushButton_m.clicked.connect(self.get_montecarlo_file)
+        self.ok_montecarlo_pushButton_2_m.clicked.connect(self.display_ok)
+
+    def get_montecarlo_file(self):
+        filename = QFileDialog.getOpenFileNames()
+        self.path = filename[0][0]
+
+    def display_ok(self):
+        self.nombre_input = self.nombre_graph_montecarlo_m.text()
+        self.color_t = self.montecarlo_color_comboBox_m.currentText()
+        unidad_frec = self.montecarlo_frec_comboBox_m.currentText()
+        unidad_modulo = self.montecarlo_modulo_comboBox_m.currentText()
+        unidad_fase = self.montecarlo_fase_comboBox_m.currentText()
+        if unidad_fase == "grados":
+            unidad_fase = "°"
+        cs.update(self.mainWind.index, self.path, self.nombre_input, self.color_t, unidad_frec, unidad_modulo, unidad_fase)
+        self.close()
+        window.show_graph()
+        self.mainWind.update_name(self.nombre_input)
+
 
 class MatplotlibWidget(QtWidgets.QMainWindow):
 
@@ -293,21 +442,29 @@ class ListWidget(QWidget):
         loadUi("ListWidget.ui", self)
 
         self.nombre_list.setText(cs.curves[-1].name)
+        self.type_list = cs.curves[-1].type
         self.mainWindow = mainWindow
         self.visibilidad_list.clicked.connect(self.goto_visibilidad)
         self.modificar_list.clicked.connect(self.goto_modificar)
         self.borrar_list.clicked.connect(self.goto_borrar)
         self.index = cs.curves.index(cs.curves[-1])
 
-    def goto_visibilidad (self):
+    def goto_visibilidad(self):
         cs.curves[self.index].change_visibility()
         window.show_graph()
 
     def goto_modificar(self):
-        #switch_tipo = cs.curves[self.index].type
-        self.Input_Teorico_modificar = Input_Teorico_Window_Modificar()
+        if self.type_list == 1:
+            self.Input_Teorico_Modificar = Input_Teorico_Window_Modificar(self)
+        elif self.type_list == 2:
+            self.Input_Simulacion_Modificar = Input_Simulacion_Window_Modificar(self)
+        elif self.type_list == 3:
+            self.Input_Medicion_Modificar = Input_Medicion_Window_Modificar(self)
+        elif self.type_list == 4:
+            self.Input_Montecarlo_Modificar = Input_Montecarlo_Window_Modificar(self)
 
-
+    def update_name(self, new_name):
+        self.nombre_list.setText(new_name)
 
     def update_index(self, new_index):
         self.index = new_index
