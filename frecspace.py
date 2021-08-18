@@ -282,10 +282,10 @@ class FrecCurve(Curve):
             print("Hubo un error, no se puede graficar la curva")
             return False
         if self.type != 4:
-            ax.semilogx(self.w, self.mod, self.color, linestyle=ls)  # Grafico el módulo de la transferencia
+            ax.semilogx(self.w, self.mod, self.color, marker=ls)  # Grafico el módulo de la transferencia
         else:
             for i in range(len(self.w)):
-                ax.semilogx(self.w[i], self.mod[i], self.color, linestyle=ls)  # Grafico el módulo de la transferencia
+                ax.semilogx(self.w[i], self.mod[i], self.color, marker=ls)  # Grafico el módulo de la transferencia
         return True
 
     def plot_curve_ph(self, ax):
@@ -294,10 +294,10 @@ class FrecCurve(Curve):
             print("Hubo un error, no se puede graficar la curva")
             return False
         if self.type != 4:
-            ax.semilogx(self.w, self.ph, self.color, linestyle=ls)  # Grafico el módulo de la transferencia
+            ax.semilogx(self.w, self.ph, self.color, marker=ls)  # Grafico el módulo de la transferencia
         else:
             for i in range(len(self.w)):
-                ax.semilogx(self.w[i], self.ph[i], self.color, linestyle=ls)  # Grafico la fase de la transferencia
+                ax.semilogx(self.w[i], self.ph[i], self.color, marker=ls)  # Grafico la fase de la transferencia
         return True
 
     # change_w_unit: Cambia la unidad de la frecuencia de Hz a rad/s o viceversa
@@ -675,9 +675,9 @@ def get_unit(s):
 # get_ls: Obtiene el linestyle correcto para graficar según el tipo de curva
 def get_ls(type):
     if type == 2 or type == 1 or type == 4:
-        ls = 'solid'
+        ls = ','
     elif type == 3:
-        ls = 'dotted'
+        ls = '.'
     else:
         ls = ''
     return ls
