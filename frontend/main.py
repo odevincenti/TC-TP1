@@ -12,7 +12,9 @@ class Input_Teorico_Window(QWidget):
         self.setWindowTitle("Input Teórico")
 
         self.show()
+        self.line_ecuacion.hide()
         self.ok_teorico_pushButton.clicked.connect(self.display_ok)
+        self.ecuacion_teorico_pushButton.clicked.connect(self.display_ecuacion)
         self.cancel_teorico_pushButton.clicked.connect(self.close)
 
 
@@ -28,6 +30,35 @@ class Input_Teorico_Window(QWidget):
             unidad_fase = "°"
         cs.add_curve(1, [numerador_input, denominador_input], self.nombre_input, self.color_t, unidad_frec, unidad_modulo, unidad_fase)
         self.close()
+
+    def display_ecuacion(self):
+        self.line_ecuacion.show()
+        numerador = self.numerador_teorico.text()
+        denominador = self.denominador_teorico.text()
+        num_coef = numerador.split(',')
+        den_coef = denominador.split(',')
+
+        num_len = len(num_coef)
+        num_str = ""
+        for i in range(0, num_len):
+            if (num_len - i) > 2:
+                num_str += str(num_coef[i]) + ".s^" + str(num_len - 1 - i) + "+"
+            elif (num_len - i) == 2:
+                num_str += str(num_coef[i]) + ".s +"
+            else:
+                num_str += str(num_coef[i])
+
+        den_len = len(den_coef)
+        den_str = ""
+        for i in range(0, den_len):
+            if (den_len - i) > 2:
+                den_str += str(den_coef[i]) + ".s^" + str(den_len - 1 - i) + "+"
+            elif (den_len - i) == 2:
+                den_str += str(den_coef[i]) + ".s +"
+            else:
+                den_str += str(den_coef[i])
+        self.label_numerador.setText(num_str)
+        self.label_denominador.setText(den_str)
 
 
 class Input_Simulacion_Window(QWidget):
@@ -111,6 +142,155 @@ class Input_Montecarlo_Window(QWidget):
         self.close()
 
 
+class Input_Teorico_Window_Modificar(QWidget):
+
+    def __init__(self, mainWin):
+        QWidget.__init__(self)
+        loadUi("input_teorico_modificar.ui", self)
+        self.setWindowTitle("Input Teórico Modificar")
+
+        self.mainWind = mainWin
+        self.show()
+        self.line_ecuacion_m.hide()
+        self.ok_teorico_pushButton_m.clicked.connect(self.display_ok)
+        self.ecuacion_teorico_pushButton_m.clicked.connect(self.display_ecuacion)
+        self.cancel_teorico_pushButton_m.clicked.connect(self.close)
+
+
+    def display_ok(self):
+        self.nombre_input = self.nombre_graph_teorico_m.text()
+        numerador_input = self.numerador_teorico_m.text()
+        denominador_input = self.denominador_teorico_m.text()
+        self.color_t = self.teorico_color_comboBox_m.currentText()
+        unidad_frec = self.teorico_frec_comboBox_m.currentText()
+        unidad_modulo = self.teorico_modulo_comboBox_m.currentText()
+        unidad_fase = self.teorico_fase_comboBox_m.currentText()
+        if unidad_fase == "grados":
+            unidad_fase = "°"
+        cs.update(self.mainWind.index, [numerador_input, denominador_input], self.nombre_input, self.color_t, unidad_frec, unidad_modulo, unidad_fase)
+        self.close()
+        window.show_graph()
+        self.mainWind.update_name(cs.curves[self.mainWind.index].name)
+
+    def display_ecuacion(self):
+        self.line_ecuacion_m.show()
+        numerador = self.numerador_teorico_m.text()
+        denominador = self.denominador_teorico_m.text()
+        num_coef = numerador.split(',')
+        den_coef = denominador.split(',')
+
+        num_len = len(num_coef)
+        num_str = ""
+        for i in range(0, num_len):
+            if (num_len - i) > 2:
+                num_str += str(num_coef[i]) + ".s^" + str(num_len - 1 - i) + "+"
+            elif (num_len - i) == 2:
+                num_str += str(num_coef[i]) + ".s +"
+            else:
+                num_str += str(num_coef[i])
+
+        den_len = len(den_coef)
+        den_str = ""
+        for i in range(0, den_len):
+            if (den_len - i) > 2:
+                den_str += str(den_coef[i]) + ".s^" + str(den_len - 1 - i) + "+"
+            elif (den_len - i) == 2:
+                den_str += str(den_coef[i]) + ".s +"
+            else:
+                den_str += str(den_coef[i])
+        self.label_numerador_m.setText(num_str)
+        self.label_denominador_m.setText(den_str)
+
+
+class Input_Simulacion_Window_Modificar(QWidget):
+
+    def __init__(self, mainWin):
+        QWidget.__init__(self)
+        loadUi("input_simulacion_modificar.ui", self)
+        self.setWindowTitle("Input Simulación Modificar")
+
+        self.mainWind = mainWin
+        self.show()
+        self.upload_simulacion_pushButton_m.clicked.connect(self.get_simulation_file)
+        self.ok_simulacion_pushButton_2_m.clicked.connect(self.display_ok)
+
+    def get_simulation_file(self):
+        filename = QFileDialog.getOpenFileNames()
+        self.path = filename[0][0]
+
+
+    def display_ok(self):
+        self.nombre_input = self.nombre_graph_simulacion_m.text()
+        self.color_t = self.simulacion_color_comboBox_m.currentText()
+        unidad_frec = self.simulacion_frec_comboBox_m.currentText()
+        unidad_modulo = self.simulacion_modulo_comboBox_m.currentText()
+        unidad_fase = self.simulacion_fase_comboBox_m.currentText()
+        if unidad_fase == "grados":
+            unidad_fase = "°"
+        cs.update(self.mainWind.index, self.path, self.nombre_input, self.color_t,unidad_frec, unidad_modulo, unidad_fase)
+        self.close()
+        window.show_graph()
+        self.mainWind.update_name(cs.curves[self.mainWind.index].name)
+
+
+class Input_Medicion_Window_Modificar(QWidget):
+
+    def __init__(self, mainWin):
+        QWidget.__init__(self)
+        loadUi("input_medicion_modificar.ui", self)
+        self.setWindowTitle("Input Medición Modificar")
+
+        self.mainWind = mainWin
+        self.show()
+        self.upload_medicion_pushButton_m.clicked.connect(self.get_medicion_file)
+        self.ok_medicion_pushButton_2_m.clicked.connect(self.display_ok)
+
+    def get_medicion_file(self):
+        filename = QFileDialog.getOpenFileNames()
+        self.path = filename[0][0]
+
+    def display_ok(self):
+        self.nombre_input = self.nombre_graph_medicion_m.text()
+        self.color_t = self.medicion_color_comboBox_m.currentText()
+        unidad_frec = self.medicion_frec_comboBox_m.currentText()
+        unidad_modulo = self.medicion_modulo_comboBox_m.currentText()
+        unidad_fase = self.medicion_fase_comboBox_m.currentText()
+        if unidad_fase == "grados":
+            unidad_fase = "°"
+        cs.update(self.mainWind.index, self.path, self.nombre_input, self.color_t, unidad_frec, unidad_modulo, unidad_fase)
+        self.close()
+        window.show_graph()
+        self.mainWind.update_name(cs.curves[self.mainWind.index].name)
+
+class Input_Montecarlo_Window_Modificar(QWidget):
+
+    def __init__(self, mainWin):
+        QWidget.__init__(self)
+        loadUi("input_montecarlo_modificar.ui", self)
+        self.setWindowTitle("Input Montecarlo Modificar")
+
+        self.mainWind = mainWin
+        self.show()
+        self.upload_montecarlo_pushButton_m.clicked.connect(self.get_montecarlo_file)
+        self.ok_montecarlo_pushButton_2_m.clicked.connect(self.display_ok)
+
+    def get_montecarlo_file(self):
+        filename = QFileDialog.getOpenFileNames()
+        self.path = filename[0][0]
+
+    def display_ok(self):
+        self.nombre_input = self.nombre_graph_montecarlo_m.text()
+        self.color_t = self.montecarlo_color_comboBox_m.currentText()
+        unidad_frec = self.montecarlo_frec_comboBox_m.currentText()
+        unidad_modulo = self.montecarlo_modulo_comboBox_m.currentText()
+        unidad_fase = self.montecarlo_fase_comboBox_m.currentText()
+        if unidad_fase == "grados":
+            unidad_fase = "°"
+        cs.update(self.mainWind.index, self.path, self.nombre_input, self.color_t, unidad_frec, unidad_modulo, unidad_fase)
+        self.close()
+        window.show_graph()
+        self.mainWind.update_name(cs.curves[self.mainWind.index].name)
+
 
 class MatplotlibWidget(QtWidgets.QMainWindow):
 
@@ -118,15 +298,18 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         QMainWindow.__init__(self)
         loadUi("menu.ui", self)
         self.setWindowTitle("Plot Tool")
+        self.MplWidget.make_ToolBar(self.ToolBar1)
+        self.MplWidget2.make_ToolBar(self.ToolBar2)
 
-        #self.Curve_0.hide()
+        self.Curve_0.hide()
+        self.Curves_in_the_List = []
 
         self.teoricoButton.clicked.connect(self.goto_graphInfoTeorico)
         self.simulacionButton.clicked.connect(self.goto_graphInfoSimulacion)
         self.medicionButton.clicked.connect(self.goto_graphInfoMedicion)
         self.montecarloButton.clicked.connect(self.goto_graphInfoMontecarlo)
         self.resptempButton.clicked.connect(self.goto_graphInfoRespTemp)
-        self.borrarpushButton.clicked.connect(self.goto_borrar)
+        self.borrarpushButton.clicked.connect(self.goto_Borrar_Graficos)
         self.aplicar_button_ejes1.clicked.connect(self.goto_graphModulo_Axis)
         self.aplicar_button_ejes2.clicked.connect(self.goto_graphFase_Axis)
         self.current_delete = 0
@@ -155,25 +338,29 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
 
     def addCurveTeorico(self):
         if len(cs.curves) != 0:
-            aux_curve = ListWidget()
+            aux_curve = ListWidget(self)
+            self.Curves_in_the_List.append(aux_curve)
             self.CurveList.layout().addWidget(aux_curve)
         self.show_graph()
 
     def addCurveSimulacion(self):
         if len(cs.curves) != 0:
-            aux_curve = ListWidget()
+            aux_curve = ListWidget(self)
+            self.Curves_in_the_List.append(aux_curve)
             self.CurveList.layout().addWidget(aux_curve)
         self.show_graph()
 
     def addCurveMedicion(self):
         if len(cs.curves) != 0:
-            aux_curve = ListWidget()
+            aux_curve = ListWidget(self)
+            self.Curves_in_the_List.append(aux_curve)
             self.CurveList.layout().addWidget(aux_curve)
         self.show_graph()
 
     def addCurveMontecarlo(self):
         if len(cs.curves) != 0:
-            aux_curve = ListWidget()
+            aux_curve = ListWidget(self)
+            self.Curves_in_the_List.append(aux_curve)
             self.CurveList.layout().addWidget(aux_curve)
         self.show_graph()
 
@@ -210,6 +397,13 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         cs.change_y_ph_label(ax_y)
         self.show_graph()
 
+    def update_Curve_in_the_List(self, index_deleted_widget):
+        #self.Curves_in_the_List[index_deleted_widget].goto_borrar()
+        self.Curves_in_the_List.pop(index_deleted_widget)
+        for i in range(index_deleted_widget, len(self.Curves_in_the_List)):
+            self.Curves_in_the_List[i].update_index(i)
+
+
     def show_graph(self):
         self.MplWidget.canvas.axes.clear()
         self.MplWidget2.canvas.axes.clear()
@@ -228,7 +422,14 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.MplWidget2.canvas.axes.clear()
         self.MplWidget2.canvas.draw()
 
-    def goto_borrar(self):
+    def goto_Borrar_Graficos(self):
+        while len(self.Curves_in_the_List) != 0:
+            self.Curves_in_the_List[0].goto_borrar()
+        #for i in range(len(self.Curves_in_the_List))[::-1]:
+        #    self.Curves_in_the_List[i].goto_borrar()
+        #    self.Curves_in_the_List.pop(i)
+        #for i in range(len(cs.curves)):
+        #    cs.del_curve(cs.curves[0])
         self.MplWidget.canvas.axes.clear()
         self.MplWidget.canvas.draw()
         self.MplWidget2.canvas.axes.clear()
@@ -236,28 +437,43 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
 
 class ListWidget(QWidget):
 
-    def __init__(self):
+    def __init__(self, mainWindow):
         QMainWindow.__init__(self)
         loadUi("ListWidget.ui", self)
 
         self.nombre_list.setText(cs.curves[-1].name)
-        #self.color.setStyleSheet("background-color:" + color)
+        self.type_list = cs.curves[-1].type
+        self.mainWindow = mainWindow
         self.visibilidad_list.clicked.connect(self.goto_visibilidad)
         self.modificar_list.clicked.connect(self.goto_modificar)
         self.borrar_list.clicked.connect(self.goto_borrar)
         self.index = cs.curves.index(cs.curves[-1])
 
-    def goto_visibilidad (self):
+    def goto_visibilidad(self):
         cs.curves[self.index].change_visibility()
         window.show_graph()
 
     def goto_modificar(self):
-        print("messi")
+        if self.type_list == 1:
+            self.Input_Teorico_Modificar = Input_Teorico_Window_Modificar(self)
+        elif self.type_list == 2:
+            self.Input_Simulacion_Modificar = Input_Simulacion_Window_Modificar(self)
+        elif self.type_list == 3:
+            self.Input_Medicion_Modificar = Input_Medicion_Window_Modificar(self)
+        elif self.type_list == 4:
+            self.Input_Montecarlo_Modificar = Input_Montecarlo_Window_Modificar(self)
+
+    def update_name(self, new_name):
+        self.nombre_list.setText(new_name)
+
+    def update_index(self, new_index):
+        self.index = new_index
 
     def goto_borrar(self):
         cs.del_curve(cs.curves[self.index])
         self.hide()
         window.show_graph()
+        self.mainWindow.update_Curve_in_the_List(self.index)
 
 
 cs = Curvespace()

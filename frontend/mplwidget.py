@@ -10,10 +10,13 @@ class MplWidget(QWidget):
 
         vertical_layout = QVBoxLayout()
         vertical_layout.addWidget(self.canvas)
-        vertical_layout.addWidget(NavigationToolbar(self.canvas, self))
+        #ToolBar1.addWidget(NavigationToolbar(self.canvas, self))
 
         self.canvas.axes = self.canvas.figure.add_subplot(111)
         self.setLayout(vertical_layout)
+
+    def make_ToolBar (self, layout):
+        layout.addWidget(NavigationToolbar(self.canvas, self))
 
 class MplWidget2(QWidget):
 
@@ -24,7 +27,10 @@ class MplWidget2(QWidget):
 
         vertical_layout = QVBoxLayout()
         vertical_layout.addWidget(self.canvas)
-        vertical_layout.addWidget(NavigationToolbar(self.canvas, self))
+        #vertical_layout.addWidget(NavigationToolbar(self.canvas, self))
 
         self.canvas.axes = self.canvas.figure.add_subplot(111)
         self.setLayout(vertical_layout)
+
+    def make_ToolBar (self, layout):
+        layout.addWidget(NavigationToolbar(self.canvas, self))
