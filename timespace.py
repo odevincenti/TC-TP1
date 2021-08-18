@@ -63,6 +63,40 @@ class Timespace(Curvespace):
         ax.grid()
         return
 
+    # change_t_label: Cambia el label del eje x del gráfico del tiempo
+    def change_t_label(self, label):
+        if label == "t":
+            self.x_mod_label = "$t$"
+        else:
+            self.x_mod_label = label
+
+    # change_x_mod_label: Cambia el label del eje y del gráfico temporal
+    def change_y_label(self, label):
+        if label == "V":
+            self.y_label = "$V$"
+        elif label == "Y":
+            self.y_label = "$Y$"
+        else:
+            self.y_label = label
+
+    # change_x_label: Cambia el label del segundo eje y del gráfico temporal
+    def change_x_label(self, label):
+        if label == "V":
+            self.y_label = "$V$"
+        elif label == "X":
+            self.y_label = "$X$"
+        else:
+            self.y_label = label
+
+    # change_title: Setter para el título del gráfico
+    # Devuelve False en caso de error
+    def change_title(self, title):
+        r = False
+        if isinstance(title, str):
+            self.title = title
+            r = True
+        return r
+
     def simulada(self, r_type, data, name, color, t_unit="s", y_unit="V", x_unit="V"):
         # print("simulada")
         r = True
@@ -240,7 +274,7 @@ class tSim(Timecurve):
 ########################################################################################################################
 # Clase tTeo: Representa una curva de tiempo teórica, hija de la clase Timecurve
 # En data recibe un arreglo con: - curve: La curva a partir de la cual fue creada
-#                                - t: El intervalo de tiempo a graficar (si no se aclara asume de 0 a 300us)
+#                                - t: El intervalo de tiempo a graficar (si no se aclara asume de 0 a 10ms)
 #                                - param: Valores de A, f, dc, t0 necesarios para los cálculos (ver cada caso)
 # ----------------------------------------------------------------------------------------------------------------------
 class tTeo(Timecurve):

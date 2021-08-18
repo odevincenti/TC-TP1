@@ -68,11 +68,14 @@ class Frecspace(Curvespace):
     # plot_ph: grafica la fase del conjunto de curvas visibles, si alguna da error deja de ser visible
     def plot_ph(self, ax):
         self.fix_units()
+        h = []
         for i in range(len(self.curves)):
             if self.curves[i].visibility:
-                if not self.curves[i].plot_curve_ph(ax):  # Grafico fase
+                x = self.curves[i].plot_curve_ph(ax)  # Grafico fase
+                h.append(x)
+                if not x:
                     self.curves[i].visibility = False
-        ax.legend(self.get_names(True))
+        ax.legend(h)
         if self.ph_unit == "°":
             #todo: acomodar para que sea variable
             ax.set_yticks([-180, -135, -90, -45, 0, 45, 90, 135, 180])
@@ -271,17 +274,19 @@ class FrecCurve(Curve):
         self.mod_unit = mod_unit    # Unidad del módulo, se asume dB
         self.ph_unit = ph_unit      # Unidad de la fase, se asume °
 
+    # todo: que queden lindas las mediciones
     def plot_curve_mod(self, ax):
         ls = get_ls(self.type)
         if ls == '':
             print("Hubo un error, no se puede graficar la curva")
-            return False
+            return
         if self.type != 4:
-            ax.semilogx(self.w, self.mod, self.color, linestyle=ls)  # Grafico el módulo de la transferencia
+            h = ax.semilogx(self.w, self.mod, self.color, linestyle=ls)  # Grafico el módulo de la transferencia
         else:
-            for i in range(len(self.w)):
+            h = ax.semilogx(self.w[0], self.mod[0], self.color, linestyle=ls)  # Grafico el módulo de la transferencia de la primer curva del MC
+            for i in range(1, len(self.w)):
                 ax.semilogx(self.w[i], self.mod[i], self.color, linestyle=ls)  # Grafico el módulo de la transferencia
-        return True
+        return h
 
     def plot_curve_ph(self, ax):
         ls = get_ls(self.type)

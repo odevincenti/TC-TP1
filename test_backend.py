@@ -14,7 +14,7 @@ CS.add_curve(1, ["1", "1, 2"])
 w_0 = 2*np.pi*10.8E3
 CS.add_curve(1, ["-1E11", "1, 2E6, 1E12"], name="Prueba")
 CS.add_curve(1, [f"{w_0**-2}, 0, 1", f"{w_0**-2}, {4/w_0}, 1"], name="Teórica", color="mediumblue", w_unit="rad/seg", mod_unit="dB", ph_unit="°")
-CS.add_curve(4, "montecarlo-simulacion.txt", name="Montecarlo 4", color="cyan")
+CS.add_curve(4, "montecarlo-simulacion.txt", name="Montecarlo 4", color="violet")
 CS.add_curve(4, "montecarlo2-simulacion.txt", name="Montecarlo 2")
 CS.change_mod_unit("veces")
 C = 68E-9
