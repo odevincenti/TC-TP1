@@ -48,13 +48,13 @@ class Input_Simulacion_Window(QWidget):
 
     def display_ok(self):
         self.nombre_input = self.nombre_graph_simulacion.text()
-        #color = self.teorico_color_comboBox.currentText()
+        self.color_t = self.simulacion_color_comboBox.currentText()
         unidad_frec = self.simulacion_frec_comboBox.currentText()
         unidad_modulo = self.simulacion_modulo_comboBox.currentText()
         unidad_fase = self.simulacion_fase_comboBox.currentText()
         if unidad_fase == "grados":
             unidad_fase = "°"
-        cs.add_curve(2, self.path, self.nombre_input, "",unidad_frec, unidad_modulo, unidad_fase)
+        cs.add_curve(2, self.path, self.nombre_input, self.color_t,unidad_frec, unidad_modulo, unidad_fase)
         self.close()
 
 
@@ -75,13 +75,13 @@ class Input_Medicion_Window(QWidget):
 
     def display_ok(self):
         self.nombre_input = self.nombre_graph_medicion.text()
-        #color = self.teorico_color_comboBox.currentText()
+        self.color_t = self.medicion_color_comboBox.currentText()
         unidad_frec = self.medicion_frec_comboBox.currentText()
         unidad_modulo = self.medicion_modulo_comboBox.currentText()
         unidad_fase = self.medicion_fase_comboBox.currentText()
         if unidad_fase == "grados":
             unidad_fase = "°"
-        cs.add_curve(3, self.path, self.nombre_input, "", unidad_frec, unidad_modulo, unidad_fase)
+        cs.add_curve(3, self.path, self.nombre_input, self.color_t, unidad_frec, unidad_modulo, unidad_fase)
         self.close()
 
 class Input_Montecarlo_Window(QWidget):
@@ -101,13 +101,13 @@ class Input_Montecarlo_Window(QWidget):
 
     def display_ok(self):
         self.nombre_input = self.nombre_graph_montecarlo.text()
-        #color = self.teorico_color_comboBox.currentText()
+        self.color_t = self.montecarlo_color_comboBox.currentText()
         unidad_frec = self.montecarlo_frec_comboBox.currentText()
         unidad_modulo = self.montecarlo_modulo_comboBox.currentText()
         unidad_fase = self.montecarlo_fase_comboBox.currentText()
         if unidad_fase == "grados":
             unidad_fase = "°"
-        cs.add_curve(4, self.path, self.nombre_input, "", unidad_frec, unidad_modulo, unidad_fase)
+        cs.add_curve(4, self.path, self.nombre_input, self.color_t, unidad_frec, unidad_modulo, unidad_fase)
         self.close()
 
 
