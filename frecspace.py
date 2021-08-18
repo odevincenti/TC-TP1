@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.signal as ss
 import os
+import matplotlib.lines as mlines
 from curvespace import Curvespace, Curve
 
 ########################################################################################################################
@@ -41,7 +42,6 @@ class Frecspace(Curvespace):
                     break
         # SWITCH DE COLORES
         #todo: aclarar colores del mc
-        # todo: que no se rompan los colores de los labels cuando los mc van al principio
         #todo: Revisar ingreso de unidades y que anden
         switch_colors = ["blue", "orange", "green", "red", "cyan", "magenta", "gold", "violet"]
         if color == "":# and c_type != 4:
@@ -54,11 +54,13 @@ class Frecspace(Curvespace):
     # plot_mod: grafica el módulo del conjunto de curvas visibles, si alguna da error deja de ser visible
     def plot_mod(self, ax):
         self.fix_units()
+        h = []
         for i in range(len(self.curves)):
             if self.curves[i].visibility:
-                if not self.curves[i].plot_curve_mod(ax):  # Grafico módulo
-                    self.curves[i].visibility = False
-        ax.legend(self.get_names(True))
+                if self.curves[i].plot_curve_mod(ax):  # Grafico módulo
+                    h.append(mlines.Line2D([], [], color=self.curves[i].color, label=self.curves[i].name))
+                else: self.curves[i].visibility = False
+        ax.legend(handles=h)
         ax.set_title(self.mod_title)
         ax.set_xlabel(self.x_mod_label + " $\\left[" + self.curves[0].w_unit + "\\right]$")
         ax.set_ylabel(self.y_mod_label + " $\\left[" + self.curves[0].mod_unit + "\\right]$")
@@ -71,11 +73,10 @@ class Frecspace(Curvespace):
         h = []
         for i in range(len(self.curves)):
             if self.curves[i].visibility:
-                x = self.curves[i].plot_curve_ph(ax)  # Grafico fase
-                h.append(x)
-                if not x:
-                    self.curves[i].visibility = False
-        ax.legend(h)
+                if self.curves[i].plot_curve_ph(ax):  # Grafico fase
+                    h.append(mlines.Line2D([], [], color=self.curves[i].color, label=self.curves[i].name))
+                else: self.curves[i].visibility = False
+        ax.legend(handles=h)
         if self.ph_unit == "°":
             #todo: acomodar para que sea variable
             ax.set_yticks([-180, -135, -90, -45, 0, 45, 90, 135, 180])
@@ -279,14 +280,13 @@ class FrecCurve(Curve):
         ls = get_ls(self.type)
         if ls == '':
             print("Hubo un error, no se puede graficar la curva")
-            return
+            return False
         if self.type != 4:
-            h = ax.semilogx(self.w, self.mod, self.color, linestyle=ls)  # Grafico el módulo de la transferencia
+            ax.semilogx(self.w, self.mod, self.color, linestyle=ls)  # Grafico el módulo de la transferencia
         else:
-            h = ax.semilogx(self.w[0], self.mod[0], self.color, linestyle=ls)  # Grafico el módulo de la transferencia de la primer curva del MC
-            for i in range(1, len(self.w)):
+            for i in range(len(self.w)):
                 ax.semilogx(self.w[i], self.mod[i], self.color, linestyle=ls)  # Grafico el módulo de la transferencia
-        return h
+        return True
 
     def plot_curve_ph(self, ax):
         ls = get_ls(self.type)

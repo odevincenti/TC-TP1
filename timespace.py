@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.signal as ss
 import os
+import matplotlib.lines as mlines
 from curvespace import Curvespace, Curve
 
 ########################################################################################################################
@@ -52,10 +53,13 @@ class Timespace(Curvespace):
     # plot_time: grafica la curvas de respuesta temporal, si alguna da error deja de ser visible
     def plot_time(self, ax):
         # self.fix_units()
+        h = []
         for i in range(len(self.curves)):
             if self.curves[i].visibility:
-                if not self.curves[i].plot_timecurve(ax):  # Grafico
-                    self.curves[i].visibility = False
+                if self.curves[i].plot_timecurve(ax):  # Grafico fase
+                    h.append(mlines.Line2D([], [], color=self.curves[i].color, label=self.curves[i].name))
+                else: self.curves[i].visibility = False
+        ax.legend(handles=h)
         ax.legend(self.get_names(True))
         ax.set_title(self.title)
         ax.set_xlabel(self.t_label + " $\\left[" + self.curves[0].t_unit + "\\right]$")
