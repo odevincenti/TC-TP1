@@ -1,8 +1,7 @@
 import numpy as np
-import matplotlib.colors as mc
+from matplotlib.colors import is_color_like
 import scipy.signal as ss
 import os
-import colorsys
 
 ########################################################################################################################
 # Clase Curvespace: Contiene la lista de curvas y métodos para modificarla
@@ -17,6 +16,16 @@ class Curvespace:
         self.y_mod_label = "$|H(s)|$"       # Label del eje y del gráfico del módulo. Es |H(s)| por defecto
         self.x_ph_label = "$f$"             # Label del eje x del gráfico de la fase. Es f por defecto
         self.y_ph_label = "$\\phi(H(s))$"   # Label del eje y del gráfico de la fase. Es phi(H(s)) por defecto
+
+    # update: Método para actualizar los valores de la curva sin tener que borrarla y crearla de vuelta
+    # OJO: En vez de recibir el tipo de curva,
+    def update(self, index, data, name="", color="", w_unit="Hz", mod_unit="dB", ph_unit="°"):
+        self.change_curve_name(index, name)
+        self.change_curve_color(index, color)
+        self.curves[index].change_w_unit(w_unit)
+        self.curves[index].change_mod_unit(mod_unit)
+        self.curves[index].change_ph_unit(ph_unit)
+        self.curves[index].change_data(data)
 
     # addCurve: Método para agregar una curva. Para más detalles mirar clase Curva
     def add_curve(self, c_type, data, name="", color="", w_unit="Hz", mod_unit="dB", ph_unit="°"):
@@ -107,17 +116,21 @@ class Curvespace:
     # Devuelve False en caso de error (el nuevo nombre ya está asignado)
     def change_curve_name(self, index, name):
         r = self.check_name(name)
-        if r: self.curves[index].name = name
+        if name != "" and r: self.curves[index].name = name
         else: print("Se mantendrá el nombre anterior")
         return r
 
     # change_curve_color: Setter para el color de una curva. Recibe:
-    #   - index: índice de la curva en el arreglo (lo puedo cambiar a nombre o a la curva en sí lo que les resulte más cómodo)
+    #   - index: índice de la curva en el arreglo
     #   - color: color nuevo para la curva
     # Devuelve False en caso de error
     def change_curve_color(self, index, color):
         r = True
-        self.curves[index].color = color
+        if color == "" or not is_color_like(color):
+            print("Se mantendrá el color " + self.curves[index].color)
+            r = False
+        else:
+            self.curves[index].color = color
         return r
 
     # change_x_mod_label: Cambia el label del eje x del gráfico del módulo
@@ -689,18 +702,18 @@ def fix_coefs(coefs):
         coefs = None
     return coefs
 ########################################################################################################################
-
+'''
 ########################################################################################################################
 # Clase MC: Simulación de Monte Carlo, hija de la clase Curve
 # Tiene unos parámetros extra: - Tipo de respuesta
 #                              - Intervalo de tiempo
 # w, mod y ph serán [] si hubo error
 # ----------------------------------------------------------------------------------------------------------------------
-'''class Respuesta(Curve):
+class Respuesta(Curve):
     def __init__(self, c_type, data, name, color, w_unit="Hz", mod_unit="dB", ph_unit="°"):
         super().__init__(5, data, name, color, w_unit, mod_unit, ph_unit)
 
-        data = curve, r_type, r_data
+        data = curve, rta_type, rta_data
 
         if isinstance(data, str):
             print("Es un archivo")
@@ -808,7 +821,17 @@ def none():
 #             - f: frecuencia de la senoide
 #             - A: amplitud de la senoide
 # ----------------------------------------------------------------------------------------------------------------------
-def sine(t, f=1.0, A=1.0):
+def sine(t, params):
+    if len(params) == 0:
+        f = 1.0
+        A = 1.0
+    elif len(params) == 1:
+        f = params
+        A = 1.0
+    elif len(params) == 2:
+        f, A = params
+    else:
+        print("ERROR: El seno acepta 2 parámetros: frecuencia y amplitud")
     x = A * np.sin(2 * np.pi * f * t)
     return x
 # ----------------------------------------------------------------------------------------------------------------------
@@ -847,9 +870,9 @@ switch_rtypes = {
     3: pulse_train,
     4: impulse,
     5: pulse
-}'''
+}
 ########################################################################################################################
-
+'''
 ########################################################################################################################
 #   get_unit: Obtiene la unidad de los datos simulados de la curva
 # ----------------------------------------------------------------------------------------------------------------------
