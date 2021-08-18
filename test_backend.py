@@ -26,10 +26,11 @@ C.change_x_ph_label("Frecuencia")'''
 
 #fig, ax = plt.subplots(1)
 fig, ax = plt.subplots(2, 1)
-fig.suptitle("Respuesta en frecuencia")
+fig.suptitle(CS.title)
 CS.plot_mod(ax[0])
 CS.plot_ph(ax[1])
 fig.tight_layout()
+plt.savefig(CS.title + ".jpg", dpi=300)
 plt.show()
 
 '''

@@ -16,6 +16,9 @@ class Curvespace:
         self.y_mod_label = "$|H(s)|$"       # Label del eje y del gráfico del módulo. Es |H(s)| por defecto
         self.x_ph_label = "$f$"             # Label del eje x del gráfico de la fase. Es f por defecto
         self.y_ph_label = "$\\phi(H(s))$"   # Label del eje y del gráfico de la fase. Es phi(H(s)) por defecto
+        self. title = "Respuesta en frecuencia"     # Título del gráfico
+        self.mod_title = "Módulo"                   # Título del gráfico de módulo
+        self.ph_title = "Fase"                      # Título del gráfico de fase
 
     # update: Método para actualizar los valores de la curva sin tener que borrarla y crearla de vuelta
     # OJO: En vez de recibir el tipo de curva,
@@ -66,6 +69,7 @@ class Curvespace:
                 if not self.curves[i].plot_curve_mod(ax):  # Grafico módulo
                     self.curves[i].visibility = False
         ax.legend(self.get_names(True))
+        ax.set_title(self.mod_title)
         ax.set_xlabel(self.x_mod_label + " $\\left[" + self.curves[0].w_unit + "\\right]$")
         ax.set_ylabel(self.y_mod_label + " $\\left[" + self.curves[0].mod_unit + "\\right]$")
         ax.grid()
@@ -85,6 +89,7 @@ class Curvespace:
         elif self.ph_unit == "rad":
             ax.set_yticks([-np.pi, -3*np.pi/4, -np.pi/2, -np.pi/4, 0, np.pi/4, np.pi/2, 3*np.pi/4, np.pi])
             ax.set_yticklabels(["$-\\pi$", "$-\\frac{3}{4} \\pi$", "$-\\frac{\\pi}{2}$", "$-\\frac{\\pi}{4}$", 0, "$\\frac{\\pi}{4}$", "$\\frac{\\pi}{2}$", "$\\frac{3}{4} \\pi$", "$\\pi$"])
+        ax.set_title(self.ph_title)
         ax.set_xlabel(self.x_ph_label + " $\\left[" + self.curves[0].w_unit + "\\right]$")
         ax.set_ylabel(self.y_ph_label + " $\\left[" + self.curves[0].ph_unit + "\\right]$")
         ax.grid()
@@ -131,6 +136,24 @@ class Curvespace:
             r = False
         else:
             self.curves[index].color = color
+        return r
+
+    # change_mod_title: Setter para el título del gráfico del módulo
+    # Devuelve False en caso de error
+    def change_mod_title(self, title):
+        r = False
+        if isinstance(title, str):
+            self.mod_title = title
+            r = True
+        return r
+
+    # change_ph_title: Setter para el título del gráfico de la fase
+    # Devuelve False en caso de error
+    def change_ph_title(self, title):
+        r = False
+        if isinstance(title, str):
+            self.ph_title = title
+            r = True
         return r
 
     # change_x_mod_label: Cambia el label del eje x del gráfico del módulo
@@ -710,19 +733,23 @@ def fix_coefs(coefs):
 # w, mod y ph serán [] si hubo error
 # ----------------------------------------------------------------------------------------------------------------------
 class Respuesta(Curve):
-    def __init__(self, c_type, data, name, color, w_unit="Hz", mod_unit="dB", ph_unit="°"):
-        super().__init__(5, data, name, color, w_unit, mod_unit, ph_unit)
+    def __init__(self, c_type, data, name, color, t_unit="s", A_unit="V"):
+        super().__init__(5, data, name, color)
+        self.t_unit = t_unit
+        self.A_unit = A_unit
 
         data = curve, rta_type, rta_data
 
         if isinstance(data, str):
             print("Es un archivo")
+
         else:
             print("es una teórica")
 
 
 
-        if not switch_rtypes.get(c_type, none)(t, A=1.0):
+
+        if not switch_rta_types.get(rta_type)(t, A=1.0):
             print("Error creando la curva")
 
         if self.check_file(data):
@@ -813,63 +840,121 @@ class Respuesta(Curve):
 ########################################################################################################################
 
 ########################################################################################################################
-def none():
-    return
 # ----------------------------------------------------------------------------------------------------------------------
 # sine: Devuelve una senoide en el intervalo dado con la frecuencia y amplitud determinada
 # Parámetros: - t: intervalo de tiempo que se tomará en cuenta
-#             - f: frecuencia de la senoide
 #             - A: amplitud de la senoide
+#             - f: frecuencia de la senoide
 # ----------------------------------------------------------------------------------------------------------------------
 def sine(t, params):
     if len(params) == 0:
-        f = 1.0
-        A = 1.0
+        A, f = (1.0, 1.0)
     elif len(params) == 1:
-        f = params
-        A = 1.0
+        A, f = (params, 1.0)
     elif len(params) == 2:
-        f, A = params
+        A, f = params
     else:
-        print("ERROR: El seno acepta 2 parámetros: frecuencia y amplitud")
+        print("ERROR: El seno sólo acepta 2 parámetros: amplitud y frecuencia. Se tomarán los primeros 2 valores respectivamente")
+        A, f = params[0:2]
     x = A * np.sin(2 * np.pi * f * t)
     return x
 # ----------------------------------------------------------------------------------------------------------------------
 # heaviside: Devuelve la función escalón en el intervalo dado con la amplitud dada
 # Parámetros: - t: intervalo de tiempo que se tomará en cuenta
 #             - A: amplitud de la señal
-def heaviside(self, t, A=1.0):
+def heaviside(t, params):
+    if len(params) == 0:
+        A = 1.0
+    elif len(params) == 1:
+        A = params
+    else:
+        print("ERROR: La función escalón sólo acepta 1 parámetro: amplitud. Se tomará el primer valor")
+        A = params[0]
     x = A * (np.sign(t))
     return x
 # ----------------------------------------------------------------------------------------------------------------------
 # pulse_ train: Devuelve un tren de pulsos en el intervalo dado con la amplitud, frecuencia y DC dados
 # Parámetros: - t: intervalo de tiempo que se tomará en cuenta
-#             - f: frecuencia del tren
 #             - A: amplitud de la señal
+#             - f: frecuencia del tren
 #             - Dc: duty cycle
-def pulse_train(self, t, f=1.0, A=1.0, dc=0.5):
+def pulse_train(t, params):
+    if len(params) == 0:
+        A, f, dc = (1.0, 1.0, 0.5)
+    elif len(params) == 1:
+        A, f, dc = (params, 1.0, 0.5)
+    elif len(params) == 2:
+        A, f = params
+        dc = 0.5
+    elif len(params) == 3:
+        A, f, dc = params
+    else:
+        print("ERROR: El tren de pulsos sólo acepta 3 parámetros: amplitud, frecuencia y Duty Cycle. Se tomarán los primeros 3 valores respectivamente")
+        A, f, dc = params[0:3]
     x = A * ss.square(2 * np.pi * f * t, dc)
     return x
 # ----------------------------------------------------------------------------------------------------------------------
-# impulse: Devuelve un impulso en el intervalo dado de la amplitud dada y en el instante t0
-def impulse(self, t, t0, A=1.0):
+# impulse: Devuelve un impulso en el intervalo dado en el instante t0 y con una la amplitud dada
+def impulse(t, params):
+    if len(params) == 0:
+        t0, A = (0.0, 1.0)
+    elif len(params) == 1:
+        t0, A = (params, 1.0)
+    elif len(params) == 2:
+        t0, A = params
+    else:
+        print("ERROR: El impulso sólo acepta 2 parámetros: instante y amplitud. Se tomarán los primeros 2 valores respectivamente")
+        t0, A = params[0:2]
     idx = t.index(t0)
-    x = A*ss.unit_impulse(len(t), idx)
+    x = A * ss.unit_impulse(len(t), idx)
     return x
 # ----------------------------------------------------------------------------------------------------------------------
-# pulse: Devuelve un pulso en el intervalo dado con la amplitud dada
-def pulse(self, t, A=1.0):
-    x = A * ss.step(self.data.H, T=t)[1]
+# ramp: Devuelve una rampa en el intervalo dado en el instante t0 y con una pendiente m
+def ramp(t, params):
+    if len(params) == 0:
+        t0, m = (0.0, 1.0)
+    elif len(params) == 1:
+        t0, m = (params, 1.0)
+    elif len(params) == 2:
+        t0, m = params
+    else:
+        print("ERROR: El impulso sólo acepta 2 parámetros: instante y pendiente. Se tomarán los primeros 2 valores respectivamente")
+        t0, m = params[0:2]
+
+    x = []
+    for sample in t:
+        if sample < t0:
+            x.append(0)
+        else:
+            x.append(m * sample)
+    return x
+# ----------------------------------------------------------------------------------------------------------------------
+# exp: Devuelve una señal exponencial en el intervalo dado y con la amplitud y el exponente dado
+def exp(t, params):
+    if len(params) == 0:
+        A, a = (1.0, 1.0)
+    elif len(params) == 1:
+        A, a = (params, 1.0)
+    elif len(params) == 2:
+        A, a = params
+    else:
+        print("ERROR: La exponencial sólo acepta 2 parámetros: amplitud y exponente. Se tomarán los primeros 2 valores respectivamente")
+        A, a = params[0:2]
+
+    x =[]
+    for sample in t:
+        x.append(np.exp(a * sample))
+    x = A * x
     return x
 # ----------------------------------------------------------------------------------------------------------------------
 # SWITCH
-switch_rtypes = {
-    0: none,
+switch_rta_types = {
     1: sine,
     2: heaviside,
     3: pulse_train,
     4: impulse,
-    5: pulse
+    6: ramp,
+    7: exp
 }
 ########################################################################################################################
 '''
