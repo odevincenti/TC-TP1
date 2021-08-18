@@ -309,10 +309,13 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.medicionButton.clicked.connect(self.goto_graphInfoMedicion)
         self.montecarloButton.clicked.connect(self.goto_graphInfoMontecarlo)
         self.resptempButton.clicked.connect(self.goto_graphInfoRespTemp)
+
         self.borrarpushButton.clicked.connect(self.goto_Borrar_Graficos)
+
         self.aplicar_button_ejes1.clicked.connect(self.goto_graphModulo_Axis)
         self.aplicar_button_ejes2.clicked.connect(self.goto_graphFase_Axis)
-        self.current_delete = 0
+        self.aplicar_titulo_1.clicked.connect(self.goto_graphTitulo_1)
+        self.aplicar_titulo_2.clicked.connect(self.goto_graphTitulo_2)
 
     def goto_graphInfoTeorico(self):
         self.Input_Teorico = Input_Teorico_Window()
@@ -375,10 +378,10 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         else:
             ax_y = self.ejey_lineEdit.text()
 
-        self.ejex_lineEdit.setText("")
-        self.ejey_lineEdit.setText("")
         cs.change_x_mod_label(ax_x)
         cs.change_y_mod_label(ax_y)
+        self.ejex_lineEdit.setText("")
+        self.ejey_lineEdit.setText("")
         self.show_graph()
 
     def goto_graphFase_Axis(self):
@@ -391,10 +394,30 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         else:
             ax_y = self.ejey2_lineEdit.text()
 
-        self.ejex2_lineEdit.setText(" ")
-        self.ejey2_lineEdit.setText(" ")
         cs.change_x_ph_label(ax_x)
         cs.change_y_ph_label(ax_y)
+        self.ejex2_lineEdit.setText("")
+        self.ejey2_lineEdit.setText("")
+        self.show_graph()
+
+    def goto_graphTitulo_1(self):
+        if len(self.Titulo_1.text()) == 0:
+            titulo = "Módulo"
+        else:
+            titulo = self.Titulo_1.text()
+
+        cs.change_mod_title(titulo)
+        self.Titulo_1.setText("")
+        self.show_graph()
+
+    def goto_graphTitulo_2(self):
+        if len(self.Titulo_2.text()) == 0:
+            titulo = "Fase"
+        else:
+            titulo = self.Titulo_2.text()
+
+        cs.change_ph_title(titulo)
+        self.Titulo_2.setText("")
         self.show_graph()
 
     def update_Curve_in_the_List(self, index_deleted_widget):
