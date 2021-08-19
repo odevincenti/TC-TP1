@@ -666,6 +666,30 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.aplicar_titulo_1.clicked.connect(self.goto_graphTitulo_1)
         self.aplicar_titulo_2.clicked.connect(self.goto_graphTitulo_2)
         self.aplicar_titulo_3.clicked.connect(self.goto_graphTitulo_3)
+        self.aplicar_fig1.clicked.connect(self.goto_unit_fig1)
+        self.aplicar_fig2.clicked.connect(self.goto_unit_fig2)
+        self.aplicar_fig3.clicked.connect(self.goto_unit_fig3)
+
+    def goto_unit_fig1(self):
+        self.fig1_x_comboBox = self.fig1_x_unit.currentText()
+        self.fig1_y_comboBox = self.fig1_y_unit.currentText()
+        cs.change_w_unit(self.fig1_x_comboBox)
+        cs.change_mod_unit(self.fig1_y_comboBox)
+        self.show_graph()
+
+    def goto_unit_fig2(self):
+        self.fig2_x_comboBox = self.fig2_x_unit.currentText()
+        self.fig2_y_comboBox = self.fig2_y_unit.currentText()
+        cs.change_w_unit(self.fig2_x_comboBox)
+        cs.change_ph_unit(self.fig2_y_comboBox)
+        self.show_graph()
+
+    def goto_unit_fig3(self):
+        self.fig3_x_comboBox = self.fig3_x_unit.currentText()
+        self.fig3_y_comboBox = self.fig3_y_unit.currentText()
+        ts.change_t_unit(self.fig3_x_comboBox)
+        ts.change_y_unit(self.fig3_y_comboBox)
+        self.show_graph()
 
     def goto_graphInfoTeorico(self):
         self.Input_Teorico = Input_Teorico_Window()
