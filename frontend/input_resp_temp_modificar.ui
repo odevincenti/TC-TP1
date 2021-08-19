@@ -6,160 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>432</width>
-    <height>563</height>
+    <width>425</width>
+    <height>455</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QWidget" name="gridLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>20</y>
-     <width>389</width>
-     <height>91</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QLabel" name="resp_temp_teo_simu_label_m">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Simulacion o teorico</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="3">
-     <widget class="QPushButton" name="teo_aplicar_m">
-      <property name="text">
-       <string>Aplicar</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="3">
-     <widget class="QPushButton" name="simu_graficar_m">
-      <property name="font">
-       <font>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Graficar</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="resp_temp_teo_label_m">
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Señales teoricas</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QPushButton" name="resp_temp_simu_upload_m">
-      <property name="text">
-       <string>Upload</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="3">
-     <widget class="QPushButton" name="teo_simu_aplicar_m">
-      <property name="text">
-       <string>Aplicar</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QComboBox" name="resp_temp_teo_comboBox_m">
-      <item>
-       <property name="text">
-        <string>Senoidal</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Escalon</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Tren de pulsos</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Impulso</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Rampa</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Exponencial</string>
-       </property>
-      </item>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QComboBox" name="resp_temp_teo_simu_comboBox_m">
-      <property name="styleSheet">
-       <string notr="true">text-align: center;</string>
-      </property>
-      <item>
-       <property name="text">
-        <string>Teórico</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Simulación</string>
-       </property>
-      </item>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="resp_temp_simu_label_m">
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Simulacion</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="2">
-     <widget class="QComboBox" name="curva_teo_comboBox_m"/>
-    </item>
-   </layout>
-  </widget>
   <widget class="QPushButton" name="resp_temp_graficar_m">
    <property name="geometry">
     <rect>
-     <x>180</x>
-     <y>520</y>
+     <x>170</x>
+     <y>420</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -178,7 +36,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>120</y>
+     <y>10</y>
      <width>391</width>
      <height>391</height>
     </rect>
