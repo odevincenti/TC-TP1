@@ -539,7 +539,7 @@ border-color: black;</string>
          </font>
         </property>
         <property name="text">
-         <string>Respuesta en frecuencia</string>
+         <string>Respuesta en temporal</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
