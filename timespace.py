@@ -52,7 +52,7 @@ class Timespace(Curvespace):
 
     # plot_time: grafica la curvas de respuesta temporal, si alguna da error deja de ser visible
     def plot_time(self, ax):
-        # self.fix_units()
+        self.fix_units()
         h = []
         for i in range(len(self.curves)):
             if self.curves[i].visibility:
@@ -60,19 +60,73 @@ class Timespace(Curvespace):
                     h.append(mlines.Line2D([], [], color=self.curves[i].color, label=self.curves[i].name))
                 else: self.curves[i].visibility = False
         ax.legend(handles=h)
-        ax.legend(self.get_names(True))
         ax.set_title(self.title)
-        ax.set_xlabel(self.t_label + " $\\left[" + self.curves[0].t_unit + "\\right]$")
-        ax.set_ylabel(self.y_label + " $\\left[" + self.curves[0].y_unit + "\\right]$")
+        ax.set_xlabel(self.t_label + " $\\left [" + self.t_unit + "\\right ]$")
+        ax.set_ylabel(self.y_label + " $\\left [" + self.y_unit + "\\right ]$")
         ax.grid()
         return
+
+    # change_t_unit: Cambia la unidad del tiempo de s a min o viceversa
+    # Devuelve False en caso de error
+    def change_t_unit(self, unit=""):
+        r = True
+        unit = unit.replace(" ", "")        # Elimina espacios
+        if self.t_unit != unit:
+            if unit == "s" or unit == "$s$":
+                self.t_unit = "s"
+            elif unit == "ms" or unit == "$ms$":
+                self.t_unit = "ms"
+            elif unit == "us" or unit == "$\\mus$" or unit == "\\mus":
+                self.t_unit = "\\mu s"
+            elif unit == "min" or unit == "$min$":
+                self.t_unit = "min"
+            else: r = False
+        return r
+
+    # change_y_unit: Cambia la unidad de la señal de salida de V a mV o uV o viceversa
+    # Devuelve False en caso de error
+    def change_y_unit(self, unit=""):
+        r = True
+        unit = unit.replace(" ", "")        # Elimina espacios
+        if self.y_unit != unit and self.y_unit != ("$" + unit + "$"):
+            if unit == "V" or unit == "$V$":
+                self.y_unit = "V"
+            elif unit == "mV" or unit == "$mV$":
+                self.y_unit = "mV"
+            elif unit == "uV" or unit == "$\\muV$" or unit == "\\muV":
+                self.y_unit = "\\mu V"
+            else: r = False
+        return r
+
+    # change_x_unit: Cambia la unidad de la señal de entrada de V a mV o uV o viceversa
+    # Devuelve False en caso de error
+    def change_x_unit(self, unit=""):
+        r = True
+        unit = unit.replace(" ", "")        # Elimina espacios
+        if self.x_unit != unit and self.x_unit != ("$" + unit + "$"):
+            if unit == "V" or unit == "$V$":
+                self.x_unit = "V"
+            elif unit == "mV" or unit == "$mV$":
+                self.x_unit = "mV"
+            elif unit == "uV" or unit == "$\\muV$" or unit == "\\muV":
+                self.x_unit = "\\mu V"
+            else: r = False
+        return r
+
+    # fix_units: Revisa las unidades de cada curva visible para que todas tengan las especificadas y tenga sentido graficarlas
+    def fix_units(self):
+        for i in range(len(self.curves)):
+            if self.curves[i].visibility:
+                self.curves[i].change_t_unit(self.t_unit)
+                self.curves[i].change_y_unit(self.y_unit)
+                self.curves[i].change_x_unit(self.x_unit)
 
     # change_t_label: Cambia el label del eje x del gráfico del tiempo
     def change_t_label(self, label):
         if label == "t":
-            self.x_mod_label = "$t$"
+            self.t_label = "$t$"
         else:
-            self.x_mod_label = label
+            self.t_label = label
 
     # change_x_mod_label: Cambia el label del eje y del gráfico temporal
     def change_y_label(self, label):
@@ -166,28 +220,84 @@ class Timecurve(Curve):
         return True
 
     # change_t_unit: Cambia la unidad de la frecuencia de s a min o viceversa
-    # Si no se especifica la unidad a la que se quiere cambiar o es una que no existe, hace un switch
+    # Devuelve False en caso de error
     def change_t_unit(self, unit=""):
-        if self.t_unit != unit:
-            if self.t_unit == "s":
-                self.t_unit = "min"
-                self.t = self.t/60.0
-            else:
+        r = True
+        unit = unit.replace(" ", "")        # Elimina espacios
+        if self.t_unit != unit and self.t_unit != ("$" + unit + "$"):
+            if self.t_unit == "s" or self.t_unit == "$s$":
+                if unit == "us" or unit == "$\\mus$" or unit == "\\mus":
+                    self.t_unit = "$\\mu s$"
+                    self.t = 1E6 * self.t
+                elif unit == "ms" or unit == "$ms$":
+                    self.t_unit = "ms"
+                    self.t = 1E3 * self.t
+                elif unit == "min" or unit == "$min$":
+                    self.t_unit = "min"
+                    self.t = self.t/60.0
+            elif self.t_unit == "ms" or self.t_unit == "$ms$":
+                self.t_unit = "s"
+                self.t = 1E-3*self.t
+                r = self.change_t_unit(unit)
+            elif self.t_unit == "us" or self.t_unit == "$\\mu s$" or self.t_unit == "\\mus":
+                self.t_unit = "s"
+                self.t = 1E-6*self.t
+                r = self.change_t_unit(unit)
+            elif self.t_unit == "min":
                 self.t_unit = "s"
                 self.t = 60.0 * self.t
-        return
+                r = self.change_t_unit(unit)
+            else: r = False
+        return r
 
     # change_y_unit: Cambia la unidad de la señal de salida de V a ?? o viceversa
+    # Devuelve False en caso de error
     def change_y_unit(self, unit=""):
-        if self.y_unit != unit:
-            self.y_unit = unit
-        return
+        r = True
+        unit = unit.replace(" ", "")        # Elimina espacios
+        if self.y_unit != unit and self.y_unit != ("$" + unit + "$"):
+            if self.y_unit == "V" or self.y_unit == "$V$":
+                if unit == "uV" or unit == "$\\muV$" or unit == "\\muV":
+                    self.y_unit = "\\mu V"
+                    self.y = 1E6 * self.y
+                elif unit == "mV" or unit == "$mV$":
+                    self.y_unit = "mV"
+                    self.y = 1E3 * self.y
+            elif self.y_unit == "mV" or self.y_unit == "$mV$":
+                self.y_unit = "V"
+                self.y = 1E-3 * self.y
+                r = self.change_y_unit(unit)
+            elif self.y_unit == "uV" or self.y_unit == "$\\mu V$" or self.y_unit == "\\muV":
+                self.y_unit = "V"
+                self.y = 1E-6 * self.y
+                r = self.change_y_unit(unit)
+            else: r = False
+        return r
 
     # change_x_unit: Cambia la unidad de la señal de entrada de V a ?? o viceversa
+    # Devuelve False en caso de error
     def change_x_unit(self, unit=""):
-        if self.x_unit != unit:
-            self.x_unit = unit
-        return
+        r = True
+        unit = unit.replace(" ", "")  # Elimina espacios
+        if self.x_unit != unit and self.x_unit != ("$" + unit + "$"):
+            if self.x_unit == "V" or self.x_unit == "$V$":
+                if unit == "uV" or unit == "$\\muV$" or unit == "\\muV":
+                    self.x_unit = "\\mu V"
+                    self.x = 1E6 * self.x
+                elif unit == "mV" or unit == "$mV$":
+                    self.x_unit = "mV"
+                    self.x = 1E3 * self.x
+            elif self.x_unit == "mV" or self.x_unit == "$mV$":
+                self.x_unit = "V"
+                self.x = 1E-3 * self.x
+                r = self.change_y_unit(unit)
+            elif self.x_unit == "uV" or self.x_unit == "$\\mu V$" or self.y_unit == "\\muV":
+                self.x_unit = "V"
+                self.x = 1E-6 * self.x
+                r = self.change_x_unit(unit)
+            else:
+                r = False
+        return r
 
     # check_data: Método para la verificación de datos (método virtual)
     def check_data(self, data):

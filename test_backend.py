@@ -20,6 +20,8 @@ C = 68E-9
 R = 2.2E2
 TS.add_curve(0, "Rta_Escalon_Op4.txt", name="escalon 4")
 TS.add_curve(2, [CS.curves[1], np.linspace(0, 300E-6, 1000), [1.0]])
+TS.change_t_unit("ms")
+TS.change_y_unit("\\mu V")
 #CS.add_curve(2, "D:\Descargas\Rta_Frecruencia.txt", name="Simulada", color="orange")
 CS.add_curve(3, "Ejemplo1-medicion.csv", name="Prueba")
 '''C.change_curve_name(1, "Pitusas")
