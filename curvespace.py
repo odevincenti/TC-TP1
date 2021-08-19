@@ -24,9 +24,6 @@ class Curvespace:
                     print("Se tomará como nombre: " + name)
                     break
         # SWITCH DE COLORES
-        #todo: aclarar colores del mc
-        # todo: que no se rompan los colores de los labels cuando los mc van al principio
-        #todo: Revisar ingreso de unidades y que anden
         switch_colors = ["blue", "orange", "green", "red", "cyan", "magenta", "gold", "violet"]
         if color == "":# and c_type != 4:
             color = switch_colors[len(self.curves) % 8]

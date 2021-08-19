@@ -41,8 +41,6 @@ class Frecspace(Curvespace):
                     print("Se tomará como nombre: " + name)
                     break
         # SWITCH DE COLORES
-        #todo: aclarar colores del mc
-        #todo: Revisar ingreso de unidades y que anden
         switch_colors = ["blue", "orange", "green", "red", "cyan", "magenta", "gold", "violet"]
         if color == "":# and c_type != 4:
             color = switch_colors[len(self.curves) % 8]
@@ -78,7 +76,6 @@ class Frecspace(Curvespace):
                 else: self.curves[i].visibility = False
         ax.legend(handles=h)
         if self.ph_unit == "°":
-            #todo: acomodar para que sea variable
             ax.set_yticks([-180, -135, -90, -45, 0, 45, 90, 135, 180])
         elif self.ph_unit == "rad":
             ax.set_yticks([-np.pi, -3*np.pi/4, -np.pi/2, -np.pi/4, 0, np.pi/4, np.pi/2, 3*np.pi/4, np.pi])
@@ -275,7 +272,6 @@ class FrecCurve(Curve):
         self.mod_unit = mod_unit    # Unidad del módulo, se asume dB
         self.ph_unit = ph_unit      # Unidad de la fase, se asume °
 
-    # todo: que queden lindas las mediciones
     def plot_curve_mod(self, ax):
         ls = get_ls(self.type)
         if ls == '':
