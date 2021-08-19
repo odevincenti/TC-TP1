@@ -494,33 +494,29 @@ def pulse_train(t, params):
 # impulse: Devuelve un impulso en el intervalo dado en el instante t0 y con una la amplitud dada
 def impulse(t, params):
     if len(params) == 0:
-        t0, A = (0.0, 1.0)
+        A = 1.0
     elif len(params) == 1:
-        t0, A = (params, 1.0)
-    elif len(params) == 2:
-        t0, A = params
+        A = params[0]
     else:
-        print("ERROR: El impulso sólo acepta 2 parámetros: instante y amplitud. Se tomarán los primeros 2 valores respectivamente")
-        t0, A = params[0:2]
-    idx = t.index(t0)
+        print("ERROR: El impulso sólo acepta 1 parámetro: amplitud. Se tomará el primer valor")
+        A = params[0]
+    idx = t.index(0)
     x = A * ss.unit_impulse(len(t), idx)
     return x
 # ----------------------------------------------------------------------------------------------------------------------
-# ramp: Devuelve una rampa en el intervalo dado en el instante t0 y con una pendiente m
+# ramp: Devuelve una rampa en el intervalo dado con una pendiente m
 def ramp(t, params):
     if len(params) == 0:
-        t0, m = (0.0, 1.0)
+        m = 1.0
     elif len(params) == 1:
-        t0, m = (params, 1.0)
-    elif len(params) == 2:
-        t0, m = params
+        m = params[0]
     else:
-        print("ERROR: El impulso sólo acepta 2 parámetros: instante y pendiente. Se tomarán los primeros 2 valores respectivamente")
-        t0, m = params[0:2]
+        print("ERROR: El impulso sólo acepta 1 parámetro: pendiente. Se tomará el primer valor")
+        m = params[0]
 
     x = []
     for sample in t:
-        if sample < t0:
+        if sample < 0.0:
             x.append(0)
         else:
             x.append(m * sample)
