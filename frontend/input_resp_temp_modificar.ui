@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>425</width>
+    <width>436</width>
     <height>455</height>
    </rect>
   </property>
@@ -56,7 +56,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Eje Y</string>
+         <string>Unidad de Salida</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -129,15 +129,12 @@
          </font>
         </property>
         <property name="text">
-         <string>Eje X</string>
+         <string>Unidad deTiempo</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="resp_temp_ejex_m"/>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label_9">
@@ -155,8 +152,48 @@
         </property>
        </widget>
       </item>
+      <item row="2" column="1">
+       <widget class="QComboBox" name="resp_temp_tiempo_comboBox_m">
+        <item>
+         <property name="text">
+          <string>s</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ms</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>us</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>min</string>
+         </property>
+        </item>
+       </widget>
+      </item>
       <item row="3" column="1">
-       <widget class="QLineEdit" name="resp_temp_ejey_m"/>
+       <widget class="QComboBox" name="resp_temp_sal_comboBox_m">
+        <item>
+         <property name="text">
+          <string>V</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>mV</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>uV</string>
+         </property>
+        </item>
+       </widget>
       </item>
      </layout>
     </item>

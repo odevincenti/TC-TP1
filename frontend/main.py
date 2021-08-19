@@ -278,8 +278,8 @@ class Input_Resp_Temp_Window(QWidget):
     def display_fun(self):
         self.nombre_input = self.resp_temp_nombre_lineEdit.text()
         self.color_t = self.resp_temp_color_comboBox.currentText()
-        self.eje_x = self.resp_temp_ejex.text()
-        self.eje_y = self.resp_temp_ejey.text()
+        self.unidad_tiempo = self.resp_temp_tiempo_comboBox.currentText()
+        self.unidad_salida = self.resp_temp_sal_comboBox.currentText()
         self.params = []
         if (self.senal == 0):  # senoidal
             self.ti = self.t_inicial_resp_temp_line.text()
@@ -323,7 +323,7 @@ class Input_Resp_Temp_Window(QWidget):
             self.exp = self.exp_resp_temp_line.text()
             self.params=[float(self.amp), float(self.exp)]
 
-        ts.add_curve(self.senal+1, [self.teo_curve, np.linspace(float(self.ti), float(self.tf)), self.params], self.nombre_input, self.color_t)
+        ts.add_curve(self.senal+1, [self.teo_curve, np.linspace(float(self.ti), float(self.tf)), self.params], self.nombre_input, self.color_t, self.unidad_tiempo, self.unidad_salida)
         self.close()
         self.mainWind.addCurveTemp()
         window.show_graph()
@@ -335,10 +335,10 @@ class Input_Resp_Temp_Window(QWidget):
     def display_ok_simu(self):
         self.nombre_input = self.resp_temp_nombre_lineEdit.text()
         self.color_t = self.resp_temp_color_comboBox.currentText()
-        self.eje_x = self.resp_temp_ejex.text()
-        self.eje_y = self.resp_temp_ejey.text()
+        self.unidad_tiempo = self.resp_temp_tiempo_comboBox.currentText()
+        self.unidad_salida = self.resp_temp_sal_comboBox.currentText()
 
-        ts.add_curve(0, self.path, self.nombre_input, self.color_t)
+        ts.add_curve(0, self.path, self.nombre_input, self.color_t, self.unidad_tiempo, self.unidad_salida)
         self.close()
         self.mainWind.addCurveTemp()
         window.show_graph()
@@ -550,8 +550,8 @@ class Input_Resp_Temp_Window_Modificar_Teo(QWidget):
     def display_fun(self):
         self.nombre_input = self.resp_temp_nombre_lineEdit_m.text()
         self.color_t = self.resp_temp_color_comboBox_m.currentText()
-        self.eje_x = self.resp_temp_ejex_m.text()
-        self.eje_y = self.resp_temp_ejey_m.text()
+        self.unidad_tiempo = self.resp_temp_tiempo_comboBox_m.currentText()
+        self.unidad_salida = self.resp_temp_sal_comboBox_m.currentText()
         self.params = []
         if (self.senal == 1):  # senoidal
             self.ti = self.t_inicial_resp_temp_line_m.text()
@@ -596,7 +596,7 @@ class Input_Resp_Temp_Window_Modificar_Teo(QWidget):
             self.params=[float(self.amp), float(self.exp)]
 
         self.teo_curve = cs.curves[self.mainWin.index]
-        ts.update(self.mainWin.index, [self.teo_curve, np.linspace(float(self.ti), float(self.tf)), self.params], self.nombre_input, self.color_t)
+        ts.update(self.mainWin.index, [self.teo_curve, np.linspace(float(self.ti), float(self.tf)), self.params], self.nombre_input, self.color_t, self.unidad_tiempo, self.unidad_salida)
         self.close()
         if len(self.nombre_input) == 0:
             self.mainWin.update_name(cs.curves[self.mainWin.index].name)
@@ -624,12 +624,12 @@ class Input_Resp_Temp_Window_Modificar_Simu(QWidget):
     def display_ok_simu(self):
         self.nombre_input = self.simu_nombre.text()
         self.color_t = self.simu_color.currentText()
-        self.eje_x = self.simu_ejex.text()
-        self.eje_y = self.simu_ejey.text()
+        self.unidad_tiempo = self.resp_temp_tiempo_comboBox_m.currentText()
+        self.unidad_salida = self.resp_temp_sal_comboBox_m.currentText()
 
-        ts.update(self.mainWin.index, self.path, self.nombre_input, self.color_t)
+        ts.update(self.mainWin.index, self.path, self.nombre_input, self.color_t, self.unidad_tiempo, self.unidad_salida)
         self.close()
-        if len(self.nombre_input) == 0:
+        if self.nombre_input == "":
             self.mainWin.update_name(cs.curves[self.mainWin.index].name)
         else:
             self.mainWin.update_name(self.nombre_input)
@@ -645,7 +645,7 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.setWindowTitle("Plot Tool")
         self.MplWidget.make_ToolBar(self.ToolBar1)
         self.MplWidget2.make_ToolBar(self.ToolBar2)
-        self.MplWidget.make_ToolBar(self.ToolBar3)
+        self.MplWidget3.make_ToolBar(self.ToolBar3)
 
         self.Curve_0.hide()
         self.Curve_1.hide()
