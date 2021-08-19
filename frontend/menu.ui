@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1204</width>
-    <height>880</height>
+    <width>1211</width>
+    <height>941</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
      <property name="geometry">
       <rect>
        <x>70</x>
-       <y>30</y>
+       <y>20</y>
        <width>1061</width>
        <height>51</height>
       </rect>
@@ -119,20 +119,20 @@ border-color: black;</string>
     <widget class="MplWidget" name="MplWidget" native="true">
      <property name="geometry">
       <rect>
-       <x>290</x>
-       <y>140</y>
-       <width>441</width>
-       <height>251</height>
+       <x>70</x>
+       <y>130</y>
+       <width>501</width>
+       <height>311</height>
       </rect>
      </property>
     </widget>
     <widget class="MplWidget" name="MplWidget2" native="true">
      <property name="geometry">
       <rect>
-       <x>751</x>
-       <y>150</y>
-       <width>441</width>
-       <height>241</height>
+       <x>591</x>
+       <y>130</y>
+       <width>541</width>
+       <height>311</height>
       </rect>
      </property>
     </widget>
@@ -140,7 +140,7 @@ border-color: black;</string>
      <property name="geometry">
       <rect>
        <x>70</x>
-       <y>80</y>
+       <y>70</y>
        <width>1061</width>
        <height>51</height>
       </rect>
@@ -223,16 +223,218 @@ border-color: black;</string>
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="verticalLayoutWidget_3">
+    <widget class="QWidget" name="verticalLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>220</y>
-       <width>261</width>
-       <height>511</height>
+       <x>590</x>
+       <y>440</y>
+       <width>441</width>
+       <height>105</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <layout class="QVBoxLayout" name="verticalLayout_6">
+      <item>
+       <layout class="QVBoxLayout" name="ToolBar2"/>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <item>
+         <widget class="QLabel" name="ejexlabel_2">
+          <property name="font">
+           <font>
+            <family>Open Sans</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Eje X:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="ejex2_lineEdit"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_10">
+        <item>
+         <widget class="QLabel" name="ejeylabel_2">
+          <property name="font">
+           <font>
+            <family>Open Sans</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Eje Y:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="ejey2_lineEdit"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="aplicar_button_ejes2">
+        <property name="text">
+         <string>Aplicar</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="MplWidget" name="MplWidget3" native="true">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>550</y>
+       <width>541</width>
+       <height>251</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QWidget" name="verticalLayoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>440</y>
+       <width>441</width>
+       <height>105</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_7">
+      <item>
+       <layout class="QVBoxLayout" name="ToolBar1"/>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_12">
+        <item>
+         <widget class="QLabel" name="ejexlabel_8">
+          <property name="font">
+           <font>
+            <family>Open Sans</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Eje X:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="ejex_lineEdit"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_13">
+        <item>
+         <widget class="QLabel" name="ejeylabel_3">
+          <property name="font">
+           <font>
+            <family>Open Sans</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Eje Y:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="ejey_lineEdit"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="aplicar_button_ejes1">
+        <property name="text">
+         <string>Aplicar</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="verticalLayoutWidget_4">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>800</y>
+       <width>431</width>
+       <height>105</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_8">
+      <item>
+       <layout class="QVBoxLayout" name="ToolBar3"/>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_14">
+        <item>
+         <widget class="QLabel" name="ejexlabel_9">
+          <property name="font">
+           <font>
+            <family>Open Sans</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Eje X:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="ejex3_lineEdit"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_15">
+        <item>
+         <widget class="QLabel" name="ejeylabel_4">
+          <property name="font">
+           <font>
+            <family>Open Sans</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Eje Y:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="ejey3_lineEdit"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="aplicar_button_ejes3">
+        <property name="text">
+         <string>Aplicar</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="verticalLayoutWidget_5">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>570</y>
+       <width>311</width>
+       <height>104</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_9">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
@@ -317,14 +519,49 @@ border-color: black;</string>
         </item>
        </layout>
       </item>
-      <item>
-       <widget class="QLabel" name="label">
+     </layout>
+    </widget>
+    <widget class="QWidget" name="gridLayoutWidget_3">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>680</y>
+       <width>501</width>
+       <height>231</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_2">
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string>Respuesta en frecuencia</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Respuesta en frecuencia</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
        <widget class="QScrollArea" name="scrollArea">
         <property name="styleSheet">
          <string notr="true">background:white;</string>
@@ -337,8 +574,8 @@ border-color: black;</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>236</width>
-           <height>171</height>
+           <width>245</width>
+           <height>203</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -434,14 +671,7 @@ border-color: black;</string>
         </widget>
        </widget>
       </item>
-      <item>
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-      <item>
+      <item row="1" column="1">
        <widget class="QScrollArea" name="scrollArea_2">
         <property name="styleSheet">
          <string notr="true">background:white;</string>
@@ -454,8 +684,8 @@ border-color: black;</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>236</width>
-           <height>171</height>
+           <width>244</width>
+           <height>203</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -549,221 +779,6 @@ border-color: black;</string>
           </item>
          </layout>
         </widget>
-       </widget>
-      </item>
-      <item>
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="verticalLayoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>750</x>
-       <y>390</y>
-       <width>441</width>
-       <height>105</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_6">
-      <item>
-       <layout class="QVBoxLayout" name="ToolBar2"/>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_9">
-        <item>
-         <widget class="QLabel" name="ejexlabel_2">
-          <property name="font">
-           <font>
-            <family>Open Sans</family>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Eje X:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="ejex2_lineEdit"/>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_10">
-        <item>
-         <widget class="QLabel" name="ejeylabel_2">
-          <property name="font">
-           <font>
-            <family>Open Sans</family>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Eje Y:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="ejey2_lineEdit"/>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QPushButton" name="aplicar_button_ejes2">
-        <property name="text">
-         <string>Aplicar</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-    <widget class="MplWidget" name="MplWidget3" native="true">
-     <property name="geometry">
-      <rect>
-       <x>750</x>
-       <y>500</y>
-       <width>431</width>
-       <height>251</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QWidget" name="verticalLayoutWidget_2">
-     <property name="geometry">
-      <rect>
-       <x>290</x>
-       <y>390</y>
-       <width>441</width>
-       <height>105</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_7">
-      <item>
-       <layout class="QVBoxLayout" name="ToolBar1"/>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_12">
-        <item>
-         <widget class="QLabel" name="ejexlabel_8">
-          <property name="font">
-           <font>
-            <family>Open Sans</family>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Eje X:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="ejex_lineEdit"/>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_13">
-        <item>
-         <widget class="QLabel" name="ejeylabel_3">
-          <property name="font">
-           <font>
-            <family>Open Sans</family>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Eje Y:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="ejey_lineEdit"/>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QPushButton" name="aplicar_button_ejes1">
-        <property name="text">
-         <string>Aplicar</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="verticalLayoutWidget_4">
-     <property name="geometry">
-      <rect>
-       <x>750</x>
-       <y>750</y>
-       <width>431</width>
-       <height>105</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_8">
-      <item>
-       <layout class="QVBoxLayout" name="ToolBar3"/>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_14">
-        <item>
-         <widget class="QLabel" name="ejexlabel_9">
-          <property name="font">
-           <font>
-            <family>Open Sans</family>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Eje X:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="ejex3_lineEdit"/>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_15">
-        <item>
-         <widget class="QLabel" name="ejeylabel_4">
-          <property name="font">
-           <font>
-            <family>Open Sans</family>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Eje Y:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="ejey3_lineEdit"/>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QPushButton" name="aplicar_button_ejes3">
-        <property name="text">
-         <string>Aplicar</string>
-        </property>
        </widget>
       </item>
      </layout>
