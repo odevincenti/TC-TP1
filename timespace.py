@@ -210,16 +210,12 @@ class Timecurve(Curve):
         self.x_unit = x_unit    # Unidad de la señal de entrada, se asume V
 
     # plot_timecurve: Grafica la curva en el tiempo
-    #todo: Si se especifica graphx = True, grafica la entrada superpuesta con la salida
+    # Próximamente: Si se especifica graphx = True, grafica la entrada superpuesta con la salida
     def plot_timecurve(self, ax, graphx=False):
-        '''ls = get_ls(self.type)
-        if ls == '':
-            print("Hubo un error, no se puede graficar la curva")
-            return False'''
-        ax.plot(self.t, self.y, self.color) #, linestyle=ls)  # Grafico el módulo de la transferencia
+        ax.plot(self.t, self.y, self.color)       # Grafico la funcipon en el tiempo
         return True
 
-    # change_t_unit: Cambia la unidad de la frecuencia de s a min o viceversa
+    # change_t_unit: Cambia la unidad del tiempo de s a min o viceversa
     # Devuelve False en caso de error
     def change_t_unit(self, unit=""):
         r = True
@@ -330,8 +326,7 @@ class tSim(Timecurve):
 
     # check_data: Parsea el txt de la simulación de LTSpice
     # Acepta 2 formatos: t|y o t|y|x
-    # todo: que acepte también t|x|y. Habría que pedirle al front que aclare
-    # Devuelve t, y o t, y, x dependiendo del caso
+    # Devuelve t, y, x con x = zeros dependiendo del caso
     def check_data(self, path):
         file = open(path, "r")
         file.readline()
