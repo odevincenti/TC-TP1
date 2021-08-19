@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>420</width>
+    <width>432</width>
     <height>563</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
     <rect>
      <x>20</x>
      <y>20</y>
-     <width>361</width>
+     <width>389</width>
      <height>91</height>
     </rect>
    </property>
@@ -37,21 +37,24 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="1">
-     <widget class="QComboBox" name="resp_temp_teo_simu_comboBox_m">
-      <property name="styleSheet">
-       <string notr="true">text-align: center;</string>
+    <item row="1" column="3">
+     <widget class="QPushButton" name="teo_aplicar_m">
+      <property name="text">
+       <string>Aplicar</string>
       </property>
-      <item>
-       <property name="text">
-        <string>Teórico</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Simulación</string>
-       </property>
-      </item>
+     </widget>
+    </item>
+    <item row="2" column="3">
+     <widget class="QPushButton" name="simu_graficar_m">
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Graficar</string>
+      </property>
      </widget>
     </item>
     <item row="1" column="0">
@@ -68,38 +71,17 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="resp_temp_simu_label_m">
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Simulacion</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="2">
-     <widget class="QPushButton" name="teo_simu_aplicar_m">
-      <property name="text">
-       <string>Aplicar</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="2">
-     <widget class="QPushButton" name="teo_aplicar_m">
-      <property name="text">
-       <string>Aplicar</string>
-      </property>
-     </widget>
-    </item>
     <item row="2" column="1">
      <widget class="QPushButton" name="resp_temp_simu_upload_m">
       <property name="text">
        <string>Upload</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="QPushButton" name="teo_simu_aplicar_m">
+      <property name="text">
+       <string>Aplicar</string>
       </property>
      </widget>
     </item>
@@ -137,25 +119,46 @@
       </item>
      </widget>
     </item>
-    <item row="2" column="2">
-     <widget class="QPushButton" name="simu_graficar_m">
+    <item row="0" column="1">
+     <widget class="QComboBox" name="resp_temp_teo_simu_comboBox_m">
+      <property name="styleSheet">
+       <string notr="true">text-align: center;</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>Teórico</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Simulación</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="resp_temp_simu_label_m">
       <property name="font">
        <font>
-        <weight>50</weight>
-        <bold>false</bold>
+        <pointsize>9</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
-       <string>Graficar</string>
+       <string>Simulacion</string>
       </property>
      </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QComboBox" name="curva_teo_comboBox_m"/>
     </item>
    </layout>
   </widget>
   <widget class="QPushButton" name="resp_temp_graficar_m">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>180</x>
      <y>520</y>
      <width>75</width>
      <height>23</height>
@@ -176,7 +179,7 @@
     <rect>
      <x>20</x>
      <y>120</y>
-     <width>361</width>
+     <width>391</width>
      <height>391</height>
     </rect>
    </property>
