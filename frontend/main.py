@@ -5,6 +5,373 @@ from PyQt5.uic import loadUi
 from frecspace import *
 from timespace import *
 
+"""
+class Input_Resp_Temp_Window(QWidget):
+
+    def __init__(self, parent=None):
+        QWidget.__init__(self, parent)
+        loadUi("input_resp_temp.ui", self)
+        self.setWindowTitle("Input Respuesta Temporal")
+
+        self.show()
+
+        self.resp_temp_teo_label.hide()
+        self.resp_temp_teo_comboBox.hide()
+        self.teo_aplicar.hide()
+
+        self.resp_temp_simu_label.hide()
+        self.resp_temp_simu_upload.hide()
+        self.simu_graficar.hide()
+
+        self.t_inicial_resp_temp_label.hide()
+        self.t_inicial_resp_temp_line.hide()
+        self.t_final_resp_temp_label.hide()
+        self.t_final_resp_temp_line.hide()
+        self.amp_resp_temp_label.hide()
+        self.amp_resp_temp_line.hide()
+        self.dc_resp_temp_label.hide()
+        self.dc_resp_temp_line.hide()
+        self.exp_resp_temp_label.hide()
+        self.exp_resp_temp_line.hide()
+        self.frec_resp_temp_label.hide()
+        self.frec_resp_temp_line.hide()
+        self.resp_temp_graficar.hide()
+
+        self.teo_simu_aplicar.clicked.connect(self.display_teo_simu)
+
+    def diplay_teo_simu(self):
+
+        self.teo_simu = self.resp_temp_teo_simu_comboBox.currentIndex()
+
+        if(self.teo_simu == 0):
+            self.resp_temp_teo_simu_label.hide()
+            self.resp_temp_teo_simu_comboBox.hide()
+            self.teo_simu_aplicar.hide()
+
+            self.resp_temp_teo_label.show()
+            self.resp_temp_teo_comboBox.show()
+            self.teo_aplicar.show()
+            self.teo_aplicar.clicked.connect(self.display_ok_teo)
+        else:
+            self.resp_temp_teo_simu_label.hide()
+            self.resp_temp_teo_simu_comboBox.hide()
+            self.teo_simu_aplicar.hide()
+
+            self.resp_temp_simu_label.show()
+            self.resp_temp_simu_upload.show()
+            self.simu_graficar.show()
+            self.resp_temp_simu_upload.clicked.connect(self.get_simulation_file)
+            self.simu_graficar.clicked.connect(self.display_ok_simu)
+
+    def display_ok_teo(self):
+        self.resp_temp_graficar.show()
+        self.teo_aplicar.clicked.connect(self.display_fun)
+        self.senal = self.resp_temp_teo_comboBox.currentIndex()
+
+        if (self.senal == 0): #senoidal
+            self.t_inicial_resp_temp_label.show()
+            self.t_inicial_resp_temp_line.show()
+            self.t_final_resp_temp_label.show()
+            self.t_final_resp_temp_line.show()
+            self.amp_resp_temp_label.show()
+            self.amp_resp_temp_line.show()
+            self.frec_resp_temp_label.show()
+            self.frec_resp_temp_line.show()
+
+        elif(self.senal == 1): #escalon
+            self.t_inicial_resp_temp_label.show()
+            self.t_inicial_resp_temp_line.show()
+            self.t_final_resp_temp_label.show()
+            self.t_final_resp_temp_line.show()
+            self.amp_resp_temp_label.show()
+            self.amp_resp_temp_line.show()
+
+        elif(self.senal == 2): #tren de pulsos
+            self.t_inicial_resp_temp_label.show()
+            self.t_inicial_resp_temp_line.show()
+            self.t_final_resp_temp_label.show()
+            self.t_final_resp_temp_line.show()
+            self.amp_resp_temp_label.show()
+            self.amp_resp_temp_line.show()
+            self.dc_resp_temp_label.show()
+            self.dc_resp_temp_line.show()
+            self.frec_resp_temp_label.show()
+            self.frec_resp_temp_line.show()
+
+        elif(self.senal == 3): #impulso
+            self.t_inicial_resp_temp_label.show()
+            self.t_inicial_resp_temp_line.show()
+            self.t_final_resp_temp_label.show()
+            self.t_final_resp_temp_line.show()
+            self.amp_resp_temp_label.show()
+            self.amp_resp_temp_line.show()
+
+        elif(self.senal == 4): #rampa
+            self.t_inicial_resp_temp_label.show()
+            self.t_inicial_resp_temp_line.show()
+            self.t_final_resp_temp_label.show()
+            self.t_final_resp_temp_line.show()
+            self.amp_resp_temp_label.show()
+            self.amp_resp_temp_line.show()
+            self.dc_resp_temp_label.setText("pendiente")
+
+        elif(self.senal == 5): #exponencial
+            self.t_inicial_resp_temp_label.show()
+            self.t_inicial_resp_temp_line.show()
+            self.t_final_resp_temp_label.show()
+            self.t_final_resp_temp_line.show()
+            self.amp_resp_temp_label.show()
+            self.amp_resp_temp_line.show()
+            self.exp_resp_temp_label.show()
+            self.exp_resp_temp_line.show()
+
+    def diplay_fun(self):
+        self.resp_temp_teo_label.hide()
+        self.resp_temp_teo_comboBox.hide()
+        self.teo_aplicar.hide()
+
+        self.nombre_input = self.resp_temp_nombre_lineEdit.text()
+        self.color_t = self.resp_temp_color_comboBox.currentText()
+        self.eje_x = self.resp_temp_ejex.currentText()
+        self.eje_y = self.resp_temp_ejey.currentText()
+
+        if (self.senal == 0): #senoidal
+            self.ti = self.t_inicial_resp_temp_line.currentText()
+            self.tf = self.t_final_resp_temp_line.currentText()
+            self.amp = self.amp_resp_temp_line.currentText()
+            self.frec = self.frec_resp_temp_line.currentText()
+
+        elif(self.senal == 1): #escalon
+            self.ti = self.t_inicial_resp_temp_line.currentText()
+            self.tf = self.t_final_resp_temp_line.currentText()
+            self.amp = self.amp_resp_temp_line.currentText()
+
+        elif(self.senal == 2): #tren de pulsos
+            self.ti = self.t_inicial_resp_temp_line.currentText()
+            self.tf = self.t_final_resp_temp_line.currentText()
+            self.amp = self.amp_resp_temp_line.currentText()
+            self.dc = self.dc_resp_temp_line.currentText()
+            self.frec = self.frec_resp_temp_line.currentText()
+
+        elif(self.senal == 3): #impulso
+            self.ti = self.t_inicial_resp_temp_line.currentText()
+            self.tf = self.t_final_resp_temp_line.currentText()
+            self.amp = self.amp_resp_temp_line.currentText()
+
+        elif(self.senal == 4): #rampa
+            self.ti = self.t_inicial_resp_temp_line.currentText()
+            self.tf = self.t_final_resp_temp_line.currentText()
+            self.amp = self.amp_resp_temp_line.currentText()
+            self.dc_resp_temp_label.setText("pendiente")
+            self.pendiente = self.dc_resp_temp_line.currentText()
+
+        elif(self.senal == 5): #exponencial
+            self.ti = self.t_inicial_resp_temp_line.currentText()
+            self.tf = self.t_final_resp_temp_line.currentText()
+            self.amp = self.amp_resp_temp_line.currentText()
+            self.exp = self.exp_resp_temp_line.currentText()
+
+        ##HAY QUE CAMBIAR ESTE ADD_CURVE PARA TS
+        ts.add_curve(2, self.path, self.nombre_input, self.color_t,unidad_frec, unidad_modulo, unidad_fase)
+        self.close()
+
+    def get_simulation_file(self):
+        filename = QFileDialog.getOpenFileNames()
+        self.path = filename[0][0]
+
+    def display_ok_simu(self):
+        self.nombre_input = self.resp_temp_nombre_lineEdit.text()
+        self.color_t = self.resp_temp_color_comboBox.currentText()
+        self.eje_x = self.resp_temp_ejex.currentText()
+        self.eje_y = self.resp_temp_ejey.currentText()
+
+        ##HAY QUE CAMBIAR ESTE ADD_CURVE PARA TS
+        ts.add_curve(2, self.path, self.nombre_input, self.color_t,unidad_frec, unidad_modulo, unidad_fase)
+        self.close()
+"""
+class Input_Resp_Temp_Window_Modificar(QWidget):
+
+    def __init__(self, parent=None):
+        QWidget.__init__(self, parent)
+        loadUi("input_resp_temp.ui", self)
+        self.setWindowTitle("Input Respuesta Temporal")
+
+        self.show()
+
+        self.resp_temp_teo_label.hide()
+        self.resp_temp_teo_comboBox.hide()
+        self.teo_aplicar.hide()
+
+        self.resp_temp_simu_label.hide()
+        self.resp_temp_simu_upload.hide()
+        self.simu_graficar.hide()
+
+        self.t_inicial_resp_temp_label.hide()
+        self.t_inicial_resp_temp_line.hide()
+        self.t_final_resp_temp_label.hide()
+        self.t_final_resp_temp_line.hide()
+        self.amp_resp_temp_label.hide()
+        self.amp_resp_temp_line.hide()
+        self.dc_resp_temp_label.hide()
+        self.dc_resp_temp_line.hide()
+        self.exp_resp_temp_label.hide()
+        self.exp_resp_temp_line.hide()
+        self.frec_resp_temp_label.hide()
+        self.frec_resp_temp_line.hide()
+        self.resp_temp_graficar.hide()
+
+        self.teo_simu_aplicar.clicked.connect(self.display_teo_simu)
+
+    def diplay_teo_simu(self):
+
+        self.teo_simu = self.resp_temp_teo_simu_comboBox.currentIndex()
+
+        if(self.teo_simu == 0):
+            self.resp_temp_teo_simu_label.hide()
+            self.resp_temp_teo_simu_comboBox.hide()
+            self.teo_simu_aplicar.hide()
+
+            self.resp_temp_teo_label.show()
+            self.resp_temp_teo_comboBox.show()
+            self.teo_aplicar.show()
+            self.teo_aplicar.clicked.connect(self.display_ok_teo)
+        else:
+            self.resp_temp_teo_simu_label.hide()
+            self.resp_temp_teo_simu_comboBox.hide()
+            self.teo_simu_aplicar.hide()
+
+            self.resp_temp_simu_label.show()
+            self.resp_temp_simu_upload.show()
+            self.simu_graficar.show()
+            self.resp_temp_simu_upload.clicked.connect(self.get_simulation_file)
+            self.simu_graficar.clicked.connect(self.display_ok_simu)
+
+    def display_ok_teo(self):
+        self.resp_temp_graficar.show()
+        self.teo_aplicar.clicked.connect(self.display_fun)
+        self.senal = self.resp_temp_teo_comboBox.currentIndex()
+
+        if (self.senal == 0): #senoidal
+            self.t_inicial_resp_temp_label.show()
+            self.t_inicial_resp_temp_line.show()
+            self.t_final_resp_temp_label.show()
+            self.t_final_resp_temp_line.show()
+            self.amp_resp_temp_label.show()
+            self.amp_resp_temp_line.show()
+            self.frec_resp_temp_label.show()
+            self.frec_resp_temp_line.show()
+
+        elif(self.senal == 1): #escalon
+            self.t_inicial_resp_temp_label.show()
+            self.t_inicial_resp_temp_line.show()
+            self.t_final_resp_temp_label.show()
+            self.t_final_resp_temp_line.show()
+            self.amp_resp_temp_label.show()
+            self.amp_resp_temp_line.show()
+
+        elif(self.senal == 2): #tren de pulsos
+            self.t_inicial_resp_temp_label.show()
+            self.t_inicial_resp_temp_line.show()
+            self.t_final_resp_temp_label.show()
+            self.t_final_resp_temp_line.show()
+            self.amp_resp_temp_label.show()
+            self.amp_resp_temp_line.show()
+            self.dc_resp_temp_label.show()
+            self.dc_resp_temp_line.show()
+            self.frec_resp_temp_label.show()
+            self.frec_resp_temp_line.show()
+
+        elif(self.senal == 3): #impulso
+            self.t_inicial_resp_temp_label.show()
+            self.t_inicial_resp_temp_line.show()
+            self.t_final_resp_temp_label.show()
+            self.t_final_resp_temp_line.show()
+            self.amp_resp_temp_label.show()
+            self.amp_resp_temp_line.show()
+
+        elif(self.senal == 4): #rampa
+            self.t_inicial_resp_temp_label.show()
+            self.t_inicial_resp_temp_line.show()
+            self.t_final_resp_temp_label.show()
+            self.t_final_resp_temp_line.show()
+            self.amp_resp_temp_label.show()
+            self.amp_resp_temp_line.show()
+            self.dc_resp_temp_label.setText("pendiente")
+
+        elif(self.senal == 5): #exponencial
+            self.t_inicial_resp_temp_label.show()
+            self.t_inicial_resp_temp_line.show()
+            self.t_final_resp_temp_label.show()
+            self.t_final_resp_temp_line.show()
+            self.amp_resp_temp_label.show()
+            self.amp_resp_temp_line.show()
+            self.exp_resp_temp_label.show()
+            self.exp_resp_temp_line.show()
+
+    def diplay_fun(self):
+        self.resp_temp_teo_label.hide()
+        self.resp_temp_teo_comboBox.hide()
+        self.teo_aplicar.hide()
+
+        self.nombre_input = self.resp_temp_nombre_lineEdit.text()
+        self.color_t = self.resp_temp_color_comboBox.currentText()
+        self.eje_x = self.resp_temp_ejex.currentText()
+        self.eje_y = self.resp_temp_ejey.currentText()
+
+        if (self.senal == 0): #senoidal
+            self.ti = self.t_inicial_resp_temp_line.currentText()
+            self.tf = self.t_final_resp_temp_line.currentText()
+            self.amp = self.amp_resp_temp_line.currentText()
+            self.frec = self.frec_resp_temp_line.currentText()
+
+        elif(self.senal == 1): #escalon
+            self.ti = self.t_inicial_resp_temp_line.currentText()
+            self.tf = self.t_final_resp_temp_line.currentText()
+            self.amp = self.amp_resp_temp_line.currentText()
+
+        elif(self.senal == 2): #tren de pulsos
+            self.ti = self.t_inicial_resp_temp_line.currentText()
+            self.tf = self.t_final_resp_temp_line.currentText()
+            self.amp = self.amp_resp_temp_line.currentText()
+            self.dc = self.dc_resp_temp_line.currentText()
+            self.frec = self.frec_resp_temp_line.currentText()
+
+        elif(self.senal == 3): #impulso
+            self.ti = self.t_inicial_resp_temp_line.currentText()
+            self.tf = self.t_final_resp_temp_line.currentText()
+            self.amp = self.amp_resp_temp_line.currentText()
+
+        elif(self.senal == 4): #rampa
+            self.ti = self.t_inicial_resp_temp_line.currentText()
+            self.tf = self.t_final_resp_temp_line.currentText()
+            self.amp = self.amp_resp_temp_line.currentText()
+            self.dc_resp_temp_label.setText("pendiente")
+            self.pendiente = self.dc_resp_temp_line.currentText()
+
+        elif(self.senal == 5): #exponencial
+            self.ti = self.t_inicial_resp_temp_line.currentText()
+            self.tf = self.t_final_resp_temp_line.currentText()
+            self.amp = self.amp_resp_temp_line.currentText()
+            self.exp = self.exp_resp_temp_line.currentText()
+
+        ##HAY QUE CAMBIAR ESTE UPDATE CURVE PARA TS
+        ts.add_curve(2, self.path, self.nombre_input, self.color_t,unidad_frec, unidad_modulo, unidad_fase)
+        self.close()
+
+    def get_simulation_file(self):
+        filename = QFileDialog.getOpenFileNames()
+        self.path = filename[0][0]
+
+    def display_ok_simu(self):
+        self.nombre_input = self.resp_temp_nombre_lineEdit.text()
+        self.color_t = self.resp_temp_color_comboBox.currentText()
+        self.eje_x = self.resp_temp_ejex.currentText()
+        self.eje_y = self.resp_temp_ejey.currentText()
+
+        ##HAY QUE CAMBIAR ESTE UPDATE CURVE PARA TS
+        ts.add_curve(2, self.path, self.nombre_input, self.color_t,unidad_frec, unidad_modulo, unidad_fase)
+        self.close()
+
 class Input_Teorico_Window(QWidget):
 
     def __init__(self, parent=None):
@@ -322,8 +689,7 @@ class Input_Resp_Temp_Window(QWidget):
 
         self.teo_simu_aplicar.clicked.connect(self.display_teo_simu)
 
-    def diplay_teo_simu(self):
-
+    def display_teo_simu(self):
         self.teo_simu = self.resp_temp_teo_simu_comboBox.currentIndex()
 
         if (self.teo_simu == 0):
@@ -408,7 +774,7 @@ class Input_Resp_Temp_Window(QWidget):
             self.exp_resp_temp_label.show()
             self.exp_resp_temp_line.show()
 
-    def diplay_fun(self):
+    def display_fun(self):
         self.resp_temp_teo_label.hide()
         self.resp_temp_teo_comboBox.hide()
         self.teo_aplicar.hide()
@@ -491,7 +857,7 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.simulacionButton.clicked.connect(self.goto_graphInfoSimulacion)
         self.medicionButton.clicked.connect(self.goto_graphInfoMedicion)
         self.montecarloButton.clicked.connect(self.goto_graphInfoMontecarlo)
-        #self.resptempButton.clicked.connect(self.goto_graphInfoRespTemp)
+        self.resptempButton.clicked.connect(self.goto_graphInfoRespTemp)
 
         self.borrarpushButton.clicked.connect(self.goto_Borrar_Graficos)
 
@@ -507,7 +873,6 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.Input_Teorico.ok_teorico_pushButton.clicked.connect(self.addCurveTeorico)
         self.Input_Teorico.cancel_teorico_pushButton.clicked.connect(self.close)
 
-
     def goto_graphInfoSimulacion(self):
         self.Input_Simulacion = Input_Simulacion_Window()
         self.Input_Simulacion.ok_simulacion_pushButton_2.clicked.connect(self.addCurveSimulacion)
@@ -520,8 +885,8 @@ class MatplotlibWidget(QtWidgets.QMainWindow):
         self.Input_Montecarlo = Input_Montecarlo_Window()
         self.Input_Montecarlo.ok_montecarlo_pushButton_2.clicked.connect(self.addCurveMontecarlo)
 
-    #def goto_graphInfoRespTemp(self):
-    #   self.Input_Resp_Temp = Input_Resp_Temp_Window()
+    def goto_graphInfoRespTemp(self):
+        self.Input_Resp_Temp = Input_Resp_Temp_Window()
 
     def addCurveTeorico(self):
         if len(cs.curves) != 0:

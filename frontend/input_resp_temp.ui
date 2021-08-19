@@ -54,13 +54,6 @@
       </item>
      </widget>
     </item>
-    <item row="2" column="2">
-     <widget class="QPushButton" name="simu_aplicar">
-      <property name="text">
-       <string>aplicar</string>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="0">
      <widget class="QLabel" name="resp_temp_teo_label">
       <property name="font">
@@ -142,6 +135,19 @@
         <string>Exponencial</string>
        </property>
       </item>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QPushButton" name="simu_graficar">
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Graficar</string>
+      </property>
      </widget>
     </item>
    </layout>
