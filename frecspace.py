@@ -33,7 +33,7 @@ class Frecspace(Curvespace):
         self.curves[index].change_data(data)
 
     # addCurve: Método para agregar una curva. Para más detalles mirar clase Curva
-    def add_curve(self, c_type, data, name="", color="", w_unit="Hz", mod_unit="dB", ph_unit="°"):
+    def add_curve(self, c_type, data, name="", color="", w_unit="rad/s", mod_unit="dB", ph_unit="°"):
         if name == "" or not self.check_name(name):
             for i in range(len(self.curves) + 1):
                 name = "Curve " + str(len(self.curves) - i)
@@ -341,7 +341,7 @@ class FrecCurve(Curve):
 #       - H: Función Transferencia (scipy)
 # ----------------------------------------------------------------------------------------------------------------------
 class Teo(FrecCurve):
-    def __init__(self, c_type, data, name, color, w_unit="Hz", mod_unit="dB", ph_unit="°"):
+    def __init__(self, c_type, data, name, color, w_unit="rad/seg", mod_unit="dB", ph_unit="°"):
         super().__init__(1, data, name, color, w_unit, mod_unit, ph_unit)
         num, den = self.check_data(self.rawdata)
         self.H = None
